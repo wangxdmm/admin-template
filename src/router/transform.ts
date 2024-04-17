@@ -1,0 +1,176 @@
+import type { RouteComponent, RouteRecordRaw } from 'vue-router'
+import type { ElegantConstRoute, RouteKey, RouteMap, RoutePath } from ':/types'
+
+/**
+ * Transform elegant const routes to vue routes
+ *
+ * @param routes Elegant const routes
+ * @param layouts Layout components
+ * @param views View components
+ */
+export function transformElegantRoutesToVueRoutes(
+  routes: ElegantConstRoute[],
+  layouts: Record<string, RouteComponent | (() => Promise<RouteComponent>)>,
+  views: Record<string, RouteComponent | (() => Promise<RouteComponent>)>,
+) {
+  return routes.flatMap(route =>
+    transformElegantRouteToVueRoute(route, layouts, views),
+  )
+}
+
+/**
+ * Transform elegant route to vue route
+ *
+ * @param route Elegant const route
+ * @param layouts Layout components
+ * @param views View components
+ */
+function transformElegantRouteToVueRoute(
+  route: ElegantConstRoute,
+  layouts: Record<string, RouteComponent | (() => Promise<RouteComponent>)>,
+  views: Record<string, RouteComponent | (() => Promise<RouteComponent>)>,
+) {
+  const LAYOUT_PREFIX = 'layout.'
+  const VIEW_PREFIX = 'view.'
+  const ROUTE_DEGREE_SPLITTER = '_'
+  const FIRST_LEVEL_ROUTE_COMPONENT_SPLIT = '$'
+
+  function isLayout(component: string) {
+    return component.startsWith(LAYOUT_PREFIX)
+  }
+
+  function getLayoutName(component: string) {
+    return component.replace(LAYOUT_PREFIX, '')
+  }
+
+  function isView(component: string) {
+    return component.startsWith(VIEW_PREFIX)
+  }
+
+  function getViewName(component: string) {
+    return component?.replace(VIEW_PREFIX, '')
+  }
+
+  function isFirstLevelRoute(item: ElegantConstRoute) {
+    return !item.name.includes(ROUTE_DEGREE_SPLITTER)
+  }
+
+  function isSingleLevelRoute(item: ElegantConstRoute) {
+    return isFirstLevelRoute(item) && !item.children?.length
+  }
+
+  function getSingleLevelRouteComponent(component: string) {
+    const [layout, view] = component.split(FIRST_LEVEL_ROUTE_COMPONENT_SPLIT)
+
+    return {
+      layout: getLayoutName(layout),
+      view: getViewName(view),
+    }
+  }
+
+  const vueRoutes: RouteRecordRaw[] = []
+
+  // add props: true to route
+  if (route.path.includes(':') && !route.props) {
+    route.props = true
+  }
+
+  const { name, path, component, children, ...rest } = route
+
+  const vueRoute = { name, path, ...rest } as RouteRecordRaw
+
+  if (component) {
+    if (isSingleLevelRoute(route)) {
+      const { layout, view } = getSingleLevelRouteComponent(component)
+
+      const singleLevelRoute: RouteRecordRaw = {
+        path,
+        component: layouts[layout],
+        children: [
+          {
+            name,
+            path: '',
+            component: views[view],
+            ...rest,
+          } as RouteRecordRaw,
+        ],
+      }
+
+      return [singleLevelRoute]
+    }
+
+    if (isLayout(component)) {
+      const layoutName = getLayoutName(component)
+
+      vueRoute.component = layouts[layoutName]
+    }
+
+    if (isView(component)) {
+      const viewName = getViewName(component)
+
+      vueRoute.component = views[viewName]
+    }
+  }
+
+  // add redirect to child
+  if (children?.length && !vueRoute.redirect) {
+    vueRoute.redirect = {
+      name: children[0].name,
+    }
+  }
+
+  if (children?.length) {
+    const childRoutes = children.flatMap(child =>
+      transformElegantRouteToVueRoute(child, layouts, views),
+    )
+
+    if (isFirstLevelRoute(route)) {
+      vueRoute.children = childRoutes
+    }
+    else {
+      vueRoutes.push(...childRoutes)
+    }
+  }
+
+  vueRoutes.unshift(vueRoute)
+
+  return vueRoutes
+}
+
+/** Map of route name and route path */
+const routeMap: RouteMap = {
+  'root': '/',
+  'not-found': '/:pathMatch(.*)*',
+  'exception': '/exception',
+  'exception_403': '/exception/403',
+  'exception_404': '/exception/404',
+  'exception_500': '/exception/500',
+  '403': '/403',
+  '404': '/404',
+  '500': '/500',
+  'entry': '/entry',
+  'login': '/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?',
+}
+
+/**
+ * Get route path by route name
+ *
+ * @param name Route name
+ */
+export function getRoutePath<T extends RouteKey>(name: T) {
+  return routeMap[name]
+}
+
+/**
+ * Get route name by route path
+ *
+ * @param path Route path
+ */
+export function getRouteName(path: RoutePath) {
+  const routeEntries = Object.entries(routeMap) as [RouteKey, RoutePath][]
+
+  const routeName: RouteKey | null
+    = routeEntries.find(([, routePath]) => routePath === path)?.[0] || null
+
+  return routeName
+}
