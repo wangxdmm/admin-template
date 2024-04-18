@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { $t } from ':/locales'
+import { useSystemConfig } from ':/global'
 
 defineOptions({
   name: 'GlobalLogo',
@@ -14,6 +14,8 @@ interface Props {
   showTitle?: boolean
   darkMenu?: boolean
 }
+
+const systemConfig = useSystemConfig()
 </script>
 
 <template>
@@ -26,7 +28,7 @@ interface Props {
       }"
       class=":uno: w-116px pl-10px text-16px transition duration-300 ease-in-out dark:text-#fff"
     >
-      {{ $t('system.title') }}
+      {{ systemConfig?.config.title }}
     </h2>
     <!-- <SvgIcon v-if="showTitle" class="ml-10px mt-3px cursor-pointer text-20px text-#fff" icon="fe:app-menu" /> -->
   </div>

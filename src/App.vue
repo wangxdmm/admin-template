@@ -6,9 +6,19 @@ import { defineSystemConfig } from '@runafe/magic-system'
 import { useAppStore } from './store/modules/app'
 import { useThemeStore } from './store/modules/theme'
 import { naiveDateLocales, naiveLocales } from './locales/naive'
+import type { SystemConfig } from './types'
+import { systemSymbol } from './global'
 
 defineOptions({
   name: 'App',
+})
+
+const props = defineProps<{
+  config: SystemConfig
+}>()
+
+provide(systemSymbol, {
+  config: props.config,
 })
 
 const appStore = useAppStore()

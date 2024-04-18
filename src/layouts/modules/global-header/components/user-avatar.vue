@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { VNode } from 'vue'
-import { useSvgIconRender } from '@sa/hooks'
 import { useDialog } from '@runafe/magic-system'
+import { useSvgIconRender } from ':/global-hooks/src'
 import { useAuthStore } from ':/store/modules/auth'
 import { useRouterPush } from ':/hooks/common/router'
 import { $t } from ':/locales'

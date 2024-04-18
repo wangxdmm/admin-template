@@ -1,72 +1,59 @@
+import fs from 'node:fs'
 import process from 'node:process'
-import { URL, fileURLToPath } from 'node:url'
-import { defineConfig, loadEnv } from 'vite'
-import dayjs from 'dayjs'
-import { setupVitePlugins } from './build/plugins'
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import VueJsx from '@vitejs/plugin-vue-jsx'
+import { getExternal, getGlobalDefines } from '@runafe/tools-build'
+import MagicString from 'magic-string'
 
-export default defineConfig((configEnv) => {
-  const viteEnv = loadEnv(
-    configEnv.mode,
-    process.cwd(),
-  ) as unknown as Env.ImportMeta
-  const buildTime = dayjs().format('YYYY-MM-DD HH:mm:ss')
+const isDev = process.env.DEV === 'true'
 
-  return {
-    base: viteEnv.VITE_BASE_URL,
-    resolve: {
-      alias: {
-        ':': fileURLToPath(new URL('./src', import.meta.url)),
+export default defineConfig({
+  root: './',
+  plugins: [
+    vue(),
+    VueJsx(),
+    {
+      // vite always remove dist folder, I can not find methods to disable it.
+      // In dev mode, I don't want to build type when file change, So, I copy it to dist folder to avoid it.
+      name: 'vite:movelib',
+      closeBundle: async () => {
+        if (
+          !fs.statSync('./dist', {
+            throwIfNoEntry: false,
+          })
+        ) {
+          fs.mkdirSync('./dist')
+        }
+
+        try {
+          const code = new MagicString(
+            fs.readFileSync('./node_modules/._dist/index.uno.js').toString(),
+          )
+
+          fs.writeFileSync('./dist/index.uno.js', code.toString())
+        }
+        catch (error) {
+          console.error(error)
+        }
       },
     },
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `@use "./src/styles/scss/global.scss" as *;`,
-        },
-      },
+  ],
+  define: {
+    __DEV__: isDev,
+    ...getGlobalDefines(),
+  },
+  build: {
+    outDir: './node_modules/._dist',
+    minify: isDev,
+    lib: {
+      formats: ['es'],
+      entry: 'src/index.ts',
+      fileName: 'index.uno',
+      name: 'MagicSystem',
     },
-    plugins: setupVitePlugins(viteEnv),
-    define: {
-      __DEV__: configEnv.mode === 'development',
-      BUILD_TIME: JSON.stringify(buildTime),
+    rollupOptions: {
+      external: getExternal('./').external,
     },
-    server: {
-      host: '0.0.0.0',
-      port: 6050,
-      proxy: {
-        '/v4.0': {
-          target: 'http://192.168.1.65',
-          changeOrigin: true,
-          ws: true,
-        },
-      },
-      fs: {
-        cachedChecks: false,
-      },
-    },
-    preview: {
-      port: 7060,
-    },
-    optimizeDeps: {
-      // TODO extract uno css file
-      include: [
-        '@formkit/core',
-        '@formkit/vue',
-        'xe-utils',
-        'vxe-table',
-        'grid-layout-plus',
-        'file-saver',
-        'js-file-downloader',
-        'md5',
-      ],
-      exclude: ['@runafe/magic-system', '@runafe/formkit-naive-ui'],
-    },
-    build: {
-      reportCompressedSize: false,
-      sourcemap: viteEnv.VITE_SOURCE_MAP === 'Y',
-      commonjsOptions: {
-        ignoreTryCatch: false,
-      },
-    },
-  }
+  },
 })

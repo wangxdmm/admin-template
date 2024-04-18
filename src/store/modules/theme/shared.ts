@@ -1,25 +1,36 @@
 import type { GlobalThemeOverrides } from 'naive-ui'
+import { merge } from 'merge-anything'
+import { addColorAlpha, getRgbOfColor } from ':/global-utils/src'
 import {
   getColorByColorPaletteNumber,
   getColorPalette,
-} from '@sa/color-palette'
-import { addColorAlpha, getRgbOfColor } from '@sa/utils'
-import { overrideThemeSettings, themeSettings } from ':/theme/settings'
+} from ':/color-palette/src'
+import {
+  themeSettings as defaultThemeSettings,
+  overrideThemeSettings,
+} from ':/theme/settings'
 import { themeVars } from ':/theme/vars'
 import { localStg } from ':/utils/storage'
 import type {
   BaseToken,
+  SystemConfig,
   ThemeColor,
   ThemeColorKey,
   ThemePaletteColor,
+  ThemeSetting,
   ThemeToken,
 } from ':/types'
 
 const DARK_CLASS = 'dark'
 
 /** Init theme settings */
-export function initThemeSettings() {
-  const isProd = import.meta.env.PROD
+export function initThemeSettings(config: SystemConfig) {
+  const themeSettings = merge(
+    {},
+    defaultThemeSettings,
+    config.theme || ({} as ThemeSetting),
+  )
+  const isProd = config.envs?.PROD
 
   // if it is development mode, the theme settings will not be cached, by update `themeSettings` in `src/theme/settings.ts` to update theme settings
   if (!isProd) {

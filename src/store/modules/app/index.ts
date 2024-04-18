@@ -1,12 +1,11 @@
 import { effectScope, onScopeDispose, ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { breakpointsTailwind, useBreakpoints, useTitle } from '@vueuse/core'
-import { useBoolean } from '@sa/hooks'
 import { useRouteStore } from '../route'
 import { useTabStore } from '../tab'
 import { useThemeStore } from '../theme'
+import { useBoolean } from ':/global-hooks/src'
 import { SetupStoreId } from ':/enum'
-import { router } from ':/router'
 import { $t, setLocale } from ':/locales'
 import { setDayjsLocale } from ':/locales/dayjs'
 import { localStg } from ':/utils/storage'
@@ -16,7 +15,7 @@ import { storeCreatorCreator } from ':/store/share'
 let _useAppStore: ReturnType<typeof appStoreCreator>
 
 export const appStoreCreator = storeCreatorCreator(
-  () =>
+  config =>
     defineStore(SetupStoreId.App, () => {
       const themeStore = useThemeStore()
       const routeStore = useRouteStore()
@@ -46,11 +45,6 @@ export const appStoreCreator = storeCreatorCreator(
       /** Is mobile layout */
       const isMobile = breakpoints.smaller('sm')
 
-      /**
-       * Reload page
-       *
-       * @param duration Duration time
-       */
       async function reloadPage(duration = 0) {
         setReloadFlag(false)
 
@@ -84,7 +78,7 @@ export const appStoreCreator = storeCreatorCreator(
 
       /** Update document title by locale */
       function updateDocumentTitleByLocale() {
-        const { i18nKey, title } = router.currentRoute.value.meta
+        const { i18nKey, title } = config.router.instance.currentRoute.value.meta
 
         const documentTitle = i18nKey ? $t(i18nKey) : title
 
@@ -161,4 +155,4 @@ export const appStoreCreator = storeCreatorCreator(
   },
 )
 
-export const useAppStore = _useAppStore!
+export const useAppStore = () => _useAppStore()

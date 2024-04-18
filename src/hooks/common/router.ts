@@ -1,6 +1,5 @@
 import { useRouter } from 'vue-router'
 import type { RouteLocationRaw } from 'vue-router'
-import { router as globalRouter } from ':/router'
 import { useRouteStore } from ':/store/modules/route'
 import type { RouteKey } from ':/types'
 
@@ -12,8 +11,8 @@ import type { RouteKey } from ':/types'
  * @param inSetup Whether is in vue script setup
  */
 export function useRouterPush(inSetup = true) {
-  const router = inSetup ? useRouter() : globalRouter
-  const route = globalRouter.currentRoute
+  const router = inSetup ? useRouter() : sys_tools.router
+  const route = sys_tools.router.currentRoute
 
   const routerPush = router.push
 

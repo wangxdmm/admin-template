@@ -1,6 +1,6 @@
 import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { useContext } from '@sa/hooks'
+import { useContext } from ':/global-hooks/src'
 import { useRouteStore } from ':/store/modules/route'
 
 export function useMixMenu() {

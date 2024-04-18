@@ -1,6 +1,6 @@
 import type { Router } from 'vue-router'
 import { $t } from ':/locales'
-import { getRoutePath } from ':/router/transform'
+import { getRoutePath } from ':/transform'
 import type { Tab, TabRoute } from ':/types'
 
 /**
@@ -109,10 +109,7 @@ export function getRouteIcons(route: TabRoute) {
  * @param router
  * @param homeRouteName RouteHome in useRouteStore
  */
-export function getDefaultHomeTab(
-  router: Router,
-  homeRouteName: string,
-) {
+export function getDefaultHomeTab(router: Router, homeRouteName: string) {
   const homeRoutePath = getRoutePath(homeRouteName)
 
   let homeTab: Tab = {

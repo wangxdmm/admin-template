@@ -1,16 +1,28 @@
-import type { App } from 'vue'
-import type { ServerMenu } from './route'
+import type { Router } from 'vue-router'
+import type { ElegantConstRoute, ServerMenu } from './route'
+import type { ThemeSetting } from './theme'
 
 export interface SystemConfig {
-  theme: Record<string, any>
-  router: TODO
+  theme?: ThemeSetting
+  setting: TODO
+  router: {
+    instance: Router
+    getServerRawRoutes: () => Promise<ServerMenu[]>
+    createRoutes: () => any
+    getAuthVueRoutes: (routes: ElegantConstRoute[]) => any
+  }
   logo: string
   title: string
-  store: {
-    getServerRawRoutes: () => Promise<ServerMenu[]>
+  auth: {
+    login: () => Promise<LoginBackData>
   }
+  initSystem: () => Promise<any>
+  envs?: Record<string, any>
 }
 
-export interface SystemContext {
-  app: App
+export interface SystemContext {}
+
+export interface LoginBackData {
+  access_token: string
+  refresh_token: string
 }

@@ -3,7 +3,6 @@
 import type { Preset } from '@unocss/core'
 import type { Theme } from '@unocss/preset-uno'
 
-// TODO
 export function presetSoybeanAdmin(): Preset<Theme> {
   const preset: Preset<Theme> = {
     name: 'preset-soybean-admin',

@@ -312,4 +312,4 @@ export const tabStoreCreator = storeCreatorCreator(
   },
 )
 
-export const useTabStore = _useTabStore!
+export const useTabStore = () => _useTabStore()

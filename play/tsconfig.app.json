@@ -34,8 +34,9 @@
   },
   "include": [
     "auto-imports.d.ts",
-    "src",
     "uno.config.ts",
-    "vite.*.ts"
+    "vite.*.ts",
+    "./",
+    "../src/typings"
   ]
 }

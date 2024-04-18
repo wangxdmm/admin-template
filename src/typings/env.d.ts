@@ -41,13 +41,6 @@ declare namespace Env {
      */
     readonly VITE_HTTP_PROXY?: 'Y' | 'N'
     /**
-     * The home route key
-     *
-     * It only has effect when the auth route mode is static, if the route mode
-     * is dynamic, the home route key is defined in the back-end
-     */
-    readonly VITE_ROUTE_HOME: string
-    /**
      * Default menu icon if menu icon is not set
      *
      * Iconify icon name

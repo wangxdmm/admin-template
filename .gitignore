@@ -43,3 +43,4 @@ vite.config.ts.timestamp-*
 /src/index.css
 
 /packages/api/index.ts
+dist-lib

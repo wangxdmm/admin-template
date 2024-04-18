@@ -1,9 +1,9 @@
 import { computed, reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
-import { useLoading } from '@sa/hooks'
 import { isArray } from 'xe-utils'
 import { useRouteStore } from '../route'
 import { clearAuthStorage, getToken, getUserInfo } from './shared'
+import { useLoading } from ':/global-hooks/src'
 import { SetupStoreId } from ':/enum'
 import { useRouterPush } from ':/hooks/common/router'
 import { localStg } from ':/utils/storage'
@@ -12,10 +12,10 @@ import { storeCreatorCreator } from ':/store/share'
 
 let _useAuthStore: ReturnType<typeof authStoreCreator>
 
-export const useAuthStore = _useAuthStore!
+export const useAuthStore = () => _useAuthStore()
 
 export const authStoreCreator = storeCreatorCreator(
-  () =>
+  config =>
     defineStore(SetupStoreId.Auth, () => {
       const routeStore = useRouteStore()
       const { route, toLogin, redirectFromLogin } = useRouterPush(false)
@@ -56,14 +56,12 @@ export const authStoreCreator = storeCreatorCreator(
       async function login(_param: TODO) {
         startLoading()
 
-        const { backData } = {
-          backData: { access_token: '', refresh_token: '' },
-        }
+        const authInfo = await config.auth.login()
 
-        if (backData) {
+        if (authInfo) {
           const pass = await loginByToken({
-            token: backData.access_token,
-            refreshToken: backData.refresh_token,
+            token: authInfo.access_token,
+            refreshToken: authInfo.refresh_token,
           })
 
           if (pass) {

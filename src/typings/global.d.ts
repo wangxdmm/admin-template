@@ -9,6 +9,8 @@ interface Window {
   $message?: import('naive-ui').MessageProviderInst
   /** Notification instance */
   $notification?: import('naive-ui').NotificationProviderInst
+
+  $router?: import('vue-router').Router
 }
 
 interface ViewTransition {

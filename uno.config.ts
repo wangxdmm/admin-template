@@ -3,11 +3,11 @@ import transformerDirectives from '@unocss/transformer-directives'
 import transformerVariantGroup from '@unocss/transformer-variant-group'
 import presetUno from '@unocss/preset-uno'
 import type { Theme } from '@unocss/preset-uno'
-import { presetSoybeanAdmin } from '@sa/uno-preset'
 import transformerAttributifyJsx from '@unocss/transformer-attributify-jsx'
 import transformerCompileClass from '@unocss/transformer-compile-class'
 import { defineSubStyleTransformer, presetFlexTricks } from 'unocss-tricks'
 import { presetAttributify } from 'unocss'
+import { presetSoybeanAdmin } from './uno-preset'
 import { themeVars } from './src/theme/vars'
 
 export default defineConfig<Theme>({

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useBoolean } from '@sa/hooks'
 import { useMixMenu } from '../../hooks/use-mix-menu'
 import FirstLevelMenu from './first-level-menu.vue'
 import BaseMenu from './base-menu.vue'
+import { useBoolean } from ':/global-hooks/src'
 import { useAppStore } from ':/store/modules/app'
 import { useRouteStore } from ':/store/modules/route'
 import { useThemeStore } from ':/store/modules/theme'

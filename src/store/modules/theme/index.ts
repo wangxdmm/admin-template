@@ -23,15 +23,15 @@ import { storeCreatorCreator } from ':/store/share'
 
 let _themeStore: ReturnType<typeof themeStoreCreator>
 
-export const useThemeStore = _themeStore!
+export const useThemeStore = () => _themeStore()
 
 export const themeStoreCreator = storeCreatorCreator(
-  () =>
+  config =>
     defineStore(SetupStoreId.Theme, () => {
       const scope = effectScope()
       const osTheme = usePreferredColorScheme()
       /** Theme settings */
-      const settings: Ref<ThemeSetting> = ref(initThemeSettings())
+      const settings: Ref<ThemeSetting> = ref(initThemeSettings(config))
 
       /** Dark mode */
       const darkMode = computed(() => {

@@ -1,7 +1,6 @@
 import { computed, ref, shallowRef } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { defineStore } from 'pinia'
-import { useBoolean } from '@sa/hooks'
 import { useAppStore } from '../app'
 import { useAuthStore } from '../auth'
 import { useTabStore } from '../tab'
@@ -15,10 +14,9 @@ import {
   sortRoutesByOrder,
   updateLocaleOfGlobalMenus,
 } from './shared'
+import { useBoolean } from ':/global-hooks/src'
 import { SetupStoreId } from ':/enum'
-import { router } from ':/router'
-import { createRoutes, getAuthVueRoutes } from ':/router/routes'
-import { getRouteName } from ':/router/transform'
+import { getRouteName } from ':/transform'
 import type {
   ElegantConstRoute,
   Menu,
@@ -33,7 +31,7 @@ export type ServerMenuMap = Map<string, ServerMenuDefinition>
 
 let _useRouteStore: ReturnType<typeof routeStoreCreator>
 
-export const useRouteStore = _useRouteStore!
+export const useRouteStore = () => _useRouteStore()
 
 export const routeStoreCreator = storeCreatorCreator(
   config =>
@@ -50,7 +48,7 @@ export const routeStoreCreator = storeCreatorCreator(
       const authRouteMode = ref('static')
 
       /** Home route key */
-      const routeHome = ref(import.meta.env.VITE_ROUTE_HOME)
+      const routeHome = ref('entry')
 
       function flattenMenus(
         menus: ServerMenu[],
@@ -79,7 +77,7 @@ export const routeStoreCreator = storeCreatorCreator(
       }
 
       async function initServerRawRoutes() {
-        const routes = await config.store.getServerRawRoutes()
+        const routes = await config.router?.getServerRawRoutes()
         if (routes) {
           serverMenuDefinitions.value = flattenMenus(routes)
           authStore.updateUserRoles([...serverMenuDefinitions.value.keys()])
@@ -100,7 +98,7 @@ export const routeStoreCreator = storeCreatorCreator(
       const cacheRoutes = ref<RouteKey[]>([])
 
       function getCacheRoutes(routes: RouteRecordRaw[]) {
-        const { constantVueRoutes } = createRoutes()
+        const { constantVueRoutes } = config.router.createRoutes()
 
         cacheRoutes.value = getCacheRouteNames([
           ...constantVueRoutes,
@@ -142,7 +140,7 @@ export const routeStoreCreator = storeCreatorCreator(
 
       /** Global breadcrumbs */
       const breadcrumbs = computed(() =>
-        getBreadcrumbsByRoute(router.currentRoute.value, menus.value),
+        getBreadcrumbsByRoute(config.router.instance.currentRoute.value, menus.value),
       )
 
       /** Reset store */
@@ -176,7 +174,7 @@ export const routeStoreCreator = storeCreatorCreator(
 
       /** Init static auth route */
       async function initStaticAuthRoute() {
-        const { authRoutes } = createRoutes()
+        const { authRoutes } = config.router.createRoutes()
 
         await initServerRawRoutes()
 
@@ -188,32 +186,16 @@ export const routeStoreCreator = storeCreatorCreator(
 
         handleAuthRoutes(filteredAuthRoutes)
 
-        // const firstRoute = get(filteredAuthRoutes, '0.children.0.name')
-
-        // setRouteHome(firstRoute || get(filteredAuthRoutes, '0.name'))
-
         setIsInitAuthRoute(true)
       }
 
-      /** Init dynamic auth route */
-      async function initDynamicAuthRoute() {
-        // const { data, error } = await fetchGetUserRoutes()
-        // if (!error) {
-        //   const { routes, home } = data
-        //   handleAuthRoutes(routes)
-        //   setRouteHome(home)
-        //   handleUpdateRootRouteRedirect(home)
-        //   setIsInitAuthRoute(true)
-        // }
-        // await userNormal.menus({
-        //   code: import.meta.env.VITE_APP_CODE,
-        // })()
-      }
+      // TODO remove?
+      async function initDynamicAuthRoute() {}
 
       function handleAuthRoutes(routes: ElegantConstRoute[]) {
         const sortRoutes = sortRoutesByOrder(routes)
 
-        const vueRoutes = getAuthVueRoutes(sortRoutes)
+        const vueRoutes = config.router.getAuthVueRoutes(sortRoutes)
 
         addRoutesToVueRouter(vueRoutes)
 
@@ -224,16 +206,11 @@ export const routeStoreCreator = storeCreatorCreator(
 
       function addRoutesToVueRouter(routes: RouteRecordRaw[]) {
         routes.forEach((route) => {
-          const removeFn = router.addRoute(route)
+          const removeFn = config.router.instance.addRoute(route)
           addRemoveRouteFn(removeFn)
         })
       }
 
-      /**
-       * Add remove route fn
-       *
-       * @param fn
-       */
       function addRemoveRouteFn(fn: () => void) {
         removeRouteFns.push(fn)
       }
@@ -261,7 +238,7 @@ export const routeStoreCreator = storeCreatorCreator(
         }
 
         if (authRouteMode.value === 'static') {
-          const { authRoutes } = createRoutes()
+          const { authRoutes } = config.router.createRoutes()
 
           return isRouteExistByRouteName(routeName, authRoutes)
         }

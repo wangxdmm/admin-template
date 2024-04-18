@@ -14,6 +14,6 @@ export default antfu(
     },
   },
   {
-    ignores: ['**/dist', '**/temp', '**/volar.d.ts', '**/elegant'],
+    ignores: ['**/dist', '**/temp', '**/volar.d.ts', '**/elegant', '**/dist-lib'],
   },
 )

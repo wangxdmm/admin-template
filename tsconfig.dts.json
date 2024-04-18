@@ -1,0 +1,32 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": false,
+    "target": "ESNext",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
+    "baseUrl": "./",
+    "rootDir": "./",
+    "types": [
+      "node",
+      "vite/client"
+    ],
+    "strict": true,
+    "strictNullChecks": true,
+    "emitDeclarationOnly": true,
+    "outDir": "./temp"
+  },
+  "include": [
+    "./src",
+    "../global.d.ts",
+    "../html.d.ts"
+  ],
+  "exclude": [
+    "./play",
+    "**/dist",
+    "**/tests",
+    "**/scripts",
+    "**/*.config.ts",
+    "**/node_modules"
+  ]
+}

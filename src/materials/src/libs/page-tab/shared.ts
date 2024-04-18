@@ -1,5 +1,5 @@
-import { addColorAlpha, transformColorWithOpacity } from '@sa/utils'
 import type { PageTabCssVars, PageTabCssVarsProps } from '../../types'
+import { addColorAlpha, transformColorWithOpacity } from ':/global-utils/src'
 
 /** The active color of the tab */
 export const ACTIVE_COLOR = '#1890ff'

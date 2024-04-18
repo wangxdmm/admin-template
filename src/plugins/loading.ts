@@ -1,5 +1,5 @@
 // @unocss-include
-import { getRgbOfColor } from '@sa/utils'
+import { getRgbOfColor } from ':/global-utils/src'
 import { $t } from ':/locales'
 import { localStg } from ':/utils/storage'
 

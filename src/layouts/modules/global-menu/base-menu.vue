@@ -2,7 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import type { MentionOption, MenuProps } from 'naive-ui'
-import { SimpleScrollbar } from '@sa/materials'
+import { SimpleScrollbar } from ':/materials/src'
 import { useAppStore } from ':/store/modules/app'
 import { useThemeStore } from ':/store/modules/theme'
 import { useRouteStore } from ':/store/modules/route'
