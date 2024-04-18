@@ -1,6 +1,6 @@
 import { useDialog } from '@runafe/magic-system'
 import type { useLoadingBar, useMessage, useNotification } from 'naive-ui'
-import type { InjectionKey } from 'vue'
+import { type InjectionKey, inject } from 'vue'
 import type { Router } from 'vue-router'
 import type { SystemConfig } from './types'
 

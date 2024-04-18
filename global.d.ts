@@ -18,6 +18,7 @@ declare global {
   var $message: MessageProviderInst
   var $notification: NotificationProviderInst
   var $router: Router
+  var routeMap: Record<string, string>
 }
 
 declare module 'vue-router' {

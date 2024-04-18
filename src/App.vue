@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, provide } from 'vue'
 import { NConfigProvider, darkTheme } from 'naive-ui'
 import { match } from 'pinyin-pro'
 import { defineSystemConfig } from '@runafe/magic-system'

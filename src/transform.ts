@@ -1,5 +1,5 @@
 import type { RouteComponent, RouteRecordRaw } from 'vue-router'
-import type { ElegantConstRoute, RouteKey, RouteMap, RoutePath } from ':/types'
+import type { ElegantConstRoute, RouteKey, RoutePath } from ':/types'
 
 /**
  * Transform elegant const routes to vue routes
@@ -137,28 +137,13 @@ function transformElegantRouteToVueRoute(
   return vueRoutes
 }
 
-/** Map of route name and route path */
-const routeMap: RouteMap = {
-  'root': '/',
-  'not-found': '/:pathMatch(.*)*',
-  'exception': '/exception',
-  'exception_403': '/exception/403',
-  'exception_404': '/exception/404',
-  'exception_500': '/exception/500',
-  '403': '/403',
-  '404': '/404',
-  '500': '/500',
-  'entry': '/entry',
-  'login': '/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?',
-}
-
 /**
  * Get route path by route name
  *
  * @param name Route name
  */
 export function getRoutePath<T extends RouteKey>(name: T) {
-  return routeMap[name]
+  return globalThis.routeMap[name]
 }
 
 /**
@@ -167,7 +152,10 @@ export function getRoutePath<T extends RouteKey>(name: T) {
  * @param path Route path
  */
 export function getRouteName(path: RoutePath) {
-  const routeEntries = Object.entries(routeMap) as [RouteKey, RoutePath][]
+  const routeEntries = Object.entries(globalThis.routeMap) as [
+    RouteKey,
+    RoutePath,
+  ][]
 
   const routeName: RouteKey | null
     = routeEntries.find(([, routePath]) => routePath === path)?.[0] || null

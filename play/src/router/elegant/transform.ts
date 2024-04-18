@@ -140,7 +140,7 @@ function transformElegantRouteToVueRoute(
 /**
  * map of route name and route path
  */
-const routeMap: RouteMap = {
+export const routeMap: RouteMap = {
   "root": "/",
   "not-found": "/:pathMatch(.*)*",
   "exception": "/exception",
@@ -150,6 +150,7 @@ const routeMap: RouteMap = {
   "403": "/403",
   "404": "/404",
   "500": "/500",
+  "builder": "/builder",
   "entry": "/entry",
   "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?"
 };

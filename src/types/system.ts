@@ -1,4 +1,5 @@
 import type { Router } from 'vue-router'
+import type { AtLeast } from '@monan/types'
 import type { ElegantConstRoute, ServerMenu } from './route'
 import type { ThemeSetting } from './theme'
 
@@ -8,9 +9,10 @@ export interface SystemConfig {
   setting: TODO
   router: {
     instance: Router
-    getServerRawRoutes: () => Promise<ServerMenu[]>
+    getServerRawRoutes: () => Promise<AtLeast<ServerMenu, 'meta'>[]>
     createRoutes: () => any
     getAuthVueRoutes: (routes: ElegantConstRoute[]) => any
+    map: Record<string, string>
   }
   logo: string
   title: string

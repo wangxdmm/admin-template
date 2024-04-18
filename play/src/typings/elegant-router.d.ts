@@ -24,6 +24,7 @@ declare module "@elegant-router/types" {
     "403": "/403";
     "404": "/404";
     "500": "/500";
+    "builder": "/builder";
     "entry": "/entry";
     "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?";
   };
@@ -64,6 +65,7 @@ declare module "@elegant-router/types" {
     | "403"
     | "404"
     | "500"
+    | "builder"
     | "entry"
     | "login"
   >;
@@ -88,6 +90,7 @@ declare module "@elegant-router/types" {
     | "500"
     | "entry"
     | "login"
+    | "builder"
   >;
 
   /**

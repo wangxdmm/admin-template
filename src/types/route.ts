@@ -15,11 +15,11 @@ export interface ServerMenuMeta {
 }
 
 export interface ServerMenu {
-  path: string
-  component: string
-  name: string
+  path?: string
+  component?: string
+  name?: string
   meta: AtLeast<ServerMenuMeta, 'id'>
-  children: ServerMenu[]
+  children?: ServerMenu[]
 }
 
 export type ElegantConstRoute = Omit<

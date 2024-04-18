@@ -34,6 +34,17 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
+    name: 'builder',
+    path: '/builder',
+    component: 'layout.base$view.builder',
+    meta: {
+      title: 'builder',
+      roles: ['5201'],
+      id: '5201',
+      icon: 'fluent:person-settings-20-filled'
+    }
+  },
+  {
     name: 'entry',
     path: '/entry',
     component: 'layout.base$view.entry',

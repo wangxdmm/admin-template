@@ -1,6 +1,7 @@
 import { defineSystem } from '@runafe/easy-admin'
 import { router, setupRouter } from './router'
 import { createRoutes, getAuthVueRoutes } from './router/routes'
+import { routeMap } from './router/elegant/transform'
 import 'uno.css'
 import '@runafe/easy-admin/styles/css/global.css'
 import '@runafe/easy-admin/dist/style.css'
@@ -11,10 +12,18 @@ const sys = defineSystem(() => ({
   setting: {},
   title: 'cbb设计器开发平台',
   router: {
+    map: routeMap,
     getAuthVueRoutes,
     createRoutes,
     instance: router,
-    getServerRawRoutes: () => Promise.resolve([]),
+    getServerRawRoutes: () =>
+      Promise.resolve([
+        {
+          meta: {
+            id: '5201',
+          },
+        },
+      ]),
   },
   auth: {
     login: async () => ({

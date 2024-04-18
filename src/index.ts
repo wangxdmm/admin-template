@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import { createApp, h } from 'vue'
 import { plugin as fkPlugin } from '@formkit/vue'
 import ms from '@runafe/magic-system'
 import type { SystemConfig, SystemContext } from './types'
@@ -8,6 +8,7 @@ import { setupStore } from './store'
 import { setupI18n } from './locales'
 import SvgIcon from './components/custom/svg-icon.vue'
 import DarkModeContainer from './components/common/dark-mode-container.vue'
+import ExceptionBase from './components/common/exception-base.vue'
 import {
   appStoreCreator,
   authStoreCreator,
@@ -21,6 +22,7 @@ export function defineSystem(
 ) {
   const config = userConfig({})
   globalThis.$router = config.router.instance
+  globalThis.routeMap = config.router.map
   // setup
   const app = createApp(
     h(AppView, {
@@ -32,6 +34,8 @@ export function defineSystem(
   // add some global components
   app.component('SvgIcon', SvgIcon)
   app.component('DarkModeContainer', DarkModeContainer)
+  app.component('ExceptionBase', ExceptionBase)
+
   // init Store
   const appStore = appStoreCreator(config)
   const authStore = authStoreCreator(config)

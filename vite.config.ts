@@ -56,10 +56,12 @@ export default defineConfig({
       formats: ['es'],
       entry: 'src/index.ts',
       fileName: 'index.uno',
-      name: 'MagicSystem',
+      name: 'MagicSystemAdmin',
     },
     rollupOptions: {
-      external: getExternal('./').external,
+      external: (lib) => {
+        return getExternal('./').external(lib) || lib.includes('colord')
+      },
     },
   },
 })
