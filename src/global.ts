@@ -18,15 +18,15 @@ export const sys_tools = new Proxy(
     get(_, attr) {
       switch (attr) {
         case 'm':
-          return window.$message
+          return globalThis.$message
         case 'l':
-          return window.$loadingBar
+          return globalThis.$loadingBar
         case 'n':
-          return window.$notification
+          return globalThis.$notification
         case 'd':
           return useDialog()
         case 'router':
-          return window.$router
+          return globalThis.$router
       }
     },
   },

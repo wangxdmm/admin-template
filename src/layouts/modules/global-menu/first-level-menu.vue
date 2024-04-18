@@ -7,6 +7,7 @@ import { useAppStore } from ':/store/modules/app'
 import { useRouteStore } from ':/store/modules/route'
 import { useThemeStore } from ':/store/modules/theme'
 import type { Menu } from ':/types'
+import MenuToggler from ':/components/common/menu-toggler.vue'
 
 defineOptions({
   name: 'FirstLevelMenu',

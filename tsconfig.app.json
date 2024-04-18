@@ -36,6 +36,8 @@
   "include": [
     "auto-imports.d.ts",
     "src",
+    "env.d.ts",
+    "global.d.ts",
     "uno.config.ts",
     "vite.*.ts"
   ]

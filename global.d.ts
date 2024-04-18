@@ -1,4 +1,24 @@
+/* eslint-disable no-var */
+/* eslint-disable vars-on-top */
+import type { NProgress } from 'nprogress'
+import type {
+  DialogProviderInst,
+  LoadingBarProviderInst,
+  MessageProviderInst,
+  NotificationProviderInst,
+} from 'naive-ui'
+import type { Router } from 'vue-router'
+
 import 'vue-router'
+
+declare global {
+  var NProgress: NProgress
+  var $loadingBar: LoadingBarProviderInst
+  var $dialog: DialogProviderInst
+  var $message: MessageProviderInst
+  var $notification: NotificationProviderInst
+  var $router: Router
+}
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -67,3 +87,5 @@ declare module 'vue-router' {
     fixedIndexInTab?: number
   }
 }
+
+export {}

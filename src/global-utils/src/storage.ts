@@ -4,7 +4,8 @@ import localforage from 'localforage'
 export type StorageType = 'local' | 'session'
 
 export function createStorage<T extends object>(type: StorageType) {
-  const stg = type === 'session' ? window.sessionStorage : window.localStorage
+  const stg
+    = type === 'session' ? globalThis.sessionStorage : globalThis.localStorage
 
   const storage = {
     /**

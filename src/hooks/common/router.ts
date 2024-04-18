@@ -69,7 +69,7 @@ export function useRouterPush(inSetup = true) {
     }
 
     if (!__DEV__) {
-      window.location.href = '/web-user'
+      globalThis.location.href = '/web-user'
     }
 
     return routerPushByKey('login', options)

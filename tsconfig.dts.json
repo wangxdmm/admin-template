@@ -1,24 +1,6 @@
 {
-  "extends": "./tsconfig.base.json",
+  "extends": "./tsconfig.app.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "jsx": "preserve",
-    "jsxImportSource": "vue",
-    "lib": [
-      "DOM",
-      "ESNext"
-    ],
-    "baseUrl": ".",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "paths": {
-      ":/*": [
-        "./src/*"
-      ]
-    },
-    "resolveJsonModule": true,
-    "resolvePackageJsonExports": false,
-    "resolvePackageJsonImports": true,
     "types": [
       "vite/client",
       "unplugin-icons/types/vue",
@@ -26,9 +8,6 @@
       "@runafe/magic-system/volar.d.ts",
       "unocss-tricks/globals.d.ts"
     ],
-    "strict": true,
-    "strictNullChecks": true,
-    "noUnusedLocals": true,
     "emitDeclarationOnly": true,
     "outDir": "./temp",
     "allowSyntheticDefaultImports": true,
@@ -39,6 +18,8 @@
   "include": [
     "auto-imports.d.ts",
     "src",
+    "global.d.ts",
+    "env.d.ts",
     "**/*.json"
   ]
 }

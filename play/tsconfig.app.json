@@ -37,6 +37,7 @@
     "uno.config.ts",
     "vite.*.ts",
     "./src",
+    "../env.d.ts",
     "./auto-imports.d.ts"
   ]
 }

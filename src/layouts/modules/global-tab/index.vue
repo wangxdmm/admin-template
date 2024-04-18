@@ -10,6 +10,8 @@ import { useThemeStore } from ':/store/modules/theme'
 import { useRouteStore } from ':/store/modules/route'
 import { useTabStore } from ':/store/modules/tab'
 import type { DropdownKey, Tab } from ':/types'
+import ReloadButton from ':/components/common/reload-button.vue'
+import FullScreen from ':/components/common/full-screen.vue'
 
 defineOptions({
   name: 'GlobalTab',

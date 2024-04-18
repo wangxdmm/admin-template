@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import ButtonIcon from ':/components/custom/button-icon.vue'
 import { $t } from ':/locales'
 import type { LangOption, LangType } from ':/types'
 

@@ -7,6 +7,7 @@ import HorizontalMixMenu from '../global-menu/horizontal-mix-menu.vue'
 import { useRouteStore } from ':/store/modules/route'
 import { useThemeStore } from ':/store/modules/theme'
 import { useAppStore } from ':/store/modules/app'
+import MenuToggler from ':/components/common/menu-toggler.vue'
 
 defineOptions({
   name: 'GlobalSider',

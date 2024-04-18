@@ -12,6 +12,8 @@ import { useRouteStore } from ':/store/modules/route'
 import { useThemeStore } from ':/store/modules/theme'
 import { useAppStore } from ':/store/modules/app'
 import type { HeaderProps } from ':/types'
+import ThemeSchemaSwitch from ':/components/common/theme-schema-switch.vue'
+import FullScreen from ':/components/common/full-screen.vue'
 
 defineOptions({
   name: 'GlobalHeader',
@@ -65,8 +67,8 @@ const headerMenus = computed(() => {
     <div v-else class="h-full flex-y-center flex-1-hidden">
       <GlobalBreadcrumb v-if="!appStore.isMobile" class="ml-16px" />
     </div>
-    <div class="mr-16px h-full flex-y-center  gap-16px justify-end">
-      <div class="flex-c_c  gap-16px">
+    <div class="mr-16px h-full flex-y-center gap-16px justify-end">
+      <div class="flex-c_c gap-16px">
         <FullScreen
           v-if="!appStore.isMobile"
           :full="isFullscreen"

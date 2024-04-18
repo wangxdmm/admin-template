@@ -9,6 +9,7 @@ import { useRouteStore } from ':/store/modules/route'
 import { useThemeStore } from ':/store/modules/theme'
 import { useRouterPush } from ':/hooks/common/router'
 import type { Menu } from ':/types'
+import PinToggler from ':/components/common/pin-toggler.vue'
 
 defineOptions({
   name: 'VerticalMixMenu',

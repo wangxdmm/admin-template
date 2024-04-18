@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
+import ButtonIcon from ':/components/custom/button-icon.vue'
 import { $t } from ':/locales'
 
 defineOptions({ name: 'PinToggler' })

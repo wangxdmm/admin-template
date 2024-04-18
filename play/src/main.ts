@@ -3,6 +3,7 @@ import { router, setupRouter } from './router'
 import { createRoutes, getAuthVueRoutes } from './router/routes'
 import 'uno.css'
 import '@runafe/easy-admin/styles/css/global.css'
+import '@runafe/easy-admin/dist/style.css'
 
 const sys = defineSystem(() => ({
   logo: '',

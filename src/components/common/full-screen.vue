@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Icon } from '@iconify/vue'
+import ButtonIcon from ':/components/custom/button-icon.vue'
 import { $t } from ':/locales'
 
 defineOptions({
@@ -17,8 +19,8 @@ interface Props {
     :key="String(full)"
     :tooltip-content="full ? $t('icon.fullscreenExit') : $t('icon.fullscreen')"
   >
-    <IconMingcuteFullscreenExitFill v-if="full" />
-    <IconMingcuteFullscreenFill v-else />
+    <Icon v-if="full" icon="mingcute:fullscreen-exit-fill" />
+    <Icon v-else icon="mingcute:fullscreen-fill" />
   </ButtonIcon>
 </template>
 

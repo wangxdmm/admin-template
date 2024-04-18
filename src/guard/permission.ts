@@ -18,7 +18,7 @@ export function createPermissionGuard(router: Router) {
 
     // 1. route with href
     if (to.meta.href) {
-      window.open(to.meta.href, '_blank')
+      globalThis.open(to.meta.href, '_blank')
       next({
         path: from.fullPath,
         replace: true,

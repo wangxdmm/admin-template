@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { PopoverPlacement } from 'naive-ui'
+import ButtonIcon from ':/components/custom/button-icon.vue'
 import { $t } from ':/locales'
 import type { ThemeScheme } from ':/types'
 

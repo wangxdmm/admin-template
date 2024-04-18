@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ButtonIcon from ':/components/custom/button-icon.vue'
 import { $t } from ':/locales'
 
 defineOptions({

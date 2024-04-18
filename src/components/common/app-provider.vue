@@ -10,10 +10,10 @@ const ContextHolder = defineComponent({
   name: 'ContextHolder',
   setup() {
     function register() {
-      window.$loadingBar = useLoadingBar()
-      window.$dialog = useDialog()
-      window.$message = useMessage()
-      window.$notification = useNotification()
+      globalThis.$loadingBar = useLoadingBar()
+      globalThis.$dialog = useDialog()
+      globalThis.$message = useMessage()
+      globalThis.$notification = useNotification()
     }
 
     register()

@@ -1,8 +1,3 @@
-/**
- * Namespace Env
- *
- * It is used to declare the type of the import.meta object
- */
 declare namespace Env {
   /** The router history mode */
   type RouterHistoryMode = 'hash' | 'history' | 'memory'
@@ -59,3 +54,13 @@ declare namespace Env {
     readonly VITE_ICONIFY_URL?: string
   }
 }
+
+interface ImportMeta {
+  readonly env: Env.ImportMeta
+}
+
+declare const BUILD_TIME: string
+
+declare type TODO = any
+
+declare const __DEV__: boolean

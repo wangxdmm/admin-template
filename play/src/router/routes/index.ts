@@ -3,11 +3,9 @@ import type {
   ElegantConstRoute,
   ElegantRoute,
 } from '@elegant-router/types'
+import { transformElegantRoutesToVueRoutes } from '@runafe/easy-admin'
 import { generatedRoutes } from '../elegant/routes'
 import { layouts, views } from '../elegant/imports'
-import {
-  transformElegantRoutesToVueRoutes,
-} from '../elegant/transform'
 
 export const ROOT_ROUTE: CustomRoute = {
   name: 'root',

@@ -13,12 +13,14 @@ const themeStore = useThemeStore()
 const domRef = ref<HTMLElement | null>(null)
 
 function initClipboard() {
-  if (!domRef.value) { return }
+  if (!domRef.value) {
+    return
+  }
 
   const clipboard = new Clipboard(domRef.value)
 
   clipboard.on('success', () => {
-    window.$message?.success($t('theme.configOperation.copySuccessMsg'))
+    globalThis.$message?.success($t('theme.configOperation.copySuccessMsg'))
   })
 }
 
@@ -34,7 +36,7 @@ function handleReset() {
   themeStore.resetStore()
 
   setTimeout(() => {
-    window.$message?.success($t('theme.configOperation.resetSuccessMsg'))
+    globalThis.$message?.success($t('theme.configOperation.resetSuccessMsg'))
   }, 50)
 }
 

@@ -6,6 +6,8 @@ import AppView from './App.vue'
 import { setupIconifyOffline, setupLoading, setupNProgress } from './plugins'
 import { setupStore } from './store'
 import { setupI18n } from './locales'
+import SvgIcon from './components/custom/svg-icon.vue'
+import DarkModeContainer from './components/common/dark-mode-container.vue'
 import {
   appStoreCreator,
   authStoreCreator,
@@ -18,7 +20,7 @@ export function defineSystem(
   userConfig: (context: SystemContext) => SystemConfig,
 ) {
   const config = userConfig({})
-  window.$router = config.router.instance
+  globalThis.$router = config.router.instance
   // setup
   const app = createApp(
     h(AppView, {
@@ -26,6 +28,10 @@ export function defineSystem(
     }),
   )
   setupStore(app)
+
+  // add some global components
+  app.component('SvgIcon', SvgIcon)
+  app.component('DarkModeContainer', DarkModeContainer)
   // init Store
   const appStore = appStoreCreator(config)
   const authStore = authStoreCreator(config)
@@ -37,7 +43,6 @@ export function defineSystem(
   setupLoading()
   setupNProgress()
   setupIconifyOffline()
-
   setupI18n(app)
 
   app.use(fkPlugin, config.formKitConfig).use(ms)
@@ -56,3 +61,4 @@ export { default as BaseLayout } from './layouts/base-layout/index.vue'
 export { default as BlankLayout } from './layouts/blank-layout/index.vue'
 export * from './global'
 export * from './guard'
+export * from './transform'
