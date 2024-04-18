@@ -21,6 +21,8 @@ export function setupI18n(app: App) {
 
 export const $t = i18n.global.t
 
+export type * from '@intlify/core-base'
+
 export function setLocale(locale: LangType) {
   i18n.global.locale.value = locale
 }

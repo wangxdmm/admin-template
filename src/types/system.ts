@@ -3,6 +3,7 @@ import type { ElegantConstRoute, ServerMenu } from './route'
 import type { ThemeSetting } from './theme'
 
 export interface SystemConfig {
+  formKitConfig: TODO
   theme?: ThemeSetting
   setting: TODO
   router: {

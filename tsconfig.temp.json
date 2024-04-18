@@ -1,5 +1,5 @@
 {
-  "extends": "./tsconfig.base.json",
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "target": "ESNext",
     "jsx": "preserve",
@@ -17,8 +17,6 @@
       ]
     },
     "resolveJsonModule": true,
-    "resolvePackageJsonExports": false,
-    "resolvePackageJsonImports": true,
     "types": [
       "vite/client",
       "unplugin-icons/types/vue",
@@ -29,8 +27,6 @@
     "strict": true,
     "strictNullChecks": true,
     "noUnusedLocals": true,
-    "emitDeclarationOnly": true,
-    "outDir": "./temp",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -39,6 +35,7 @@
   "include": [
     "auto-imports.d.ts",
     "src",
-    "**/*.json"
+    "uno.config.ts",
+    "vite.*.ts"
   ]
 }

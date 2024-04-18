@@ -1,14 +1,18 @@
-import { defineSystem } from '../'
-import { setupRouter } from './router'
+import { defineSystem } from '@runafe/easy-admin'
+import { router, setupRouter } from './router'
+import { createRoutes, getAuthVueRoutes } from './router/routes'
 import 'uno.css'
-import './styles/scss/theme/index.scss'
-import './plugins/assets'
+import '@runafe/easy-admin/styles/css/global.css'
 
 const sys = defineSystem(() => ({
   logo: '',
+  formKitConfig: {},
   setting: {},
   title: 'cbb设计器开发平台',
   router: {
+    getAuthVueRoutes,
+    createRoutes,
+    instance: router,
     getServerRawRoutes: () => Promise.resolve([]),
   },
   auth: {

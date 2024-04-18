@@ -29,9 +29,6 @@ export function setupUnplugin(viteEnv: Env.ImportMeta) {
       imports: [
         'vue',
         'vue-router',
-        {
-          ':/global': ['sys_tools'],
-        },
       ],
     }),
     Icons({

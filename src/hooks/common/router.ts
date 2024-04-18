@@ -2,7 +2,12 @@ import { useRouter } from 'vue-router'
 import type { RouteLocationRaw } from 'vue-router'
 import { useRouteStore } from ':/store/modules/route'
 import type { RouteKey } from ':/types'
+import { sys_tools } from ':/global'
 
+export interface RouterPushOptions {
+  query?: Record<string, string>
+  params?: Record<string, string>
+}
 /**
  * Router push
  *
@@ -17,11 +22,6 @@ export function useRouterPush(inSetup = true) {
   const routerPush = router.push
 
   const routerBack = router.back
-
-  interface RouterPushOptions {
-    query?: Record<string, string>
-    params?: Record<string, string>
-  }
 
   async function routerPushByKey(key: RouteKey, options?: RouterPushOptions) {
     const { query, params } = options || {}

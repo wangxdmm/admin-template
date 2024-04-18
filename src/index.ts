@@ -6,7 +6,6 @@ import AppView from './App.vue'
 import { setupIconifyOffline, setupLoading, setupNProgress } from './plugins'
 import { setupStore } from './store'
 import { setupI18n } from './locales'
-import fkConfig from './formkit.config'
 import {
   appStoreCreator,
   authStoreCreator,
@@ -19,8 +18,13 @@ export function defineSystem(
   userConfig: (context: SystemContext) => SystemConfig,
 ) {
   const config = userConfig({})
+  window.$router = config.router.instance
   // setup
-  const app = createApp(<AppView config={config}></AppView>)
+  const app = createApp(
+    h(AppView, {
+      config,
+    }),
+  )
   setupStore(app)
   // init Store
   const appStore = appStoreCreator(config)
@@ -36,7 +40,7 @@ export function defineSystem(
 
   setupI18n(app)
 
-  app.use(fkPlugin, fkConfig).use(ms)
+  app.use(fkPlugin, config.formKitConfig).use(ms)
 
   return {
     app,
@@ -47,3 +51,8 @@ export function defineSystem(
     themeStore,
   }
 }
+
+export { default as BaseLayout } from './layouts/base-layout/index.vue'
+export { default as BlankLayout } from './layouts/blank-layout/index.vue'
+export * from './global'
+export * from './guard'

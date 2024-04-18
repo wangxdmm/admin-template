@@ -28,12 +28,10 @@
     "style"
   ],
   "scripts": {
-    "build": "vite build --mode prod",
-    "dev": "pn -C play vite",
-    "lint": "eslint . --fix",
-    "prepare": "simple-git-hooks",
-    "preview": "vite preview",
-    "typecheck": "pnpm exec vue-tsc --noEmit --skipLibCheck -p tsconfig.app.json"
+    "dev": "pnpm -C play dev",
+    "clear": "rimraf ./temp",
+    "build": "vite build && pnpm build:dts",
+    "build:dts": "pnpm clear && pnpm exec vue-tsc -p tsconfig.dts.json && cp tsconfig.temp.json temp/tsconfig.json && rollup -c rollup.dts.ts --configPlugin rollup-plugin-esbuild"
   },
   "dependencies": {
     "@better-scroll/core": "2.5.1",
@@ -56,6 +54,7 @@
     "pinyin-pro": "^3.19.6",
     "qs": "^6.12.0",
     "rxjs": "^7.8.1",
+    "simplebar-vue": "^2.3.3",
     "universal-cookie": "^7.1.4",
     "vue": "3.4.23",
     "vue-i18n": "9.10.2",
@@ -65,8 +64,7 @@
     "@antfu/eslint-config": "^2.13.3",
     "@iconify/json": "2.2.201",
     "@runafe/elegant-router-vue": "1.0.9",
-    "@runafe/tools-build": "^1.0.0",
-    "@sa/uno-preset": "workspace:*",
+    "@runafe/tools-build": "^1.0.6",
     "@types/crypto-js": "4.2.2",
     "@types/file-saver": "^2.0.7",
     "@types/lodash-es": "4.17.12",
@@ -94,6 +92,7 @@
     "prettier-plugin-jsdoc": "^1.3.0",
     "rimraf": "5.0.5",
     "rollup": "^4.13.0",
+    "rollup-plugin-tsconfig-paths": "^1.5.2",
     "sass": "1.72.0",
     "simple-git-hooks": "^2.11.0",
     "tsx": "4.7.1",

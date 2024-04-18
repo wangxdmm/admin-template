@@ -1,4 +1,4 @@
-import type { Tab } from './global'
+import type { Tab } from './common'
 import type { LangType, ThemeSetting } from './theme'
 
 export interface Session {

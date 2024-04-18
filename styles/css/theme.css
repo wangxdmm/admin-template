@@ -25,17 +25,16 @@
   --custom-background-color-alarm-2: rgba(253, 140, 7, 0.1);
   --custom-background-color-alarm-3: rgba(249, 195, 113, 0.1);
   --background-color-hover-1: #e5f3fe;
-  --background-color-content:#ffffff;
+  --background-color-content: #ffffff;
   --black-user-color: #666666;
-  --color-black:#000000;
-  --color-text-regular:#3d5d80;
-  --color-white:#ffffff;
-  --border-color-base:#d9e2e8;
-  --background-color-body:#edf0f6;
-  --color-primary:#4194fc;
-  --color-success-light:#d8f2e8;
-  --background-color-base:#f5f7fa;
-  --border-color-extra-light:#f7fafc;
-  --color-info:#909399
-
+  --color-black: #000000;
+  --color-text-regular: #3d5d80;
+  --color-white: #ffffff;
+  --border-color-base: #d9e2e8;
+  --background-color-body: #edf0f6;
+  --color-primary: #4194fc;
+  --color-success-light: #d8f2e8;
+  --background-color-base: #f5f7fa;
+  --border-color-extra-light: #f7fafc;
+  --color-info: #909399;
 }

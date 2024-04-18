@@ -36,7 +36,7 @@
     "auto-imports.d.ts",
     "uno.config.ts",
     "vite.*.ts",
-    "./",
-    "../src/typings"
+    "./src",
+    "./auto-imports.d.ts"
   ]
 }

@@ -9,6 +9,7 @@ import { useRouterPush } from ':/hooks/common/router'
 import { localStg } from ':/utils/storage'
 import { $t } from ':/locales'
 import { storeCreatorCreator } from ':/store/share'
+import { sys_tools } from ':/global'
 
 let _useAuthStore: ReturnType<typeof authStoreCreator>
 

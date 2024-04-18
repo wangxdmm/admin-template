@@ -6,8 +6,8 @@
 import type { RouteComponent } from "vue-router";
 import type { LastLevelRouteKey, RouteLayout } from "@elegant-router/types";
 
-import BaseLayout from ":/layouts/base-layout/index.vue";
-import BlankLayout from ":/layouts/blank-layout/index.vue";
+import BaseLayout from ":/layouts/base";
+import BlankLayout from ":/layouts/blank";
 
 export const layouts: Record<RouteLayout, RouteComponent | (() => Promise<RouteComponent>)> = {
   base: BaseLayout,

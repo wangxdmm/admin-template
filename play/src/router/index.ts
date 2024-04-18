@@ -6,13 +6,13 @@ import {
   createWebHashHistory,
   createWebHistory,
 } from 'vue-router'
+import { createRouterGuard } from '@runafe/easy-admin'
 import { createRoutes } from './routes'
-import { createRouterGuard } from './guard'
 
-const { VITE_ROUTER_HISTORY_MODE = 'hash', VITE_BASE_URL } = import.meta.env
+type RouterHistoryMode = 'hash' | 'history' | 'memory'
 
 const historyCreatorMap: Record<
-  Env.RouterHistoryMode,
+  RouterHistoryMode,
   (base?: string) => RouterHistory
 > = {
   hash: createWebHashHistory,
@@ -23,7 +23,7 @@ const historyCreatorMap: Record<
 const { constantVueRoutes } = createRoutes()
 
 export const router = createRouter({
-  history: historyCreatorMap[VITE_ROUTER_HISTORY_MODE](VITE_BASE_URL),
+  history: historyCreatorMap.hash('/'),
   routes: constantVueRoutes,
 })
 

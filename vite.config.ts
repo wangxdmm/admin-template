@@ -1,5 +1,6 @@
 import fs from 'node:fs'
 import process from 'node:process'
+import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
@@ -10,6 +11,11 @@ const isDev = process.env.DEV === 'true'
 
 export default defineConfig({
   root: './',
+  resolve: {
+    alias: {
+      ':': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
   plugins: [
     vue(),
     VueJsx(),

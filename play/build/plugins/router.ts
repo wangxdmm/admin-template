@@ -2,7 +2,6 @@ import process from 'node:process'
 import type { RouteMeta } from 'vue-router'
 import ElegantVueRouter from '@runafe/elegant-router-vue/vite'
 import rolesMap from './rolesMap'
-import type { RouteKey } from ':/types'
 
 export function setupElegantRouter(envs: Env.ImportMeta) {
   return ElegantVueRouter({
@@ -10,8 +9,8 @@ export function setupElegantRouter(envs: Env.ImportMeta) {
       ':': 'src',
     },
     layouts: {
-      base: 'src/layouts/base-layout/index.vue',
-      blank: 'src/layouts/blank-layout/index.vue',
+      base: 'src/layouts/base',
+      blank: 'src/layouts/blank',
     },
     customRoutes: {
       names: ['exception_403', 'exception_404', 'exception_500'],
@@ -23,7 +22,7 @@ export function setupElegantRouter(envs: Env.ImportMeta) {
       return null
     },
     routePathTransformer(routeName, routePath) {
-      const key = routeName as RouteKey
+      const key = routeName as string
 
       if (key === 'login') {
         const modules: string[] = [
@@ -42,8 +41,8 @@ export function setupElegantRouter(envs: Env.ImportMeta) {
       return routePath
     },
     onRouteMetaGen(routeName) {
-      const key = routeName as RouteKey
-      const constantRoutes: RouteKey[] = ['login', '403', '404', '500', 'entry']
+      const key = routeName
+      const constantRoutes = ['login', '403', '404', '500', 'entry']
       const data = rolesMap[envs.VITE_APP_CODE][routeName]
 
       // 非一级
