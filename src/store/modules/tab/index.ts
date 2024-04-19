@@ -313,3 +313,5 @@ export const tabStoreCreator = storeCreatorCreator(
 )
 
 export const useTabStore = () => _useTabStore()
+
+export type UseTabStore = typeof useTabStore

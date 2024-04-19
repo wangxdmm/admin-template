@@ -199,3 +199,5 @@ export const themeStoreCreator = storeCreatorCreator(
     _themeStore = store
   },
 )
+
+export type UseThemeStore = typeof useThemeStore

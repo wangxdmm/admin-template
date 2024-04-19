@@ -138,6 +138,24 @@ const local: TODO = {
     pin: '固定',
     unpin: '取消固定',
   },
+  page: {
+    login: {
+      common: {
+        loginOrRegister: '登录 / 注册',
+        userNamePlaceholder: '请输入用户名',
+        phonePlaceholder: '请输入手机号',
+        codePlaceholder: '请输入验证码',
+        passwordPlaceholder: '请输入密码',
+        confirmPasswordPlaceholder: '请再次输入密码',
+        codeLogin: '验证码登录',
+        confirm: '确定',
+        back: '返回',
+        validateSuccess: '验证成功',
+        loginSuccess: '登录成功',
+        welcomeBack: '欢迎回来，{userName} ！',
+      },
+    },
+  },
 }
 
 export default local

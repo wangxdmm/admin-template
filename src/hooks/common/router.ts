@@ -2,7 +2,7 @@ import { useRouter } from 'vue-router'
 import type { RouteLocationRaw } from 'vue-router'
 import { useRouteStore } from ':/store/modules/route'
 import type { RouteKey } from ':/types'
-import { sys_tools } from ':/global'
+import { sys_store } from ':/global'
 
 export interface RouterPushOptions {
   query?: Record<string, string>
@@ -16,8 +16,8 @@ export interface RouterPushOptions {
  * @param inSetup Whether is in vue script setup
  */
 export function useRouterPush(inSetup = true) {
-  const router = inSetup ? useRouter() : sys_tools.router
-  const route = sys_tools.router.currentRoute
+  const router = inSetup ? useRouter() : sys_store.router
+  const route = sys_store.router.currentRoute
 
   const routerPush = router.push
 
@@ -68,9 +68,7 @@ export function useRouterPush(inSetup = true) {
       redirect,
     }
 
-    if (!__DEV__) {
-      globalThis.location.href = '/web-user'
-    }
+    sys_store.config.value.hooks?.afterLogOut?.()
 
     return routerPushByKey('login', options)
   }

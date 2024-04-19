@@ -3,6 +3,7 @@ import type {
   RouteLocationNormalized,
   Router,
 } from 'vue-router'
+import { sys_store } from '..'
 import { useAuthStore } from ':/store/modules/auth'
 import { useRouteStore } from ':/store/modules/route'
 import { getToken } from ':/store/modules/auth/shared'
@@ -102,7 +103,11 @@ async function createAuthRouteGuard(
   const isNotFoundRoute = to.name === notFoundRoute
 
   // 1. If the route is the constant route but is not the "not-found" route, then it is allowed to access.
-  if (to.meta.constant && to.name !== 'entry' && !isNotFoundRoute) {
+  if (
+    to.meta.constant
+    && to.name !== sys_store.config.value.home
+    && !isNotFoundRoute
+  ) {
     return true
   }
 

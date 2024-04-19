@@ -28,8 +28,9 @@
     "style"
   ],
   "scripts": {
-    "dev": "pnpm -C play dev",
+    "dev": "pnpm -C builder dev",
     "clear": "rimraf ./temp",
+    "dev:lib": "vite build --watch",
     "build": "vite build && pnpm build:dts",
     "build:dts": "pnpm clear && pnpm exec vue-tsc -p tsconfig.dts.json && cp tsconfig.temp.json temp/tsconfig.json && rollup -c rollup.dts.ts --configPlugin rollup-plugin-esbuild"
   },

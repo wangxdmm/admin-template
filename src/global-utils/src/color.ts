@@ -111,9 +111,13 @@ type ColorIndex = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
 export function getColorPalette(color: AnyColor, index: ColorIndex): string {
   const transformColor = colord(color)
 
-  if (!transformColor.isValid()) { throw new Error('invalid input color value') }
+  if (!transformColor.isValid()) {
+    throw new Error('invalid input color value')
+  }
 
-  if (index === 6) { return colord(transformColor).toHex() }
+  if (index === 6) {
+    return colord(transformColor).toHex()
+  }
 
   const isLight = index < 6
   const hsv = transformColor.toHsv()
@@ -183,12 +187,20 @@ function getHue(hsv: HsvColor, i: number, isLight: boolean) {
 
   const hsvH = Math.round(hsv.h)
 
-  if (hsvH >= 60 && hsvH <= 240) { hue = isLight ? hsvH - hueStep * i : hsvH + hueStep * i }
-  else { hue = isLight ? hsvH + hueStep * i : hsvH - hueStep * i }
+  if (hsvH >= 60 && hsvH <= 240) {
+    hue = isLight ? hsvH - hueStep * i : hsvH + hueStep * i
+  }
+  else {
+    hue = isLight ? hsvH + hueStep * i : hsvH - hueStep * i
+  }
 
-  if (hue < 0) { hue += 360 }
+  if (hue < 0) {
+    hue += 360
+  }
 
-  if (hue >= 360) { hue -= 360 }
+  if (hue >= 360) {
+    hue -= 360
+  }
 
   return hue
 }
@@ -201,19 +213,33 @@ function getHue(hsv: HsvColor, i: number, isLight: boolean) {
  * @param isLight - Is light color
  */
 function getSaturation(hsv: HsvColor, i: number, isLight: boolean) {
-  if (hsv.h === 0 && hsv.s === 0) { return hsv.s }
+  if (hsv.h === 0 && hsv.s === 0) {
+    return hsv.s
+  }
 
   let saturation: number
 
-  if (isLight) { saturation = hsv.s - saturationStep * i }
-  else if (i === darkColorCount) { saturation = hsv.s + saturationStep }
-  else { saturation = hsv.s + saturationStep2 * i }
+  if (isLight) {
+    saturation = hsv.s - saturationStep * i
+  }
+  else if (i === darkColorCount) {
+    saturation = hsv.s + saturationStep
+  }
+  else {
+    saturation = hsv.s + saturationStep2 * i
+  }
 
-  if (saturation > 100) { saturation = 100 }
+  if (saturation > 100) {
+    saturation = 100
+  }
 
-  if (isLight && i === lightColorCount && saturation > 10) { saturation = 10 }
+  if (isLight && i === lightColorCount && saturation > 10) {
+    saturation = 10
+  }
 
-  if (saturation < 6) { saturation = 6 }
+  if (saturation < 6) {
+    saturation = 6
+  }
 
   return saturation
 }
@@ -228,10 +254,16 @@ function getSaturation(hsv: HsvColor, i: number, isLight: boolean) {
 function getValue(hsv: HsvColor, i: number, isLight: boolean) {
   let value: number
 
-  if (isLight) { value = hsv.v + brightnessStep1 * i }
-  else { value = hsv.v - brightnessStep2 * i }
+  if (isLight) {
+    value = hsv.v + brightnessStep1 * i
+  }
+  else {
+    value = hsv.v - brightnessStep2 * i
+  }
 
-  if (value > 100) { value = 100 }
+  if (value > 100) {
+    value = 100
+  }
 
   return value
 }

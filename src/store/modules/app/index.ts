@@ -78,7 +78,8 @@ export const appStoreCreator = storeCreatorCreator(
 
       /** Update document title by locale */
       function updateDocumentTitleByLocale() {
-        const { i18nKey, title } = config.router.instance.currentRoute.value.meta
+        const { i18nKey, title }
+          = config.router.instance.currentRoute.value.meta
 
         const documentTitle = i18nKey ? $t(i18nKey) : title
 
@@ -156,3 +157,5 @@ export const appStoreCreator = storeCreatorCreator(
 )
 
 export const useAppStore = () => _useAppStore()
+
+export type UseAppStore = typeof useAppStore

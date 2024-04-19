@@ -9,7 +9,8 @@ import { useRouterPush } from ':/hooks/common/router'
 import { localStg } from ':/utils/storage'
 import { $t } from ':/locales'
 import { storeCreatorCreator } from ':/store/share'
-import { sys_tools } from ':/global'
+import { sys_store } from ':/global'
+import type { UserInfo, UserLoginParam } from ':/types'
 
 let _useAuthStore: ReturnType<typeof authStoreCreator>
 
@@ -22,7 +23,7 @@ export const authStoreCreator = storeCreatorCreator(
       const { route, toLogin, redirectFromLogin } = useRouterPush(false)
       const { loading: loginLoading, startLoading, endLoading } = useLoading()
       const token = ref(getToken())
-      const userInfo: TODO = reactive(getUserInfo())
+      const userInfo = reactive(getUserInfo())
       /** Is login */
       const isLogin = computed(() => Boolean(token.value))
       const systemPerm = ref<string[]>([])
@@ -54,10 +55,10 @@ export const authStoreCreator = storeCreatorCreator(
         localStg.set('globalRules', rules)
       }
 
-      async function login(_param: TODO) {
+      async function login(param: UserLoginParam) {
         startLoading()
 
-        const authInfo = await config.auth.login()
+        const authInfo = await config.auth.login(param)
 
         if (authInfo) {
           const pass = await loginByToken({
@@ -71,10 +72,10 @@ export const authStoreCreator = storeCreatorCreator(
             await redirectFromLogin()
 
             if (routeStore.isInitAuthRoute) {
-              sys_tools.n?.success({
+              sys_store.n?.success({
                 title: $t('page.login.common.loginSuccess'),
                 content: $t('page.login.common.welcomeBack', {
-                  userName: userInfo.realName,
+                  userName: userInfo.realName || userInfo.name,
                 }),
                 duration: 4500,
               })
@@ -89,7 +90,7 @@ export const authStoreCreator = storeCreatorCreator(
       }
 
       async function initSystem() {
-        return true
+        return (await sys_store.config.value.hooks?.onSystemInit?.()) || true
       }
 
       async function loginByToken(loginToken: TODO) {
@@ -102,12 +103,17 @@ export const authStoreCreator = storeCreatorCreator(
         return await initSystem()
       }
 
+      function setUserInfo(updateUserInfo: UserInfo) {
+        Object.assign(userInfo, updateUserInfo)
+      }
+
       return {
         initSystem,
         updateUserRoles,
         updateGlobalRules,
         token,
         userInfo,
+        setUserInfo,
         isLogin,
         loginLoading,
         resetStore,
@@ -126,3 +132,5 @@ export const authStoreCreator = storeCreatorCreator(
     _useAuthStore = store
   },
 )
+
+export type UseAuthStore = typeof useAuthStore

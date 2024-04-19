@@ -2,7 +2,14 @@ import type { RouteLocationNormalizedLoaded, RouteRecordRaw } from 'vue-router'
 import { useSvgIconRender } from ':/global-hooks/src'
 import { $t } from ':/locales'
 import SvgIcon from ':/components/custom/svg-icon.vue'
-import type { Breadcrumb, ElegantConstRoute, LastLevelRouteKey, Menu, RouteKey, RouteMap } from ':/types'
+import type {
+  Breadcrumb,
+  ElegantConstRoute,
+  LastLevelRouteKey,
+  Menu,
+  RouteKey,
+  RouteMap,
+} from ':/types'
 
 /**
  * Filter auth routes by roles

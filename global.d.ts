@@ -8,8 +8,8 @@ import type {
   NotificationProviderInst,
 } from 'naive-ui'
 import type { Router } from 'vue-router'
-
-import 'vue-router'
+import type { SystemConfig } from ':/types'
+import type { SystemStores } from ':/store/share'
 
 declare global {
   var NProgress: NProgress
@@ -19,6 +19,8 @@ declare global {
   var $notification: NotificationProviderInst
   var $router: Router
   var routeMap: Record<string, string>
+  var __Easy_Admin_Config__: Ref<SystemConfig>
+  var __Easy_Admin_Modules__: SystemStores
 }
 
 declare module 'vue-router' {

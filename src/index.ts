@@ -1,6 +1,7 @@
-import { createApp, h } from 'vue'
+import { createApp, h, ref } from 'vue'
 import { plugin as fkPlugin } from '@formkit/vue'
 import ms from '@runafe/magic-system'
+import { merge } from 'merge-anything'
 import type { SystemConfig, SystemContext } from './types'
 import AppView from './App.vue'
 import { setupIconifyOffline, setupLoading, setupNProgress } from './plugins'
@@ -17,12 +18,29 @@ import {
   themeStoreCreator,
 } from ':/store/creator'
 
+export function DEFAULT_SYS_CONFIG_GETTER() {
+  return {
+    title: 'Admin',
+    envs: {
+      PROD: false,
+      VITE_ICON_LOCAL_PREFIX: 'local-icon',
+      VITE_MENU_ICON: 'mdi:menu',
+    },
+    home: 'entry',
+  }
+}
+
 export function defineSystem(
   userConfig: (context: SystemContext) => SystemConfig,
 ) {
   const config = userConfig({})
+
+  globalThis.__Easy_Admin_Config__ = ref(
+    merge({}, DEFAULT_SYS_CONFIG_GETTER(), config),
+  )
   globalThis.$router = config.router.instance
   globalThis.routeMap = config.router.map
+
   // setup
   const app = createApp(
     h(AppView, {
@@ -42,6 +60,14 @@ export function defineSystem(
   const routeStore = routeStoreCreator(config)
   const tabStore = tabStoreCreator(config)
   const themeStore = themeStoreCreator(config)
+
+  globalThis.__Easy_Admin_Modules__ = {
+    app: appStore,
+    auth: authStore,
+    route: routeStore,
+    tab: tabStore,
+    theme: themeStore,
+  }
 
   // init Plugins
   setupLoading()
@@ -66,3 +92,4 @@ export { default as BlankLayout } from './layouts/blank-layout/index.vue'
 export * from './global'
 export * from './guard'
 export * from './transform'
+export * from ':/store/modules/auth/shared'

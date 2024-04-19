@@ -48,7 +48,7 @@ export const routeStoreCreator = storeCreatorCreator(
       const authRouteMode = ref('static')
 
       /** Home route key */
-      const routeHome = ref('entry')
+      const routeHome = ref(config.home!)
 
       function flattenMenus(
         menus: ServerMenu[],
@@ -78,6 +78,7 @@ export const routeStoreCreator = storeCreatorCreator(
 
       async function initServerRawRoutes() {
         const routes = await config.router?.getServerRawRoutes()
+
         if (routes) {
           serverMenuDefinitions.value = flattenMenus(routes)
           authStore.updateUserRoles([...serverMenuDefinitions.value.keys()])
@@ -140,7 +141,10 @@ export const routeStoreCreator = storeCreatorCreator(
 
       /** Global breadcrumbs */
       const breadcrumbs = computed(() =>
-        getBreadcrumbsByRoute(config.router.instance.currentRoute.value, menus.value),
+        getBreadcrumbsByRoute(
+          config.router.instance.currentRoute.value,
+          menus.value,
+        ),
       )
 
       /** Reset store */
@@ -275,3 +279,5 @@ export const routeStoreCreator = storeCreatorCreator(
     _useRouteStore = store
   },
 )
+
+export type UseRouteStore = typeof useRouteStore

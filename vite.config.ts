@@ -60,7 +60,7 @@ export default defineConfig({
     },
     rollupOptions: {
       external: (lib) => {
-        return getExternal('./').external(lib) || lib.includes('colord')
+        return getExternal('./').external(lib) || lib.includes('colord') || lib.startsWith('@formkit/')
       },
     },
   },

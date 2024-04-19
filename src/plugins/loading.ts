@@ -1,6 +1,6 @@
 // @unocss-include
+import { sys_store } from '..'
 import { getRgbOfColor } from ':/global-utils/src'
-import { $t } from ':/locales'
 import { localStg } from ':/utils/storage'
 
 export function setupLoading() {
@@ -30,7 +30,7 @@ export function setupLoading() {
       ${dot}
     </div>
   </div>
-  <h2 class="text-28px font-500 text-#646464">${$t('system.title')}</h2>
+  <h2 class="text-28px font-500 text-#646464">${sys_store.config.value.title}</h2>
 </div>`
 
   const app = document.getElementById('app')

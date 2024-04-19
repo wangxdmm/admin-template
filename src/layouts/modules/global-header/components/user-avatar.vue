@@ -15,6 +15,7 @@ defineOptions({
 const authStore = useAuthStore()
 const { toLogin } = useRouterPush()
 const { SvgIconVNode } = useSvgIconRender(SvgIcon)
+const dialog = useDialog()
 
 function loginOrRegister() {
   toLogin()
@@ -55,7 +56,7 @@ const options = computed(() => {
 })
 
 function logout() {
-  useDialog().info({
+  dialog.info({
     title: $t('common.tip'),
     content: $t('common.logoutConfirm'),
     okText: $t('common.confirm'),

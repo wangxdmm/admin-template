@@ -1,5 +1,6 @@
 import type { Tab } from './common'
 import type { LangType, ThemeSetting } from './theme'
+import type { UserInfo } from './user'
 
 export interface Session {
   /** The theme color */
@@ -19,13 +20,7 @@ export interface Local {
   refreshToken: string
   /** The user info */
   // TODO
-  userInfo: {
-    realName: string
-    haveCustomerService: string
-    attribute: string
-    administrationCode: string
-    roles: string[]
-  }
+  userInfo: UserInfo
   /** The theme color */
   themeColor: string
   /** The theme settings */
