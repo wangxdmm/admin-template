@@ -36,8 +36,11 @@ export default defineConfig({
           const code = new MagicString(
             fs.readFileSync('./node_modules/._dist/index.uno.js').toString(),
           )
-
+          const style = fs
+            .readFileSync('./node_modules/._dist/style.css')
+            .toString()
           fs.writeFileSync('./dist/index.uno.js', code.toString())
+          fs.writeFileSync('./dist/style.css', style)
         }
         catch (error) {
           console.error(error)
@@ -60,7 +63,11 @@ export default defineConfig({
     },
     rollupOptions: {
       external: (lib) => {
-        return getExternal('./').external(lib) || lib.includes('colord') || lib.startsWith('@formkit/')
+        return (
+          getExternal('./').external(lib)
+          || lib.includes('colord')
+          || lib.startsWith('@formkit/')
+        )
       },
     },
   },

@@ -38,7 +38,7 @@
     "vite.*.ts",
     "global.d.ts",
     "./src",
-    "../env.d.ts",
+    "../../env.d.ts",
     "./auto-imports.d.ts"
   ]
 }

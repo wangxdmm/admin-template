@@ -9,8 +9,7 @@ import { userLogin, userNormal } from './api'
 import http from './http'
 import Logo from './assets/logo.png'
 import 'uno.css'
-import '@runafe/easy-admin/styles/css/global.css'
-import '@runafe/easy-admin/dist/style.css'
+import '@runafe/easy-admin/style'
 import '@runafe/magic-system/style'
 
 const sys = defineSystem(() => ({
@@ -87,9 +86,7 @@ const sys = defineSystem(() => ({
   })
 
   sys.app.use(Particles, {
-    init: async (engine) => {
-      await loadSlim(engine)
-    },
+    init: async engine => await loadSlim(engine),
   })
   await setupRouter(sys.app)
   sys.app.mount('#app')

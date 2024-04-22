@@ -1,0 +1,2 @@
+include:
+  - remote: http://192.168.1.70:5002/asv4/v4/gitlab-ci-pnpm-builder.yml

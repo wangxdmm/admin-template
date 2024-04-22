@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "description": "Admin based on naive-ui vite UnoCSS and Typescript",
   "keywords": [
+    "admin",
     "naive-ui",
     "UnoCSS"
   ],
@@ -28,10 +29,11 @@
     "style"
   ],
   "scripts": {
-    "dev": "pnpm -C builder dev",
+    "dev": "pnpm -C apps/builder dev",
     "clear": "rimraf ./temp",
     "dev:lib": "vite build --watch",
     "build": "vite build && pnpm build:dts",
+    "build:builder": "pnpm -C apps/builder build",
     "build:dts": "pnpm clear && pnpm exec vue-tsc -p tsconfig.dts.json && cp tsconfig.temp.json temp/tsconfig.json && rollup -c rollup.dts.ts --configPlugin rollup-plugin-esbuild",
     "release": "esno scripts/release.ts"
   },

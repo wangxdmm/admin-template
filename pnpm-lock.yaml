@@ -235,7 +235,7 @@ importers:
         specifier: 2.0.6
         version: 2.0.6(typescript@5.4.5)
 
-  builder:
+  apps/builder:
     dependencies:
       '@better-scroll/core':
         specifier: 2.5.1
@@ -248,7 +248,7 @@ importers:
         version: 1.0.4
       '@runafe/easy-admin':
         specifier: workspace:^
-        version: link:..
+        version: link:../..
       '@runafe/formkit-naive-ui':
         specifier: ^1.1.26
         version: 1.1.26(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.0.12)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.24)

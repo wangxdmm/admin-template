@@ -40,7 +40,5 @@ temp-*
 /build/plugins/api-preset.ts
 /src/api.ts
 vite.config.ts.timestamp-*
-/src/index.css
 
-/packages/api/index.ts
 dist-lib

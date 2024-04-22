@@ -10,6 +10,7 @@ import { setupI18n } from './locales'
 import SvgIcon from './components/custom/svg-icon.vue'
 import DarkModeContainer from './components/common/dark-mode-container.vue'
 import ExceptionBase from './components/common/exception-base.vue'
+import ':/styles/css/index.css'
 import {
   appStoreCreator,
   authStoreCreator,

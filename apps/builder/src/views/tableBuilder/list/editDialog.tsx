@@ -14,7 +14,11 @@ export function useEditDialog() {
     width: 500,
   })
 
-  function open(options: { row?: ModelsAllEntity, type: number, reload: () => void }) {
+  function open(options: {
+    row?: ModelsAllEntity
+    type: number
+    reload: () => void
+  }) {
     loadView()
     const userSchema = ref([
       {
@@ -61,7 +65,10 @@ export function useEditDialog() {
       labelWidth: 80,
       size: 'small',
     })
-    const checkForm = reactive<{ editable: boolean, viewList: TableEntitySearch[] }>({
+    const checkForm = reactive<{
+      editable: boolean
+      viewList: TableEntitySearch[]
+    }>({
       editable: options.type === 1,
       viewList: [],
     })
@@ -78,7 +85,8 @@ export function useEditDialog() {
     loadView()
     async function submit() {
       const values = getNode('FormKitRef')?.value
-      const { result, message } = await designerDoApplication.saveAndRelease(values)()
+      const { result, message }
+        = await designerDoApplication.saveAndRelease(values)()
       if (result) {
         modal.close()
         editDialog.success(message)
@@ -100,31 +108,35 @@ export function useEditDialog() {
     function submitHandle() {
       getNode('FormKitRef')?.submit()
     }
-    modal.load({
-      title: () => options.type === 1 ? '编辑表格' : '新增表格',
-      default: () => [<FormKit
-        id='FormKitRef'
-        config={config}
-        type="form"
-        actions={false}
-        incompleteMessage={false}
-        onSubmit={submit}
-      >
-        <FormKitSchema schema={userSchema.value} data={checkForm}/>
-      </FormKit>],
-      footer: () => [
-        <n-button
-          onClick={() => {
-            modal.close()
-          }}
-        >
-          关 闭
-        </n-button>,
-        <n-button type="primary" onClick={submitHandle}>
-          确 定
-        </n-button>,
-      ],
-    }).open()
+    modal
+      .load({
+        title: () => (options.type === 1 ? '编辑表格' : '新增表格'),
+        default: () => [
+          <FormKit
+            id="FormKitRef"
+            config={config}
+            type="form"
+            actions={false}
+            incompleteMessage={false}
+            onSubmit={submit}
+          >
+            <FormKitSchema schema={userSchema.value} data={checkForm} />
+          </FormKit>,
+        ],
+        footer: () => [
+          <n-button
+            onClick={() => {
+              modal.close()
+            }}
+          >
+            关 闭
+          </n-button>,
+          <n-button type="primary" onClick={submitHandle}>
+            确 定
+          </n-button>,
+        ],
+      })
+      .open()
   }
 
   return {
