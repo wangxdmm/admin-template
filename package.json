@@ -1,7 +1,7 @@
 {
   "name": "@runafe/easy-admin",
   "type": "module",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Admin based on naive-ui vite UnoCSS and Typescript",
   "keywords": [
     "naive-ui",
@@ -32,7 +32,8 @@
     "clear": "rimraf ./temp",
     "dev:lib": "vite build --watch",
     "build": "vite build && pnpm build:dts",
-    "build:dts": "pnpm clear && pnpm exec vue-tsc -p tsconfig.dts.json && cp tsconfig.temp.json temp/tsconfig.json && rollup -c rollup.dts.ts --configPlugin rollup-plugin-esbuild"
+    "build:dts": "pnpm clear && pnpm exec vue-tsc -p tsconfig.dts.json && cp tsconfig.temp.json temp/tsconfig.json && rollup -c rollup.dts.ts --configPlugin rollup-plugin-esbuild",
+    "release": "esno scripts/release.ts"
   },
   "dependencies": {
     "@better-scroll/core": "2.5.1",
@@ -81,6 +82,7 @@
     "@unocss/vite": "0.59.0",
     "@vitejs/plugin-vue": "5.0.4",
     "@vitejs/plugin-vue-jsx": "3.1.0",
+    "bumpp": "^9.4.0",
     "enquirer": "2.4.1",
     "env-cmd": "^10.1.0",
     "eslint": "9.0.0",
