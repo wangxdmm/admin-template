@@ -18,11 +18,11 @@ importers:
         specifier: ^1.0.2
         version: 1.0.4
       '@runafe/formkit-naive-ui':
-        specifier: ^1.1.26
-        version: 1.1.26(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.0.12)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.24)
+        specifier: ^1.1.29
+        version: 1.1.29(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.0.12)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.24)
       '@runafe/magic-system':
-        specifier: 1.3.23
-        version: 1.3.23(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.0.12)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.24)
+        specifier: 1.3.26
+        version: 1.3.26(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.0.12)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.24)
       '@vueuse/core':
         specifier: 10.9.0
         version: 10.9.0(vue@3.4.23)
@@ -237,24 +237,9 @@ importers:
 
   apps/builder:
     dependencies:
-      '@better-scroll/core':
-        specifier: 2.5.1
-        version: 2.5.1
-      '@iconify/vue':
-        specifier: 4.1.1
-        version: 4.1.1(vue@3.4.23)
-      '@monan/shared':
-        specifier: ^1.0.2
-        version: 1.0.4
       '@runafe/easy-admin':
         specifier: workspace:^
         version: link:../..
-      '@runafe/formkit-naive-ui':
-        specifier: ^1.1.26
-        version: 1.1.26(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.0.12)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.24)
-      '@runafe/magic-system':
-        specifier: 1.3.23
-        version: 1.3.23(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.0.12)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.24)
       '@runafe/unified-api-user':
         specifier: 0.0.4
         version: 0.0.4(@monan/easy-axios@1.0.12)
@@ -267,51 +252,6 @@ importers:
       '@tsparticles/vue3':
         specifier: ^3.0.1
         version: 3.0.1(typescript@5.4.5)
-      '@vueuse/core':
-        specifier: 10.9.0
-        version: 10.9.0(vue@3.4.23)
-      clipboard:
-        specifier: 2.0.11
-        version: 2.0.11
-      dayjs:
-        specifier: 1.11.10
-        version: 1.11.10
-      js-file-downloader:
-        specifier: ^1.1.25
-        version: 1.1.25
-      merge-anything:
-        specifier: ^5.1.7
-        version: 5.1.7
-      naive-ui:
-        specifier: npm:@runafe/naive-ui@2.38.1-lamp.15
-        version: /@runafe/naive-ui@2.38.1-lamp.15(vue@3.4.23)
-      nprogress:
-        specifier: 0.2.0
-        version: 0.2.0
-      pinia:
-        specifier: 2.1.7
-        version: 2.1.7(typescript@5.4.5)(vue@3.4.23)
-      pinyin-pro:
-        specifier: ^3.19.6
-        version: 3.19.7
-      qs:
-        specifier: ^6.12.0
-        version: 6.12.0
-      rxjs:
-        specifier: ^7.8.1
-        version: 7.8.1
-      universal-cookie:
-        specifier: ^7.1.4
-        version: 7.1.4
-      vue:
-        specifier: 3.4.23
-        version: 3.4.23(typescript@5.4.5)
-      vue-i18n:
-        specifier: 9.10.2
-        version: 9.10.2(vue@3.4.23)
-      vue-router:
-        specifier: 4.3.0
-        version: 4.3.0(vue@3.4.23)
 
 packages:
 
@@ -1278,23 +1218,6 @@ packages:
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     dev: true
 
-  /@floating-ui/core@1.6.0:
-    resolution: {integrity: sha512-PcF++MykgmTj3CIyOQbKA/hDzOAiqI3mhuoN44WRCopIs1sgoDoU4oty4Jtqaj/y3oDU6fnVSm4QG0a3t5i0+g==}
-    dependencies:
-      '@floating-ui/utils': 0.2.1
-    dev: false
-
-  /@floating-ui/dom@1.6.3:
-    resolution: {integrity: sha512-RnDthu3mzPlQ31Ss/BTwQ1zjzIhr3lk1gZB1OC56h/1vEtaXkESrOqL5fQVMfXpwGtRwX+YsZBdyHtJMQnkArw==}
-    dependencies:
-      '@floating-ui/core': 1.6.0
-      '@floating-ui/utils': 0.2.1
-    dev: false
-
-  /@floating-ui/utils@0.2.1:
-    resolution: {integrity: sha512-9TANp6GPoMtYzQdt54kfAyMmz1+osLlXdg2ENroU7zzrtflTLrrC/lgrIfaSe+Wu0b89GKccT7vxXA0MoAIO+Q==}
-    dev: false
-
   /@formkit/auto-animate@0.8.1:
     resolution: {integrity: sha512-0/Z2cuNXWVVIG/l0SpcHAWFhGdvLJ8DRvEfRWvmojtmRWfEy+LWNwgDazbZqY0qQYtkHcoEK3jBLkhiZaB/4Ig==}
     dev: false
@@ -1449,10 +1372,6 @@ packages:
     dependencies:
       '@iconify/types': 2.0.0
       vue: 3.4.23(typescript@5.4.5)
-    dev: false
-
-  /@interactjs/types@1.10.27:
-    resolution: {integrity: sha512-BUdv0cvs4H5ODuwft2Xp4eL8Vmi3LcihK42z0Ft/FbVJZoRioBsxH+LlsBdK4tAie7PqlKGy+1oyOncu1nQ6eA==}
     dev: false
 
   /@intlify/core-base@9.10.2:
@@ -1788,8 +1707,8 @@ packages:
       unplugin: 1.7.1
     dev: true
 
-  /@runafe/formkit-naive-ui@1.1.26(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.0.12)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.24):
-    resolution: {integrity: sha512-zyqsHQ1LrzxGgOd/RTbpyhlu+xBRn1Up64EZr8dyfLeQjuFmwR7tIxI59AfaSedH6M0F3oXW2vh1BNJa1I6EKQ==}
+  /@runafe/formkit-naive-ui@1.1.29(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.0.12)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.24):
+    resolution: {integrity: sha512-LVOh5CACq3g41l7jZlFPxqWmcMUL6lAvJ2LichwdxosR4Q0prEDPvbFAptI0emYWQMCtNWkroiVs1WMxqpx4Hg==}
     peerDependencies:
       '@formkit/core': ^1.5.9
       '@formkit/i18n': ^1.5.9
@@ -1809,7 +1728,7 @@ packages:
       '@formkit/vue': 1.6.2(unocss@0.59.0)(vue@3.4.23)
       '@monan/shared': 1.0.4
       '@monan/types': 1.0.1
-      '@runafe/magic-system': 1.3.22(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.0.12)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.24)
+      '@runafe/magic-system': 1.3.26(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.0.12)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.24)
       date-fns: 3.6.0
       merge-anything: 5.1.7
       naive-ui: /@runafe/naive-ui@2.38.1-lamp.15(vue@3.4.23)
@@ -1824,57 +1743,8 @@ packages:
       - xe-utils
     dev: false
 
-  /@runafe/magic-system@1.3.22(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.0.12)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.24):
-    resolution: {integrity: sha512-Vf3uOmXeggH8OVRpcKmAoFhGbF7rZqvlvtQ5kbDqSgdfPztQV00MD5n7eivCzWiM9qeK88BtPdeS0ZLCmqLyUQ==}
-    peerDependencies:
-      '@formkit/core': ^1.5.9
-      '@formkit/i18n': ^1.5.9
-      '@formkit/validation': ^1.5.9
-      '@formkit/vue': ^1.5.9
-      '@monan/easy-axios': ^1.0.12
-      naive-ui: '*'
-      vue: ^3.4.15 || ^3.3.4
-      vue-final-modal: ^4.5.4
-    peerDependenciesMeta:
-      naive-ui:
-        optional: true
-      vue:
-        optional: true
-    dependencies:
-      '@formkit/auto-animate': 0.8.1
-      '@formkit/core': 1.6.2
-      '@formkit/i18n': 1.6.2
-      '@formkit/validation': 1.6.2
-      '@formkit/vue': 1.6.2(unocss@0.59.0)(vue@3.4.23)
-      '@iconify/vue': 4.1.1(vue@3.4.23)
-      '@monan/easy-axios': 1.0.12(axios@1.6.8)
-      '@monan/shared': 1.0.4
-      '@monan/types': 1.0.1
-      '@vueuse/core': 10.9.0(vue@3.4.23)
-      date-fns: 3.6.0
-      grid-layout-plus: 1.0.4(vue@3.4.23)
-      gsap: 3.12.5
-      js-file-downloader: 1.1.25
-      merge-anything: 5.1.7
-      naive-ui: /@runafe/naive-ui@2.38.1-lamp.15(vue@3.4.23)
-      pinyin-pro: 3.19.7
-      sortablejs: 1.15.2
-      sortablejs-vue3: 1.2.11(sortablejs@1.15.2)(vue@3.4.23)
-      v-wave: 2.0.0(rollup@4.14.1)(vue@3.4.23)
-      vue: 3.4.23(typescript@5.4.5)
-      vue-final-modal: 4.5.4(@vueuse/core@10.9.0)(@vueuse/integrations@10.9.0)(focus-trap@7.5.4)(vue@3.4.23)
-      vue3-moveable: 0.28.0
-      vue3-photo-preview: 0.3.0(vue@3.4.23)
-      vxe-table: 4.5.22-beta.3(vue@3.4.23)(xe-utils@3.5.24)
-    transitivePeerDependencies:
-      - '@vue/composition-api'
-      - rollup
-      - supports-color
-      - xe-utils
-    dev: false
-
-  /@runafe/magic-system@1.3.23(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.0.12)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.24):
-    resolution: {integrity: sha512-qhqh7w2WdrY2FjGxPqDhgIAJDhlttfbL6WhPRWMXPC1xo0YyIKvxZwQpDGz8iB4XVxjjtT7YTM15G+y+vPUp9g==}
+  /@runafe/magic-system@1.3.26(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.0.12)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.24):
+    resolution: {integrity: sha512-D4V25cOZ3Ys2mWZzjHx+TetzMHvpgP4Hva04dRSi0GQKrIEEPhn1Pu9bQ3ixOiBknOkdyMRkI+pOhXTOAcP9xw==}
     peerDependencies:
       '@formkit/core': ^1.5.9
       '@formkit/i18n': ^1.5.9
@@ -2867,28 +2737,6 @@ packages:
       vite: 5.1.6(@types/node@20.11.29)(sass@1.72.0)
     transitivePeerDependencies:
       - rollup
-
-  /@vexip-ui/hooks@2.4.1(vue@3.4.23):
-    resolution: {integrity: sha512-hSLYbjfcd7q9IiH792Lc5BejJ34Hls0loTCu6N+WuaV4LZN+ar8b92+CfFtgBSUvYd2hkCcBok/ZPyHEw6JqPw==}
-    peerDependencies:
-      vue: ^3.2.25 || ^3.3.4
-    peerDependenciesMeta:
-      vue:
-        optional: true
-    dependencies:
-      '@floating-ui/dom': 1.6.3
-      '@juggle/resize-observer': 3.4.0
-      '@vexip-ui/utils': 2.13.1
-      vue: 3.4.23(typescript@5.4.5)
-    dev: false
-
-  /@vexip-ui/utils@2.13.1:
-    resolution: {integrity: sha512-OKeI2wGUhcJj54kVFGlor8HpDyBIIeUmBpHqomXcxoid8GmWhuHKBrvyGcrBo46FLPIwLg5EeDwKM/fNbbBG6w==}
-    dev: false
-
-  /@vexip-ui/utils@2.14.0:
-    resolution: {integrity: sha512-FDEa/izutwp9usLYEtyiVlKnKLq3mIzvAxLIfLahZu6y+VrPSnkW4Za93EITtUZQhuiwodchBqOdRsy0XjG6Kw==}
-    dev: false
 
   /@vitejs/plugin-vue-jsx@3.1.0(vite@5.1.6)(vue@3.4.23):
     resolution: {integrity: sha512-w9M6F3LSEU5kszVb9An2/MmXNxocAnUb3WhRr8bHlimhDrXNt6n6D2nJQR3UXpGlZHh/EsgouOHCsM8V3Ln+WA==}
@@ -5483,20 +5331,6 @@ packages:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
     dev: true
 
-  /grid-layout-plus@1.0.4(vue@3.4.23):
-    resolution: {integrity: sha512-mxHsSZ6n98mN6KFFFOY6WzX6pOOuWLFjRFddUb0Uwy1/jntodOGsEtctDOWGYgVnMHQ5wSXUZEnqdBW1mgDK6w==}
-    peerDependencies:
-      vue: ^3.0.0 || ^3.3.4
-    peerDependenciesMeta:
-      vue:
-        optional: true
-    dependencies:
-      '@vexip-ui/hooks': 2.4.1(vue@3.4.23)
-      '@vexip-ui/utils': 2.14.0
-      interactjs: 1.10.27
-      vue: 3.4.23(typescript@5.4.5)
-    dev: false
-
   /gsap@3.12.5:
     resolution: {integrity: sha512-srBfnk4n+Oe/ZnMIOXt3gT605BX9x5+rh/prT2F1SsNJsU1XuMiP0E2aptW481OnonOGACZWBqseH5Z7csHxhQ==}
     dev: false
@@ -5688,12 +5522,6 @@ packages:
   /inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
     dev: true
-
-  /interactjs@1.10.27:
-    resolution: {integrity: sha512-y/8RcCftGAF24gSp76X2JS3XpHiUvDQyhF8i7ujemBz77hwiHDuJzftHx7thY8cxGogwGiPJ+o97kWB6eAXnsA==}
-    dependencies:
-      '@interactjs/types': 1.10.27
-    dev: false
 
   /internal-slot@1.0.7:
     resolution: {integrity: sha512-NGnrKwXzSms2qUUih/ILZ5JBqNTSa1+ZmP6flaIp6KmSElgE9qdndzS3cqjrDovwFdmwsGsLdeFgB6suw+1e9g==}

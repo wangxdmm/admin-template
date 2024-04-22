@@ -109,7 +109,7 @@ const columns = [
   },
 ]
 const Table = defineDataTable<ModelsAllEntity>(columns as TODO, {
-  remoteConfig: { name: 'dataGrid_cbbManage' },
+  // remoteConfig: { name: 'dataGrid_cbbManage' },
   immediate: true,
   checkedOnClick: true,
   getData: async (params, ctx) => {
