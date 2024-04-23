@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@runafe/easy-admin": "workspace:^",
+    "@runafe/unified-api-designer": "0.0.3",
     "@runafe/unified-api-user": "0.0.4",
     "@runafe/unified-model": "0.0.3",
     "@tsparticles/slim": "^3.3.0",
-    "@tsparticles/vue3": "^3.0.1"
+    "@tsparticles/vue3": "^3.0.1",
+    "vue-draggable-plus": "0.3.5"
   }
 }

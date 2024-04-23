@@ -240,6 +240,9 @@ importers:
       '@runafe/easy-admin':
         specifier: workspace:^
         version: link:../..
+      '@runafe/unified-api-designer':
+        specifier: 0.0.3
+        version: 0.0.3(@monan/easy-axios@1.0.12)
       '@runafe/unified-api-user':
         specifier: 0.0.4
         version: 0.0.4(@monan/easy-axios@1.0.12)
@@ -252,6 +255,9 @@ importers:
       '@tsparticles/vue3':
         specifier: ^3.0.1
         version: 3.0.1(typescript@5.4.5)
+      vue-draggable-plus:
+        specifier: 0.3.5
+        version: 0.3.5(@types/sortablejs@1.15.8)
 
 packages:
 
@@ -1840,6 +1846,15 @@ packages:
       - typescript
     dev: true
 
+  /@runafe/unified-api-designer@0.0.3(@monan/easy-axios@1.0.12):
+    resolution: {integrity: sha512-dsgKHPmpkUeDzfZLq8y4kET1WTIkz4b3py3yuvA1Ps3LEUG9ddr/KsBRSA9cdhi+7VgbTNSlJY2W6cs7qeFX1w==}
+    peerDependencies:
+      '@monan/easy-axios': ^1.0.12
+    dependencies:
+      '@monan/easy-axios': 1.0.12(axios@1.6.8)
+      '@runafe/unified-model': 0.0.3
+    dev: false
+
   /@runafe/unified-api-user@0.0.4(@monan/easy-axios@1.0.12):
     resolution: {integrity: sha512-XxvvDGNsP7bk9dtnM3YAiajcDYWqra5aIUdAS5Vptf0j78g7lYtmVbn7SWSBUFsBARlSUv3VXnWj0dIcGadmwg==}
     peerDependencies:
@@ -2294,6 +2309,10 @@ packages:
   /@types/semver@7.5.8:
     resolution: {integrity: sha512-I8EUhyrgfLrcTkzV3TSsGyl1tSuPrEDzr0yd5m90UgNxQkyDXULk3b6MlQqTCpZpNtWe1K0hzclnZkTcLBe2UQ==}
     dev: true
+
+  /@types/sortablejs@1.15.8:
+    resolution: {integrity: sha512-b79830lW+RZfwaztgs1aVPgbasJ8e7AXtZYHTELNXZPsERt4ymJdjV4OccDbHQAvHrCcFpbF78jkm0R6h/pZVg==}
+    dev: false
 
   /@types/svgo@2.6.4:
     resolution: {integrity: sha512-l4cmyPEckf8moNYHdJ+4wkHvFxjyW6ulm9l4YGaOxeyBWPhBOT0gvni1InpFPdzx1dKf/2s62qGITwxNWnPQng==}
@@ -8846,6 +8865,18 @@ packages:
         optional: true
     dependencies:
       vue: 3.4.23(typescript@5.4.5)
+
+  /vue-draggable-plus@0.3.5(@types/sortablejs@1.15.8):
+    resolution: {integrity: sha512-HqIxV4Wr4U5LRPLRi2oV+EJ4g6ibyRKhuaiH4ZQo+LxK4zrk2XcBk9UyXC88OXp4SAq0XYH4Wco/T3LX5kJ79A==}
+    peerDependencies:
+      '@types/sortablejs': ^1.15.0
+      '@vue/composition-api': '*'
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      '@types/sortablejs': 1.15.8
+    dev: false
 
   /vue-eslint-parser@9.4.2(eslint@9.0.0):
     resolution: {integrity: sha512-Ry9oiGmCAK91HrKMtCrKFWmSFWvYkpGglCeFAIqDdr9zdXmMMpJOmUJS7WWsW7fX81h6mwHmUZCQQ1E0PkSwYQ==}
