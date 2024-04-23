@@ -8,17 +8,10 @@ export function useColumnCondition() {
     width: 460,
   })
   return {
-    use: (options: { title?: string, columns: any, save: (columns: any) => void }) => {
+    use:(options: { title?: string, columns: any, save: (columns: any) => void }) => {
       const copylists = ref([...options.columns])
       const lists = ref([...options.columns])
       const search = ref<string>()
-
-      function moveItemInArray(from: number, to: number) {
-        const item = lists.value.splice(from, 1)[0]
-        lists.value.splice(to, 0, item)
-        copylists.value = [...lists.value]
-      }
-
       function changeAll(flag: boolean) {
         copylists.value.forEach((v) => {
           v.visible = flag

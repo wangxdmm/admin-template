@@ -35,17 +35,7 @@ function setVisiable(data, index: number) {
   <div class="w-full m-auto">
     <n-button class="w-full" @click="addCondition">
       <template #icon>
-        <n-icon>
-          <svg
-            t="1713343779201" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-            p-id="2600" width="200" height="200"
-          >
-            <path
-              d="M800 480H544V224c0-17.664-14.336-32-32-32s-32 14.336-32 32v256H224c-17.664 0-32 14.336-32 32s14.336 32 32 32h256v256c0 17.696 14.336 32 32 32s32-14.304 32-32V544h256c17.696 0 32-14.336 32-32s-14.304-32-32-32z"
-              p-id="2601"
-            />
-          </svg>
-        </n-icon>
+        <SvgIcon icon="carbon:add" class="inline-block align-text-bottom text-20px" />
       </template>
       {{ props.buttonName ? props.buttonName : '添加查询条件' }}
     </n-button>
@@ -57,7 +47,7 @@ function setVisiable(data, index: number) {
         handle=".handle"
         class="flex flex-col gap-2 w-full"
       >
-        <li v-for="(element, index) in list" :key="element.name"
+        <li v-for="(element, index) in list" :key="element[props.nameField]"
             class="flex b-1 b-solid h-32px pl-8px flex-sb_c b-#d9e2e8 w-full align--center">
           <span class="h-100% line-height-32px handle cursor-move">
             <SvgIcon icon="icon-park-outline:drag" class="inline-block align-text-bottom text-16px" />
