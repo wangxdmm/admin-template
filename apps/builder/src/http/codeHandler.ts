@@ -1,6 +1,7 @@
 import { get } from '@monan/shared'
 import type { ICodeHandler } from '@monan/easy-axios'
 import { sys_store } from '@runafe/easy-admin'
+import { router } from ':/router'
 
 export type CodeHandlerTypes = 'tokenOutdate'
 
@@ -26,10 +27,12 @@ const handlers: ICodeHandler<CodeHandlerTypes>[] = [
     on: [401],
     handler: async (params) => {
       if (params.dynamicHandler) {
-        return params.dynamicHandler(params)
+        params.dynamicHandler(params)
       }
 
-      return params.back
+      router.push({ name: 'login' })
+
+      return params.rowBack
     },
     async: true,
   },

@@ -77,9 +77,10 @@ http.createDefaultStrategies<ServerDefinedResponse>((ins) => {
     showErrorMessageTip,
     showSuccessMessageTip,
     isSuccess: res =>
-      res.data.resultCode === 0
+      !!res?.data
+      && (res.data.resultCode === 0
       || !!(res.config.responseType === 'blob' && res.data)
-      || res.data.success === true,
+      || res.data.success === true),
     getBackData: ({ res }) => {
       if (isSysError(res)) {
         return res
