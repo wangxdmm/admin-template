@@ -1,44 +1,48 @@
 <script lang="ts" setup>
+import { unionBy } from 'lodash-es'
 import RnConditions from './block/condition.vue'
-import {useSetDialog} from './block/setDialog'
-import {useColumnCondition} from ":/views/tableBuilder/builder/block/ColumnCondition";
-import {unionBy} from "lodash-es";
+import { useSetDialog } from './block/setDialog'
+import { useColumnCondition } from ':/views/tableBuilder/builder/block/ColumnCondition'
+
 const columnCondition = useColumnCondition()
 const setDialog = useSetDialog()
 const active = ref(false)
 const show = ref(false)
-const list=ref([])
+const list = ref([])
 
 function editQuery(row) {
   setDialog.open({
-    type: 1, set(row) {
+    type: 1,
+    set(row) {
 
-    }
+    },
   })
 }
 
 function editScreen(row) {
   setDialog.open({
-    type: 2, set(row) {
+    type: 2,
+    set(row) {
 
-    }
+    },
   })
 }
 
-function addScreen(){
+function addScreen() {
   columnCondition.use({
-   columns: [{name: 'name', label: '姓名', visible: true}, {name: 'age', label: '年龄', visible: true}, {
-     name: 'sex',
-     label: '性别',
-     visible: true
-   }], save(cols) {
-     const selectArry = cols.filter(v => v.visible)
-     list.value = [...unionBy(list.value, selectArry, 'name')]
-   }
- })
+    columns: [{ name: 'name', label: '姓名', visible: true }, { name: 'age', label: '年龄', visible: true }, {
+      name: 'sex',
+      label: '性别',
+      visible: true,
+    }],
+    save(cols) {
+      const selectArry = cols.filter(v => v.visible)
+      list.value = [...unionBy(list.value, selectArry, 'name')]
+    },
+  })
 }
 
-watch(()=>list.value,(val)=>{
+watch(() => list.value, (val) => {
 })
 </script>
 
@@ -65,27 +69,27 @@ watch(()=>list.value,(val)=>{
       <RsPlainCard content-class="w-400px p-16px!">
         <n-tabs type="line" animated>
           <n-tab-pane name="props" tab="表格属性">
-            表格属性
+            <TableConfig />
           </n-tab-pane>
           <n-tab-pane name="query" tab="查询条件">
             <n-space vertical>
               <n-space justify="space-between">
                 <label>是否启用查询</label>
-                <n-switch v-model:value="active"/>
+                <n-switch v-model:value="active" />
               </n-space>
               <n-space justify="space-between">
                 <label>是否启用筛查</label>
-                <n-switch v-model:value="active"/>
+                <n-switch v-model:value="active" />
               </n-space>
             </n-space>
             <div class="my-10px">
               查询条件
             </div>
-            <RnConditions @update="editQuery"/>
+            <RnConditions @update="editQuery" />
             <div class="my-10px">
               筛查条件
             </div>
-            <RnConditions v-model="list" button-name="添加筛查条件" @update="editScreen" @add="addScreen"/>
+            <RnConditions v-model="list" button-name="添加筛查条件" @update="editScreen" @add="addScreen" />
           </n-tab-pane>
           <n-tab-pane name="colunmn" tab="表格列设置">
             表格列设置
