@@ -8,8 +8,12 @@ const props = defineProps({
   },
   nameField: {
     type: String,
-    default: 'label'
+    default: 'name'
   },
+  labelField: {
+    type: String,
+    default: 'label'
+  }
 })
 defineExpose({name: 'RnConditions'})
 const emits = defineEmits(['add', 'update'])
@@ -53,7 +57,7 @@ function setVisiable(data, index) {
             <SvgIcon icon="icon-park-outline:drag" class="inline-block align-text-bottom text-16px"/>
           </span>
           <span class="flex-auto h-100% line-height-29px pl-6px text-12px"><slot name="name" :row="element">{{
-              element[props.nameField]
+              element[props.labelField]
             }}</slot></span>
           <span class="b-l-1px w-80px h-100% line-height-32px pl-10px">
             <n-button quaternary size="tiny" @click="setConfig(element,index)">

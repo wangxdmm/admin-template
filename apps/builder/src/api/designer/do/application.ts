@@ -9,7 +9,7 @@ export function designerDoApplicationCreator<T extends Restful<any>>(http: T) {
     defineAPI<'viewSearch', Record<string, any>, TableEntitySearch[]>,
     defineAPI<'getByCode', { code: string }, TableEntitySearch>,
   ]>(
-    '/designer/do',
+    '/designer/do/application',
     [
       'post::/tableEntity/search',
       'post::/tableEntity/saveAndRelease',

@@ -4,9 +4,12 @@ import {useSetDialog} from './block/setDialog'
 import {useColumnCondition} from ":/views/tableBuilder/builder/block/ColumnCondition";
 import type {TableSchema, Column} from '@runafe/unified-api-designer'
 import RsHeaderTree from './block/headerTree.vue'
+import {useColumnDialog} from './block/columnDialog'
+import TableConfig from './tableConfig/view.vue'
 import {unionBy} from "lodash-es";
 
 const columnCondition = useColumnCondition()
+const columnDialog=useColumnDialog()
 const setDialog = useSetDialog()
 const active = ref(false)
 const show = ref(false)
@@ -31,7 +34,7 @@ const tableSchema = ref<TableSchema>({
 })
 const queryConfig = computed(() => tableSchema.value.queryConfig);
 
-const columns = ref<Column[]>()
+const columns = computed<Column[]>(() => tableSchema.value.Columns);
 
 function editQuery(row, index) {
   setDialog.open({
@@ -79,9 +82,28 @@ function addScreen() {
     }
   })
 }
+function editColumn(row,index){
+  columnDialog.open({
+    row,
+    set(data){
+      tableSchema.value.Columns[index]={...tableSchema.value.Columns[index],...data}
+    }
+  })
+}
 
-watch(() => list.value, (val) => {
-})
+function addColumn(){
+  columnCondition.use({
+    columns: [
+      {name: 'name', label: '姓名', matcher: '', visible: true},
+      {name: 'age', label: '年龄', matcher: '', visible: true},
+      {name: 'sex', label: '性别', matcher: '', visible: true}],
+    save(cols) {
+      const selectArry = cols.filter(v => v.visible)
+      tableSchema.value.Columns = [...unionBy(tableSchema.value.Columns, selectArry, 'name')]
+    }
+  })
+}
+
 </script>
 
 <template>
@@ -109,7 +131,7 @@ watch(() => list.value, (val) => {
       <RsPlainCard content-class="w-400px p-16px!">
         <n-tabs type="line" animated>
           <n-tab-pane name="props" tab="表格属性">
-            表格属性
+           <TableConfig/>
           </n-tab-pane>
           <n-tab-pane name="query" tab="查询条件">
             <n-space justify="space-between">
@@ -133,7 +155,7 @@ watch(() => list.value, (val) => {
               <div class="my-10px">
                 表格列设置
               </div>
-              <RnConditions v-model="queryConfig.generalQueryFields" @update="editQuery" @add="addQuery"/>
+              <RnConditions v-model="columns" @update="editColumn" @add="addColumn"/>
               <div class="my-10px">
                 表头分组设置
               </div>
