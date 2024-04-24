@@ -1,7 +1,7 @@
 <script lang="tsx" setup>
 import type { TableSchema } from '@runafe/unified-api-designer'
 import DataSource from './dataSource.vue'
-import StyleConfig from './StyleConfig.vue'
+import StyleConfig from './styleConfig.vue'
 
 const tableConfig = ref<TableSchema>({} as unknown as TableSchema)
 
