@@ -19,11 +19,11 @@ function addCondition() {
   emits('add')
 }
 
-function setConfig(row) {
-  emits('update', row)
+function setConfig(row, index) {
+  emits('update', row, index)
 }
 
-function setVisiable(data, index: number) {
+function setVisiable(data, index) {
   if (index > -1) {
     list.value.splice(index, 1)
   }
@@ -35,7 +35,7 @@ function setVisiable(data, index: number) {
   <div class="w-full m-auto">
     <n-button class="w-full" @click="addCondition">
       <template #icon>
-        <SvgIcon icon="carbon:add" class="inline-block align-text-bottom text-20px" />
+        <SvgIcon icon="carbon:add" class="inline-block align-text-bottom text-20px"/>
       </template>
       {{ props.buttonName ? props.buttonName : '添加查询条件' }}
     </n-button>
@@ -50,18 +50,20 @@ function setVisiable(data, index: number) {
         <li v-for="(element, index) in list" :key="element[props.nameField]"
             class="flex b-1 b-solid h-32px pl-8px flex-sb_c b-#d9e2e8 w-full align--center">
           <span class="h-100% line-height-32px handle cursor-move">
-            <SvgIcon icon="icon-park-outline:drag" class="inline-block align-text-bottom text-16px" />
+            <SvgIcon icon="icon-park-outline:drag" class="inline-block align-text-bottom text-16px"/>
           </span>
-          <span class="flex-auto h-100% line-height-29px pl-6px text-12px"><slot name="name" :row="element">{{ element[props.nameField] }}</slot></span>
+          <span class="flex-auto h-100% line-height-29px pl-6px text-12px"><slot name="name" :row="element">{{
+              element[props.nameField]
+            }}</slot></span>
           <span class="b-l-1px w-80px h-100% line-height-32px pl-10px">
-            <n-button quaternary size="tiny" @click="setConfig(element)">
+            <n-button quaternary size="tiny" @click="setConfig(element,index)">
               <template #icon>
-                <SvgIcon icon="ri:settings-line" class="inline-block align-text-bottom text-16px" />
+                <SvgIcon icon="ri:settings-line" class="inline-block align-text-bottom text-16px"/>
               </template>
             </n-button>
             <n-button quaternary size="tiny" @click="setVisiable(element,index)">
               <template #icon>
-                 <SvgIcon icon="material-symbols:delete-outline" class="inline-block align-text-bottom text-16px" />
+                 <SvgIcon icon="material-symbols:delete-outline" class="inline-block align-text-bottom text-16px"/>
               </template>
             </n-button>
           </span>
