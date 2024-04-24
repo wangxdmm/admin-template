@@ -244,8 +244,8 @@ importers:
         specifier: workspace:^
         version: link:../..
       '@runafe/unified-api-designer':
-        specifier: 0.0.14
-        version: 0.0.14(@monan/easy-axios@1.1.1)
+        specifier: 0.0.15
+        version: 0.0.16(@monan/easy-axios@1.1.1)
       '@runafe/unified-api-user':
         specifier: 0.0.4
         version: 0.0.4(@monan/easy-axios@1.1.1)
@@ -1861,8 +1861,8 @@ packages:
       '@runafe/unified-model': 0.0.3
     dev: false
 
-  /@runafe/unified-api-designer@0.0.14(@monan/easy-axios@1.1.1):
-    resolution: {integrity: sha512-Jxy0/AyqrUQr218BmRQ0t1JuaXUiROGWgSVt5xyIe/+of5Tnm1fjvrJqwnLtlVu1TvhLOV/bxvhWNroP6WHQVg==}
+  /@runafe/unified-api-designer@0.0.16(@monan/easy-axios@1.1.1):
+    resolution: {integrity: sha512-dHilRENa+u1Bxk7hDKDwR1gSWSxOuyMsik/aWzp7GPvtGKdogcSJMPMFnwXN5uH/FTCaDOuq5WhoDhgC9dTjtg==}
     peerDependencies:
       '@monan/easy-axios': ^1.0.12
     dependencies:

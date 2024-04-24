@@ -11,7 +11,7 @@
   "dependencies": {
     "@monan/easy-axios": "^1.1.1",
     "@runafe/easy-admin": "workspace:^",
-    "@runafe/unified-api-designer": "0.0.15",
+    "@runafe/unified-api-designer": "0.0.16",
     "@runafe/unified-api-user": "0.0.4",
     "@runafe/unified-model": "0.0.3",
     "@tsparticles/slim": "^3.3.0",
