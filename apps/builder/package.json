@@ -9,9 +9,9 @@
     "dev:prod": "vite --mode prod"
   },
   "dependencies": {
-    "@monan/easy-axios": "^1.0.12",
+    "@monan/easy-axios": "^1.1.1",
     "@runafe/easy-admin": "workspace:^",
-    "@runafe/unified-api-designer": "0.0.13",
+    "@runafe/unified-api-designer": "0.0.14",
     "@runafe/unified-api-user": "0.0.4",
     "@runafe/unified-model": "0.0.3",
     "@tsparticles/slim": "^3.3.0",
