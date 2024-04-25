@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Column, QueryConfig } from '@runafe/unified-api-designer'
+import type { Column, TableSchema } from '@runafe/unified-api-designer'
 import { unionBy } from 'lodash-es'
 import RnConditions from './block/condition.vue'
 import { useSetDialog } from './block/setDialog'
@@ -7,7 +7,6 @@ import RsHeaderTree from './block/headerTree.vue'
 import { useColumnDialog } from './block/columnDialog'
 import TableConfig from './tableConfig/view.vue'
 import ActionConfig from './actionConfig/view.vue'
-
 import { useColumnCondition } from ':/views/tableBuilder/builder/block/ColumnCondition'
 
 const columnCondition = useColumnCondition()
@@ -16,19 +15,35 @@ const setDialog = useSetDialog()
 const active = ref(false)
 const show = ref(false)
 const list = ref([])
-const queryConfig = ref<QueryConfig>({
-  enabled: false, // 启用
-  generalQueryFields: [], // 普通查询字段
-  advancedQueryFields: [], // 高级查询字段
+
+const tableSchema = ref<TableSchema>({
+  code: '',
+  name: '',
+  appCode: '',
+  desc: '',
+  dataSource: {},
+  metrics: [],
+  ActionConfig: {},
+  StyleConfig: {},
+  Columns: [],
+  HeaderColumns: [],
+  Pagination: {},
+  queryConfig: {
+    enabled: false, // 启用
+    generalQueryFields: [], // 普通查询字段
+    advancedQueryFields: [], // 高级查询字段
+  },
 })
+const queryConfig = computed(() => tableSchema.value.queryConfig)
 
-const columns = computed<Column[]>(() => tableSchema.value.Columns)
+const columns = ref<Column[]>()
 
-function editQuery(row) {
+function editQuery(row, index) {
   setDialog.open({
     type: 1,
-    set(row) {
-
+    row,
+    set(data) {
+      queryConfig.value.generalQueryFields[index] = { ...data }
     },
   })
 }
@@ -47,11 +62,12 @@ function addQuery() {
   })
 }
 
-function editScreen(row) {
+function editScreen(row, index) {
   setDialog.open({
     type: 2,
-    set(row) {
-
+    row,
+    set(data) {
+      queryConfig.value.advancedQueryFields[index] = { ...data }
     },
   })
 }
@@ -65,7 +81,7 @@ function addScreen() {
     ],
     save(cols) {
       const selectArry = cols.filter(v => v.visible)
-      queryConfig.value.advancedQueryFields = [...unionBy(list.value, selectArry, 'name')]
+      queryConfig.value.advancedQueryFields = [...unionBy(queryConfig.value.advancedQueryFields, selectArry, 'name')]
     },
   })
 }
@@ -111,7 +127,9 @@ function addColumn() {
         发布
       </NButton>
     </div>
-    <div>{{ queryConfig }}</div>
+    <div>
+      <pre>{{ tableSchema }}</pre>
+    </div>
     <div class="absolute right-0 top-4px bottom-4px">
       <RsPlainCard content-class="w-400px p-16px! overflow-y-scroll">
         <n-tabs type="line" animated>
