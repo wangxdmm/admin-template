@@ -3,7 +3,7 @@ import { FormKit, FormKitSchema } from '@formkit/vue'
 import { getNode } from '@formkit/core'
 import { ref } from 'vue'
 import { useDialog } from 'naive-ui'
-import type { ModelsAllEntity, TableEntitySearch } from ':/typings/designer'
+import type { viewModelEntity, TableEntitySearch } from ':/typings/designer'
 import { designerDoApplication } from ':/api'
 import { RCriterias, RQuery } from ':/utils/query'
 
@@ -15,7 +15,7 @@ export function useEditDialog() {
   })
 
   function open(options: {
-    row?: ModelsAllEntity
+    row?: viewModelEntity
     type: number
     reload: () => void
   }) {

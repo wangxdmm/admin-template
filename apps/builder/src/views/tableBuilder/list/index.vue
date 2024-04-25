@@ -4,7 +4,7 @@ import { defineDataTable } from '@runafe/magic-system'
 import { NButton, NPopconfirm, NSpace, useDialog } from 'naive-ui'
 import dayjs from 'dayjs'
 import { useEditDialog } from './editDialog'
-import type { ModelsAllEntity } from ':/typings/designer'
+import type { viewModelEntity } from ':/typings/designer'
 import { designerDoApplication } from ':/api'
 import { RCriterias, RQuery } from ':/utils/query/index'
 
@@ -61,7 +61,7 @@ const columns = [
     width: 200,
     sortable: false,
     slots: {
-      default: ({ row }: { row: ModelsAllEntity }) => {
+      default: ({ row }: { row: viewModelEntity }) => {
         return row.createdAt
           ? dayjs(row.createdAt).format('YYYY-MM-DD HH:mm:ss')
           : null
@@ -75,7 +75,7 @@ const columns = [
     width: 190,
     fixed: 'right',
     slots: {
-      default: ({ row }: { row: ModelsAllEntity }) => {
+      default: ({ row }: { row: viewModelEntity }) => {
         return (
           <NSpace>
             <NButton
@@ -108,7 +108,7 @@ const columns = [
     },
   },
 ]
-const Table = defineDataTable<ModelsAllEntity>(columns as TODO, {
+const Table = defineDataTable<viewModelEntity>(columns as TODO, {
   // remoteConfig: { name: 'dataGrid_cbbManage' },
   immediate: true,
   checkedOnClick: true,
@@ -134,7 +134,7 @@ const Table = defineDataTable<ModelsAllEntity>(columns as TODO, {
   },
 })
 
-function operationHandle(row: ModelsAllEntity, type: number) {
+function operationHandle(row: viewModelEntity, type: number) {
   // 编辑表格
   if (type === 1) {
     editDialog.open({

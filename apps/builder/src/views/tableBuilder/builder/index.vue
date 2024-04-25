@@ -1,109 +1,96 @@
 <script lang="ts" setup>
+import type { Column, QueryConfig } from '@runafe/unified-api-designer'
+import { unionBy } from 'lodash-es'
 import RnConditions from './block/condition.vue'
-import {useSetDialog} from './block/setDialog'
-import {useColumnCondition} from ":/views/tableBuilder/builder/block/ColumnCondition";
-import type {TableSchema, Column} from '@runafe/unified-api-designer'
+import { useSetDialog } from './block/setDialog'
 import RsHeaderTree from './block/headerTree.vue'
-import {useColumnDialog} from './block/columnDialog'
+import { useColumnDialog } from './block/columnDialog'
 import TableConfig from './tableConfig/view.vue'
-import {unionBy} from "lodash-es";
+import ActionConfig from './actionConfig/view.vue'
+
+import { useColumnCondition } from ':/views/tableBuilder/builder/block/ColumnCondition'
 
 const columnCondition = useColumnCondition()
-const columnDialog=useColumnDialog()
+const columnDialog = useColumnDialog()
 const setDialog = useSetDialog()
 const active = ref(false)
 const show = ref(false)
 const list = ref([])
-const tableSchema = ref<TableSchema>({
-  code: '',
-  name: '',
-  appCode: '',
-  desc: '',
-  dataSource: {},
-  metrics: [],
-  ActionConfig: {},
-  StyleConfig: {},
-  Columns: [],
-  HeaderColumns: [],
-  Pagination: {},
-  queryConfig: {
-    enabled: false,//启用
-    generalQueryFields: [],//普通查询字段
-    advancedQueryFields: []//高级查询字段
-  }
+const queryConfig = ref<QueryConfig>({
+  enabled: false, // 启用
+  generalQueryFields: [], // 普通查询字段
+  advancedQueryFields: [], // 高级查询字段
 })
-const queryConfig = computed(() => tableSchema.value.queryConfig);
 
-const columns = computed<Column[]>(() => tableSchema.value.Columns);
+const columns = computed<Column[]>(() => tableSchema.value.Columns)
 
-function editQuery(row, index) {
+function editQuery(row) {
   setDialog.open({
     type: 1,
-    row,
-    set(data) {
-      queryConfig.value.generalQueryFields[index] = {...data}
-    }
+    set(row) {
+
+    },
   })
 }
 
 function addQuery() {
   columnCondition.use({
     columns: [
-      {name: 'name', label: '姓名', matcher: '', inputComponent: '', defaultValue: '', visible: true},
-      {name: 'age', label: '年龄', matcher: '', inputComponent: '', defaultValue: '', visible: true},
-      {name: 'sex', label: '性别', matcher: '', inputComponent: '', defaultValue: '', visible: true}
+      { name: 'name', label: '姓名', matcher: '', inputComponent: '', defaultValue: '', visible: true },
+      { name: 'age', label: '年龄', matcher: '', inputComponent: '', defaultValue: '', visible: true },
+      { name: 'sex', label: '性别', matcher: '', inputComponent: '', defaultValue: '', visible: true },
     ],
     save(cols) {
       const selectArry = cols.filter(v => v.visible)
-      queryConfig.value.generalQueryFields = [...unionBy(queryConfig.value.generalQueryFields, selectArry, 'name')]
-    }
+      queryConfig.value.generalQueryFields = [...unionBy(list.value, selectArry, 'name')]
+    },
   })
 }
 
-function editScreen(row, index) {
+function editScreen(row) {
   setDialog.open({
     type: 2,
-    row,
-    set(data) {
-      queryConfig.value.advancedQueryFields[index] = {...data}
-    }
+    set(row) {
+
+    },
   })
 }
 
 function addScreen() {
   columnCondition.use({
     columns: [
-      {name: 'name', label: '姓名', matcher: '', visible: true},
-      {name: 'age', label: '年龄', matcher: '', visible: true},
-      {name: 'sex', label: '性别', matcher: '', visible: true}],
+      { name: 'name', label: '姓名', matcher: '', visible: true },
+      { name: 'age', label: '年龄', matcher: '', visible: true },
+      { name: 'sex', label: '性别', matcher: '', visible: true },
+    ],
     save(cols) {
       const selectArry = cols.filter(v => v.visible)
-      queryConfig.value.advancedQueryFields = [...unionBy(queryConfig.value.advancedQueryFields, selectArry, 'name')]
-    }
+      queryConfig.value.advancedQueryFields = [...unionBy(list.value, selectArry, 'name')]
+    },
   })
 }
-function editColumn(row,index){
+function editColumn(row, index) {
   columnDialog.open({
     row,
-    set(data){
-      tableSchema.value.Columns[index]={...tableSchema.value.Columns[index],...data}
-    }
+    set(data) {
+      tableSchema.value.Columns[index] = { ...tableSchema.value.Columns[index], ...data }
+    },
   })
 }
 
-function addColumn(){
+function addColumn() {
   columnCondition.use({
     columns: [
-      {name: 'name', label: '姓名', matcher: '', visible: true},
-      {name: 'age', label: '年龄', matcher: '', visible: true},
-      {name: 'sex', label: '性别', matcher: '', visible: true}],
+      { name: 'name', label: '姓名', matcher: '', visible: true },
+      { name: 'age', label: '年龄', matcher: '', visible: true },
+      { name: 'sex', label: '性别', matcher: '', visible: true },
+    ],
     save(cols) {
       const selectArry = cols.filter(v => v.visible)
       tableSchema.value.Columns = [...unionBy(tableSchema.value.Columns, selectArry, 'name')]
-    }
+    },
   })
 }
-
 </script>
 
 <template>
@@ -124,24 +111,23 @@ function addColumn(){
         发布
       </NButton>
     </div>
-    <div>
-      <pre>{{ tableSchema }}</pre>
-    </div>
+    <div>{{ queryConfig }}</div>
     <div class="absolute right-0 top-4px bottom-4px">
-      <RsPlainCard content-class="w-400px p-16px!">
+      <RsPlainCard content-class="w-400px p-16px! overflow-y-scroll">
         <n-tabs type="line" animated>
           <n-tab-pane name="props" tab="表格属性">
-           <TableConfig/>
+            <TableConfig />
           </n-tab-pane>
+
           <n-tab-pane name="query" tab="查询条件">
             <n-space justify="space-between">
               <label>启用</label>
-              <n-switch v-model:value="queryConfig.enabled"/>
+              <n-switch v-model:value="queryConfig.enabled" />
             </n-space>
             <div class="my-10px">
               查询条件
             </div>
-            <RnConditions v-model="queryConfig.generalQueryFields" @update="editQuery" @add="addQuery"/>
+            <RnConditions v-model="queryConfig.generalQueryFields" @update="editQuery" @add="addQuery" />
             <div class="my-10px">
               筛查条件
             </div>
@@ -155,21 +141,21 @@ function addColumn(){
               <div class="my-10px">
                 表格列设置
               </div>
-              <RnConditions v-model="columns" @update="editColumn" @add="addColumn"/>
+              <RnConditions v-model="columns" @update="editColumn" @add="addColumn" />
               <div class="my-10px">
                 表头分组设置
               </div>
               <n-button class="w-full">
                 <template #icon>
-                  <SvgIcon icon="carbon:add" class="inline-block align-text-bottom text-20px"/>
+                  <SvgIcon icon="carbon:add" class="inline-block align-text-bottom text-20px" />
                 </template>
                 添加表头分组
               </n-button>
-              <RsHeaderTree/>
+              <RsHeaderTree />
             </n-scrollbar>
           </n-tab-pane>
           <n-tab-pane name="actions" tab="功能设置">
-            功能设置
+            <ActionConfig />
           </n-tab-pane>
           <n-tab-pane name="feature" tab="添加表格列">
             统计指标

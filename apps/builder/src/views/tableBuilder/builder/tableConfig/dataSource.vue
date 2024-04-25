@@ -2,9 +2,10 @@
 import type { DataSource } from '@runafe/unified-api-designer'
 import type { FormKitSchemaDefinition } from '@formkit/core'
 import { titleClass } from '../share'
+import { viewModels } from '../useData'
 
 const dataSource = ref<DataSource>({
-  viewModelCode: 'string',
+  viewModelCode: 'adept-settlement',
   serverName: 'string',
   filter: 'string',
   loadOnInit: true,
@@ -22,9 +23,11 @@ const schema: FormKitSchemaDefinition = [
   {
     $formkit: 'n:select',
     name: 'viewModelCode',
-    label: '视图编号',
+    label: '视图',
     validation: 'required',
-    options: '$options.viewModel',
+    options: '$viewModels',
+    valueField: 'code',
+    labelField: 'name',
   },
   {
     $formkit: 'n:text',
@@ -48,12 +51,16 @@ const schema: FormKitSchemaDefinition = [
     label: '是否启用初始加载数据',
   },
 ]
+
+const data = {
+  viewModels,
+}
 </script>
 
 <template>
   <div>
     <FormKit v-model="dataSource" type="form" :actions="false" :incomplete-message="false">
-      <FormKitSchema :schema />
+      <FormKitSchema :schema :data />
     </FormKit>
   </div>
 </template>

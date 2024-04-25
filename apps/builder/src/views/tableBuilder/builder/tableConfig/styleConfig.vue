@@ -2,6 +2,7 @@
 import type { ColorSchema, StyleConfig } from '@runafe/unified-api-designer'
 import type { FormKitNode, FormKitSchemaDefinition } from '@formkit/core'
 import { defineModal } from '@runafe/magic-system'
+import { FormKit, FormKitSchema } from '@formkit/vue'
 import RnConditions from '../block/condition.vue'
 
 const styleConfig = ref<StyleConfig>({
@@ -20,7 +21,12 @@ const data = {
   },
   titleClass: 'font-bold m-b-10px',
   actions: {
-    bgAdd,
+    bgAdd: () => {
+      bgEdit()
+    },
+    bgEdit: (row) => {
+      bgEdit(row)
+    },
   },
 }
 
@@ -68,7 +74,10 @@ const schema: FormKitSchemaDefinition = [
       modelValue: '$styleConfig.rowBackgroundColors',
       buttonName: '添加行背景色',
       onAdd: '$actions.bgAdd',
+      onUpdate: '$actions.bgEdit',
       nameField: 'name',
+      class: 'm-b-20px',
+
     },
   },
 ]
@@ -94,12 +103,12 @@ const bgConfigSchema: FormKitSchemaDefinition = [
   },
 ]
 
-function bgAdd() {
-  const bgForm = ref<ColorSchema>({} as ColorSchema)
+function bgEdit(row?: ColorSchema) {
+  const bgForm = ref<ColorSchema>(row || {} as ColorSchema)
   let formNode: FormKitNode
   load({
     title: () => '背景颜色',
-    default: () => <FormKit type="form"
+    default: () => (<FormKit type="form"
             v-model={bgForm.value}
             onNode={(n: FormKitNode) => {
               formNode = n
@@ -111,7 +120,7 @@ function bgAdd() {
               close()
             }}>
       <FormKitSchema schema={bgConfigSchema} ></FormKitSchema>
-    </FormKit>,
+    </FormKit>),
     footer: () => [
       <n-button onClick={() => {
         close()
@@ -134,8 +143,8 @@ function bgAdd() {
 
 <template>
   <div>
-    <FormKit v-model="styleConfig" type="form" :actions="false" :incomplete-message="false" :library>
-      <FormKitSchema :schema :data />
+    <FormKit v-model="styleConfig" type="form" :actions="false" :incomplete-message="false">
+      <FormKitSchema :schema :data :library />
     </FormKit>
   </div>
 </template>

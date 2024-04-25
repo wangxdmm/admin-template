@@ -1,4 +1,4 @@
-export interface ModelsAllEntity {
+export interface viewModelEntity {
   appCode: string
   code: string
   desc: string
