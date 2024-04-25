@@ -8,6 +8,7 @@ import { useColumnDialog } from './block/columnDialog'
 import TableConfig from './tableConfig/view.vue'
 import ActionConfig from './actionConfig/view.vue'
 import { useColumnCondition } from ':/views/tableBuilder/builder/block/ColumnCondition'
+import { designerDoApplication } from ':/api'
 
 const columnCondition = useColumnCondition()
 const columnDialog = useColumnDialog()
@@ -104,6 +105,15 @@ function addColumn() {
 
   })
 }
+async function loadCode() {
+  const { backData } = await designerDoApplication.getByCode({ code: 'CHARGE-charge-manager_preferentialConfig-Vie' })()
+  if (backData) {
+    console.log(backData)
+  }
+}
+onMounted(() => {
+  loadCode()
+})
 </script>
 
 <template>
@@ -160,12 +170,6 @@ function addColumn() {
               <div class="my-10px">
                 表头分组设置
               </div>
-              <n-button class="w-full">
-                <template #icon>
-                  <SvgIcon icon="carbon:add" class="inline-block align-text-bottom text-20px" />
-                </template>
-                添加表头分组
-              </n-button>
               <RsHeaderTree />
             </n-scrollbar>
           </n-tab-pane>

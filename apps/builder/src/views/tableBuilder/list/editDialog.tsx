@@ -8,7 +8,6 @@ import { designerDoApplication } from ':/api'
 import { RCriterias, RQuery } from ':/utils/query'
 
 const editDialog = useDialog()
-
 export function useEditDialog() {
   const modal = defineModal({
     width: 500,
@@ -84,9 +83,13 @@ export function useEditDialog() {
     }
     loadView()
     async function submit() {
+
       const values = getNode('FormKitRef')?.value
+      const param={dataSource:{
+        viewModelCode:values.code
+      },...values}
       const { result, message }
-        = await designerDoApplication.saveAndRelease(values)()
+        = await designerDoApplication.saveAndRelease(param)()
       if (result) {
         modal.close()
         editDialog.success(message)

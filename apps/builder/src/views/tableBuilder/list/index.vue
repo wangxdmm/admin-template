@@ -1,12 +1,13 @@
 <script setup lang="tsx">
-import { reactive, ref } from 'vue'
-import { defineDataTable } from '@runafe/magic-system'
-import { NButton, NPopconfirm, NSpace, useDialog } from 'naive-ui'
+import {reactive, ref} from 'vue'
+import {useRouter} from 'vue-router';
+import {defineDataTable} from '@runafe/magic-system'
+import {NButton, NPopconfirm, NSpace, useDialog} from 'naive-ui'
 import dayjs from 'dayjs'
-import { useEditDialog } from './editDialog'
-import type { viewModelEntity } from ':/typings/designer'
-import { designerDoApplication } from ':/api'
-import { RCriterias, RQuery } from ':/utils/query/index'
+import {useEditDialog} from './editDialog'
+import type {viewModelEntity} from ':/typings/designer'
+import {designerDoApplication} from ':/api'
+import {RCriterias, RQuery} from ':/utils/query/index'
 
 const schema = [
   {
@@ -25,6 +26,7 @@ const defaultValue = ref({})
 const formData = reactive({})
 const editDialog = useEditDialog()
 const rsDialog = useDialog()
+const router = useRouter()
 const columns = [
   {
     field: 'code',
@@ -61,7 +63,7 @@ const columns = [
     width: 200,
     sortable: false,
     slots: {
-      default: ({ row }: { row: viewModelEntity }) => {
+      default: ({row}: { row: viewModelEntity }) => {
         return row.createdAt
           ? dayjs(row.createdAt).format('YYYY-MM-DD HH:mm:ss')
           : null
@@ -75,7 +77,7 @@ const columns = [
     width: 190,
     fixed: 'right',
     slots: {
-      default: ({ row }: { row: viewModelEntity }) => {
+      default: ({row}: { row: viewModelEntity }) => {
         return (
           <NSpace>
             <NButton
@@ -113,7 +115,7 @@ const Table = defineDataTable<viewModelEntity>(columns as TODO, {
   immediate: true,
   checkedOnClick: true,
   getData: async (params, ctx) => {
-    const { pageIndex, pageSize } = params
+    const {pageIndex, pageSize} = params
     const query = RQuery.of(
       RCriterias.must(RCriterias.eq('appCode', 'CHARGE'))
         .must(RCriterias.eq('name', defaultValue.value.name ?? null))
@@ -122,7 +124,7 @@ const Table = defineDataTable<viewModelEntity>(columns as TODO, {
       pageIndex,
       pageSize,
     )
-    const { wholeData } = await designerDoApplication.search(query)()
+    const {wholeData} = await designerDoApplication.search(query)()
     if (wholeData) {
       ctx.setData(wholeData.data)
       return [
@@ -146,7 +148,7 @@ function operationHandle(row: viewModelEntity, type: number) {
     })
   }
   if (type === 2) {
-    // todo
+    router.push({path:'/tableBuilder/builde',query:{code:row.code}})
   }
   // 删除数据
   if (type === 3) {
@@ -155,7 +157,7 @@ function operationHandle(row: viewModelEntity, type: number) {
 }
 
 async function deleteData(code: string) {
-  const { result, message } = await designerDoApplication.deleteAndRelease({
+  const {result, message} = await designerDoApplication.deleteAndRelease({
     code,
   })()
   if (result) {
@@ -208,7 +210,7 @@ function add() {
         </rs-search>
       </template>
       <template #default="{ height }">
-        <Table.Component :height />
+        <Table.Component :height/>
       </template>
     </rs-content>
   </rs-page>
