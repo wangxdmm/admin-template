@@ -2,8 +2,14 @@
 import type { ActionConfig } from '@runafe/unified-api-designer'
 import type { FormKitSchemaDefinition } from '@formkit/core'
 import { titleClass } from '../share'
+import { tableSchema } from '../tableSchema'
 
-const rowSelect = ref<ActionConfig['treeTable']>({})
+const treeTable = computed<ActionConfig['treeTable']>({
+  get: () => tableSchema.value.actionConfig?.treeTable || {},
+  set: (val) => {
+    tableSchema.value.actionConfig!.treeTable = val
+  },
+})
 
 const schema: FormKitSchemaDefinition = [
   {
@@ -45,7 +51,7 @@ const data = {
 
 <template>
   <div>
-    <FormKit v-model="rowSelect" type="form" :actions="false" :incomplete-message="false">
+    <FormKit v-model="treeTable" type="form" :actions="false" :incomplete-message="false">
       <FormKitSchema :schema :data />
     </FormKit>
   </div>

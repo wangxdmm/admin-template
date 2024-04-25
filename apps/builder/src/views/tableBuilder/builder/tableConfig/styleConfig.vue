@@ -4,12 +4,13 @@ import type { FormKitNode, FormKitSchemaDefinition } from '@formkit/core'
 import { defineModal } from '@runafe/magic-system'
 import { FormKit, FormKitSchema } from '@formkit/vue'
 import RnConditions from '../block/condition.vue'
+import { tableSchema } from '../tableSchema'
 
-const styleConfig = ref<StyleConfig>({
-  rowBackgroundColors: [
-    { value: '#12234a', condition: '$', name: '报停' },
-    { value: '#12234a', condition: '$', name: '报停1' },
-  ],
+const styleConfig = computed<StyleConfig>({
+  get: () => tableSchema.value.styleConfig,
+  set: (val) => {
+    tableSchema.value.styleConfig = val
+  },
 })
 
 const { close, load } = defineModal({ width: 600 })
@@ -24,7 +25,7 @@ const data = {
     bgAdd: () => {
       bgEdit()
     },
-    bgEdit: (row) => {
+    bgEdit: (row: ColorSchema) => {
       bgEdit(row)
     },
   },
@@ -75,7 +76,7 @@ const schema: FormKitSchemaDefinition = [
       buttonName: '添加行背景色',
       onAdd: '$actions.bgAdd',
       onUpdate: '$actions.bgEdit',
-      nameField: 'name',
+      labelField: 'name',
       class: 'm-b-20px',
 
     },

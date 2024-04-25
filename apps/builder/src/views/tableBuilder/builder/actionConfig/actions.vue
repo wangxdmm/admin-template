@@ -20,7 +20,7 @@ function add() {
   const formValue = ref<UnifiedAction>({} as UnifiedAction)
   let formNode: FormKitNode
   load({
-    title: () => '表格功能',
+    title: () => props.title,
     default: () => <FormKit type="form"
             v-model={formValue.value}
             onNode={(n: FormKitNode) => {

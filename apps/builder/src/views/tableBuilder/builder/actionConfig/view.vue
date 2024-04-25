@@ -1,23 +1,37 @@
 <script lang="tsx" setup>
 import type { UnifiedAction } from '@runafe/unified-api-designer'
+import { tableSchema } from '../tableSchema'
 import RowSelect from './rowSelect.vue'
 import TreeTable from './treeTable.vue'
 import Actions from './actions.vue'
 
-const generalButtons = ref<UnifiedAction[]>([
-  { name: '111', label: '删除' },
-] as UnifiedAction[])
+const generalButtons = computed<UnifiedAction[]>({
+  get: () => tableSchema.value.actionConfig?.generalButtons || [],
+  set: (val) => {
+    tableSchema.value.actionConfig!.generalButtons = val
+  },
+})
 
-const rowButtons = ref<UnifiedAction[]>([
-  { name: '111', label: '删除' },
-] as UnifiedAction[])
+const rowButtons = computed<UnifiedAction[]>({
+  get: () => tableSchema.value.actionConfig?.rowButtons || [],
+  set: (val) => {
+    tableSchema.value.actionConfig!.rowButtons = val
+  },
+})
 
-const cellActions = ref<UnifiedAction[]>([
-  { name: '111', label: '删除' },
-] as UnifiedAction[])
-const rightClickMenus = ref<UnifiedAction[]>([
-  { name: '111', label: '删除' },
-] as UnifiedAction[])
+const cellActions = computed<UnifiedAction[]>({
+  get: () => tableSchema.value.actionConfig?.cellActions || [],
+  set: (val) => {
+    tableSchema.value.actionConfig!.cellActions = val
+  },
+})
+
+const rightClickMenus = computed<UnifiedAction[]>({
+  get: () => tableSchema.value.actionConfig?.rightClickMenus || [],
+  set: (val) => {
+    tableSchema.value.actionConfig!.rightClickMenus = val
+  },
+})
 </script>
 
 <template>

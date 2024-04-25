@@ -2,8 +2,14 @@
 import type { ActionConfig } from '@runafe/unified-api-designer'
 import type { FormKitSchemaDefinition } from '@formkit/core'
 import { titleClass } from '../share'
+import { tableSchema } from '../tableSchema'
 
-const rowSelect = ref<ActionConfig['rowSelect']>({})
+const rowSelect = computed<ActionConfig['rowSelect']>({
+  get: () => tableSchema.value.actionConfig?.rowSelect || {},
+  set: (val) => {
+    tableSchema.value.actionConfig!.rowSelect = val
+  },
+})
 
 const schema: FormKitSchemaDefinition = [
   {

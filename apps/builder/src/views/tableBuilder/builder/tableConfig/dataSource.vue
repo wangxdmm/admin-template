@@ -3,13 +3,13 @@ import type { DataSource } from '@runafe/unified-api-designer'
 import type { FormKitSchemaDefinition } from '@formkit/core'
 import { titleClass } from '../share'
 import { viewModels } from '../useData'
+import { tableSchema } from '../tableSchema'
 
-const dataSource = ref<DataSource>({
-  viewModelCode: 'adept-settlement',
-  serverName: 'string',
-  filter: 'string',
-  loadOnInit: true,
-  primaryKeyFieldName: 'string',
+const dataSource = computed<DataSource>({
+  get: () => tableSchema.value.dataSource || {},
+  set: (val) => {
+    tableSchema.value.dataSource = val
+  },
 })
 
 const schema: FormKitSchemaDefinition = [
@@ -59,7 +59,7 @@ const data = {
 
 <template>
   <div>
-    <FormKit v-model="dataSource" type="form" :actions="false" :incomplete-message="false">
+    <FormKit v-model="dataSource as TODO" type="form" :actions="false" :incomplete-message="false">
       <FormKitSchema :schema :data />
     </FormKit>
   </div>
