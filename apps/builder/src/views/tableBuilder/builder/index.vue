@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Column, TableSchema } from '@runafe/unified-api-designer'
+import type { TableSchema } from '@runafe/unified-api-designer'
 import { unionBy } from 'lodash-es'
 import RnConditions from './block/condition.vue'
 import { useSetDialog } from './block/setDialog'
@@ -12,22 +12,18 @@ import { useColumnCondition } from ':/views/tableBuilder/builder/block/ColumnCon
 const columnCondition = useColumnCondition()
 const columnDialog = useColumnDialog()
 const setDialog = useSetDialog()
-const active = ref(false)
 const show = ref(false)
 const list = ref([])
-
 const tableSchema = ref<TableSchema>({
   code: '',
   name: '',
   appCode: '',
   desc: '',
-  dataSource: {},
+  dataSource: { viewModelCode: '', primaryKeyFieldName: '', serverName: '', filter: '', loadOnInit: false },
   metrics: [],
-  ActionConfig: {},
-  StyleConfig: {},
-  Columns: [],
-  HeaderColumns: [],
-  Pagination: {},
+  columns: [],
+  headerColumns: [],
+  pagination: {},
   queryConfig: {
     enabled: false, // 启用
     generalQueryFields: [], // 普通查询字段
@@ -36,7 +32,7 @@ const tableSchema = ref<TableSchema>({
 })
 const queryConfig = computed(() => tableSchema.value.queryConfig)
 
-const columns = ref<Column[]>()
+const columns = computed(() => tableSchema.value.columns)
 
 function editQuery(row, index) {
   setDialog.open({
@@ -89,7 +85,7 @@ function editColumn(row, index) {
   columnDialog.open({
     row,
     set(data) {
-      tableSchema.value.Columns[index] = { ...tableSchema.value.Columns[index], ...data }
+      tableSchema.value.columns[index] = { ...tableSchema.value.columns[index], ...data }
     },
   })
 }
@@ -103,8 +99,9 @@ function addColumn() {
     ],
     save(cols) {
       const selectArry = cols.filter(v => v.visible)
-      tableSchema.value.Columns = [...unionBy(tableSchema.value.Columns, selectArry, 'name')]
+      tableSchema.value.columns = [...unionBy(tableSchema.value.columns, selectArry, 'name')]
     },
+
   })
 }
 </script>
