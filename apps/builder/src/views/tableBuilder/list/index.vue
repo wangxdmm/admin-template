@@ -111,7 +111,6 @@ const columns = [
   },
 ]
 const Table = defineDataTable<viewModelEntity>(columns as TODO, {
-  // remoteConfig: { name: 'dataGrid_cbbManage' },
   immediate: true,
   checkedOnClick: true,
   getData: async (params, ctx) => {
@@ -148,7 +147,7 @@ function operationHandle(row: viewModelEntity, type: number) {
     })
   }
   if (type === 2) {
-    router.push({path:'/tableBuilder/builde',query:{code:row.code}})
+    router.push({path:'/tableBuilder/builder',query:{code:row.code}})
   }
   // 删除数据
   if (type === 3) {
@@ -201,11 +200,6 @@ function add() {
             <NButton type="primary" @click="add">
               新增表格
             </NButton>
-            <ButtonIcon
-              icon="tdesign:setting"
-              class="absolute right-0"
-              @click="Table.remote?.use()"
-            />
           </template>
         </rs-search>
       </template>

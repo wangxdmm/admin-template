@@ -6,9 +6,8 @@ import { useDialog } from 'naive-ui'
 import type { viewModelEntity, TableEntitySearch } from ':/typings/designer'
 import { designerDoApplication } from ':/api'
 import { RCriterias, RQuery } from ':/utils/query'
-
-const editDialog = useDialog()
 export function useEditDialog() {
+  const editDialog = useDialog()
   const modal = defineModal({
     width: 500,
   })
