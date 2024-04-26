@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, h, ref, watch } from 'vue'
+import { type VNodeChild, computed, h, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import type { MentionOption, MenuProps } from 'naive-ui'
 import { SimpleScrollbar } from ':/materials/src'
@@ -56,16 +56,16 @@ function handleClickMenu(key: RouteKey) {
   routerPushByKey(key)
 }
 
-function renderLabel(options: MentionOption) {
+function renderLabel(options: MentionOption): VNodeChild {
   if (options.icon) {
-    return options.label
+    return options.label as string
   }
   else {
     return [
       h('span', {
         class: 'mr-12px',
       }),
-      options.label,
+      options.label as string,
     ]
   }
 }
