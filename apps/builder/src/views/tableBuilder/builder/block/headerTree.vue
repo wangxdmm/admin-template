@@ -1,16 +1,16 @@
 <script setup lang="tsx">
-import {reactive, ref} from 'vue'
-import type {TreeOption, TreeDropInfo} from 'naive-ui'
-import {NSpace} from 'naive-ui'
-import {isArray} from 'lodash-es'
-import {defineModal} from '@runafe/magic-system'
-import type {Column, HeaderColumn} from '@runafe/unified-api-designer'
-import {TableHeaderType} from '@runafe/unified-api-designer'
-import {FormKit, FormKitSchema} from '@formkit/vue'
-import {useColumnCondition} from './ColumnCondition'
-import {FormKitSchemaDefinition} from "@formkit/core";
+import { reactive, ref } from 'vue'
+import type { TreeDropInfo, TreeOption } from 'naive-ui'
+import { NSpace } from 'naive-ui'
+import { isArray } from 'lodash-es'
+import { defineModal } from '@runafe/magic-system'
+import type { Column, HeaderColumn } from '@runafe/unified-api-designer'
+import { TableHeaderType } from '@runafe/unified-api-designer'
+import { FormKit, FormKitSchema } from '@formkit/vue'
+import type { FormKitSchemaDefinition } from '@formkit/core'
+import { useColumnCondition } from './ColumnCondition'
 
-defineExpose({name: 'RsHeaderTree'})
+defineExpose({ name: 'RsHeaderTree' })
 
 function createLabel(level: number): string {
   if (level === 4) {
@@ -32,9 +32,9 @@ const modal = defineModal({
   width: 300,
 })
 const columnCondition = useColumnCondition()
-const tableHeaderType = ref([{label: '分组', value: TableHeaderType.GROUP}, {
+const tableHeaderType = ref([{ label: '分组', value: TableHeaderType.GROUP }, {
   label: '列',
-  value: TableHeaderType.COLUMN
+  value: TableHeaderType.COLUMN,
 }])
 const selectType = ref<TableHeaderType>(TableHeaderType.GROUP)
 const treeData = ref(createData())
@@ -57,22 +57,24 @@ function updateNode(tree, newNode, key?: string, operation?: string) {
   // 递归函数，用于在树中查找和更新节点
   function traverseAndUpdate(nodes) {
     for (let i = 0; i < nodes.length; i++) {
-      const currentNode = nodes[i];
+      const currentNode = nodes[i]
       if (currentNode[key] === newNode[key]) {
         // 如果找到匹配的节点，则更新它
         if (operation === 'add') {
-          currentNode.children = currentNode.children || []; // 确保children数组存在
-          currentNode.children.push(newNode);
-        } else if (operation === 'delete') {
-          nodes.splice(i, 1);
-        } else {
-          Object.assign(currentNode, newNode);
+          currentNode.children = currentNode.children || [] // 确保children数组存在
+          currentNode.children.push(newNode)
         }
-        return; // 更新后退出循环
+        else if (operation === 'delete') {
+          nodes.splice(i, 1)
+        }
+        else {
+          Object.assign(currentNode, newNode)
+        }
+        return // 更新后退出循环
       }
       if (currentNode.children) {
         // 递归检查子节点
-        traverseAndUpdate(currentNode.children);
+        traverseAndUpdate(currentNode.children)
       }
     }
   }
@@ -86,7 +88,8 @@ function add(row) {
       key: (Math.random() * 1000).toFixed(3),
       children: [],
     }]
-  } else {
+  }
+  else {
     row.option.children = [...row.option.children, {
       label: 'Node 2',
       key: (Math.random() * 1000).toFixed(3),
@@ -95,12 +98,12 @@ function add(row) {
   }
 }
 
-function edit({option}) {
+function edit({ option }) {
   option.label = '1111'
   updateNode(treeData.value, option, 'key', 'edit')
 }
 
-function del({option}: { option: TreeOption }) {
+function del({ option }: { option: TreeOption }) {
   updateNode(treeData.value, option, 'key', 'delete')
 }
 
@@ -122,73 +125,76 @@ function createData(level = 4, baseKey = ''): TreeOption[] | undefined {
 function renderSuffix(row) {
   return (<NSpace>
     <n-button quaternary size="tiny" onClick={() => {
-      addHeader({row})
+      addHeader({ row })
     }}>
-      <SvgIcon icon="icon-park-outline:add" class="text-16px"/>
+      <svg-icon icon="icon-park-outline:add" class="text-16px"/>
     </n-button>
     <n-button quaternary size="tiny" onClick={() => {
       edit(row)
     }}>
-      <SvgIcon icon="lucide:edit" class="text-16px"/>
+      <svg-icon icon="lucide:edit" class="text-16px"/>
     </n-button>
     <n-button quaternary size="tiny" onClick={() => {
       del(row)
     }}>
-      <SvgIcon icon="material-symbols:delete-outline" class="text-16px"/>
+      <svg-icon icon="material-symbols:delete-outline" class="text-16px"/>
     </n-button>
   </NSpace>)
 }
 
-function renderPrefix({option}: { option: TreeOption }) {
-  return (<SvgIcon icon="radix-icons:file-text" class="text-16px"/>)
+function renderPrefix({ option }: { option: TreeOption }) {
+  return (<svg-icon icon="radix-icons:file-text" class="text-16px"/>)
 }
 
 function findSiblingsAndIndex(
   node: TreeOption,
-  nodes?: TreeOption[]
+  nodes?: TreeOption[],
 ): [TreeOption[], number] | [null, null] {
-  if (!nodes) return [null, null]
+  if (!nodes) { return [null, null] }
   for (let i = 0; i < nodes.length; ++i) {
     const siblingNode = nodes[i]
-    if (siblingNode.key === node.key) return [nodes, i]
+    if (siblingNode.key === node.key) { return [nodes, i] }
     const [siblings, index] = findSiblingsAndIndex(node, siblingNode.children)
-    if (siblings && index !== null) return [siblings, index]
+    if (siblings && index !== null) { return [siblings, index] }
   }
   return [null, null]
 }
 
-function handleDrop({node, dragNode, dropPosition}: TreeDropInfo) {
+function handleDrop({ node, dragNode, dropPosition }: TreeDropInfo) {
   const [dragNodeSiblings, dragNodeIndex] = findSiblingsAndIndex(
     dragNode,
-    treeData.value
+    treeData.value,
   )
-  if (dragNodeSiblings === null || dragNodeIndex === null) return
+  if (dragNodeSiblings === null || dragNodeIndex === null) { return }
   dragNodeSiblings.splice(dragNodeIndex, 1)
   if (dropPosition === 'inside') {
     if (node.children) {
       node.children.unshift(dragNode)
-    } else {
+    }
+    else {
       node.children = [dragNode]
     }
-  } else if (dropPosition === 'before') {
+  }
+  else if (dropPosition === 'before') {
     const [nodeSiblings, nodeIndex] = findSiblingsAndIndex(
       node,
-      treeData.value
+      treeData.value,
     )
-    if (nodeSiblings === null || nodeIndex === null) return
+    if (nodeSiblings === null || nodeIndex === null) { return }
     nodeSiblings.splice(nodeIndex, 0, dragNode)
-  } else if (dropPosition === 'after') {
+  }
+  else if (dropPosition === 'after') {
     const [nodeSiblings, nodeIndex] = findSiblingsAndIndex(
       node,
-      treeData.value
+      treeData.value,
     )
-    if (nodeSiblings === null || nodeIndex === null) return
+    if (nodeSiblings === null || nodeIndex === null) { return }
     nodeSiblings.splice(nodeIndex + 1, 0, dragNode)
   }
   treeData.value = Array.from(treeData.value)
 }
 
-function addHeader({row}: { row?: Column | HeaderColumn }) {
+function addHeader({ row }: { row?: Column | HeaderColumn }) {
   modal.load({
     title: () => '选择表头类型',
     default: () => (<n-space>
@@ -208,12 +214,13 @@ function addHeader({row}: { row?: Column | HeaderColumn }) {
         onClick={() => {
           if (selectType.value === TableHeaderType.GROUP) {
             modal.openAt(1)
-          } else {
+          }
+          else {
             columnCondition.use({
               columns: [
-                {name: 'name', label: '姓名', matcher: '', visible: true},
-                {name: 'age', label: '年龄', matcher: '', visible: true},
-                {name: 'sex', label: '性别', matcher: '', visible: true},
+                { name: 'name', label: '姓名', matcher: '', visible: true },
+                { name: 'age', label: '年龄', matcher: '', visible: true },
+                { name: 'sex', label: '性别', matcher: '', visible: true },
               ],
               save(data) {
                 console.log(data)
@@ -259,15 +266,17 @@ function addHeader({row}: { row?: Column | HeaderColumn }) {
   })
   if (!row) {
     modal.openAt(0)
-  } else {
+  }
+  else {
     if (row.type === TableHeaderType.GROUP) {
       modal.openAt(1)
-    } else {
+    }
+    else {
       columnCondition.use({
         columns: [
-          {name: 'name', label: '姓名', matcher: '', visible: true},
-          {name: 'age', label: '年龄', matcher: '', visible: true},
-          {name: 'sex', label: '性别', matcher: '', visible: true},
+          { name: 'name', label: '姓名', matcher: '', visible: true },
+          { name: 'age', label: '年龄', matcher: '', visible: true },
+          { name: 'sex', label: '性别', matcher: '', visible: true },
         ],
         save(data) {
           console.log(data)
@@ -282,7 +291,7 @@ function addHeader({row}: { row?: Column | HeaderColumn }) {
   <div>
     <n-button class="w-full" @click="addHeader">
       <template #icon>
-        <SvgIcon icon="carbon:add" class="inline-block align-text-bottom text-20px"/>
+        <SvgIcon icon="carbon:add" class="inline-block align-text-bottom text-20px" />
       </template>
       添加表头分组
     </n-button>

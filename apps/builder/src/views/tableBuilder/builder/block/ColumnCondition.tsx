@@ -1,37 +1,39 @@
-import {defineModal} from '@runafe/magic-system'
-import type {DataTableColumn,} from "naive-ui";
-import {NCheckbox, NInput, NButton, NEllipsis, NIcon, NSpace} from "naive-ui";
-import {match} from "pinyin-pro";
+import { defineModal } from '@runafe/magic-system'
+import type { DataTableColumn } from 'naive-ui'
+import { NButton, NCheckbox, NEllipsis, NIcon, NInput, NSpace } from 'naive-ui'
+import type { Field } from '@runafe/unified-api-designer'
+import { match } from 'pinyin-pro'
 
 export function useColumnCondition() {
   const modal = defineModal({
     width: 460,
   })
   return {
-    use:(options: { title?: string, columns: any, save: (columns: any) => void }) => {
+    use: (options: { title?: string, columns: Field[], save: (columns: any) => void }) => {
       const copylists = ref([...options.columns])
       const lists = ref([...options.columns])
       const search = ref<string>()
       function changeAll(flag: boolean) {
         copylists.value.forEach((v) => {
-          v.visible = flag
+          v.selectable = flag
         })
       }
 
       function invert() {
         copylists.value.forEach((v) => {
-          v.visible = !v.visible
+          v.selectable = !v.selectable
         })
       }
 
       watch(() => search.value, (pattern) => {
         if (pattern) {
           lists.value = copylists.value.filter(c => c?.label
-            && match(c?.label, pattern, {
-              continuous: true,
-              precision: 'start',
-            }))
-        } else {
+          && match(c?.label, pattern, {
+            continuous: true,
+            precision: 'start',
+          }))
+        }
+        else {
           lists.value = [...copylists.value]
         }
       })
@@ -51,7 +53,7 @@ export function useColumnCondition() {
                         d="M999.073 878.496L754.049 633.328c-2.856-2.856-6.056-5.032-9.032-7.312a402.928 402.928 0 0 0 65.488-220.72C810.617 181.512 629.249 0 405.361 0 181.481 0 0.001 181.504 0.001 405.304c0 223.912 181.48 405.304 405.248 405.304 81.488 0 157.144-24.24 220.8-65.608 2.288 3.08 4.456 6.168 7.2 8.912l245.024 245.056a85.064 85.064 0 0 0 60.344 25.032c21.824 0 43.656-8.344 60.344-24.92 33.368-33.256 33.368-87.32 0.112-120.584M405.369 682.704C252.457 682.704 128.001 558.24 128.001 405.304c0-152.816 124.456-277.288 277.36-277.288 152.92 0 277.256 124.472 277.256 277.4 0 152.816-124.456 277.288-277.248 277.288"
                         p-id="1545"></path>
                     </svg>
-                  </NIcon>)
+                  </NIcon>),
                 }}
               </NInput>
               <NButton size="small" type="primary" onClick={() => {
@@ -64,27 +66,27 @@ export function useColumnCondition() {
           </div>,
           <div class={{
             ':uno: flex flex-wrap gap-4':
-              true
+              true,
           }}>
             {
               lists.value.map((element: DataTableColumn, index: number) => (<div
                 key={element.name}
                 class={{
                   ':uno: w-50 bg-#f5f7fa b-1 b-solid h-32px pl-8px flex-sb_c b-#d9e2e8 b-rd-5px':
-                    true
+                    true,
                 }}
               >
-                <NCheckbox checked={element.visible !== false}
+                <NCheckbox checked={element.selectable}
                            onUpdate:checked={(v) => {
-                             element.visible = v
+                             element.selectable = v
                            }}>
-                  <NEllipsis class="ml-4px overflow-hidden text-primary max-w-200px!">
+                  <NEllipsis class="ml-4px overflow-hidden max-w-200px!">
                     {element.label}
                   </NEllipsis>
                 </NCheckbox>
               </div>))
             }
-          </div>
+          </div>,
         ]),
         footer: [
           <NButton
@@ -100,7 +102,7 @@ export function useColumnCondition() {
           }}>
             确 定
           </NButton>,
-        ]
+        ],
       }).open()
     },
   }

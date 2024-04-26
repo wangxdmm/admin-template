@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { VueDraggable } from 'vue-draggable-plus'
+import type {
+  Field,
+} from '@runafe/unified-api-designer'
+import type { PropType } from 'vue'
 
 const props = defineProps({
   buttonName: {
@@ -7,7 +11,7 @@ const props = defineProps({
     default: '添加查询条件',
   },
   nameField: {
-    type: String,
+    type: String as PropType<keyof Field>,
     default: 'name',
   },
   labelField: {
@@ -23,11 +27,11 @@ function addCondition() {
   emits('add')
 }
 
-function setConfig(row, index) {
+function setConfig(row: Field, index: number) {
   emits('update', row, index)
 }
 
-function setVisiable(data, index) {
+function setVisiable(index: number) {
   if (index > -1) {
     list.value.splice(index, 1)
   }
@@ -58,7 +62,7 @@ function setVisiable(data, index) {
           <span class="h-100% line-height-32px handle cursor-move">
             <SvgIcon icon="icon-park-outline:drag" class="inline-block align-text-bottom text-16px" />
           </span>
-          <span class="flex-auto h-100% line-height-29px pl-6px text-12px"><slot name="name" :row="element">{{
+          <span class="flex-auto h-100% line-height-32px pl-6px text-12px"><slot name="name" :row="element">{{
             element[props.labelField]
           }}</slot></span>
           <span class="b-l-1px w-80px h-100% line-height-32px pl-10px">
@@ -67,7 +71,7 @@ function setVisiable(data, index) {
                 <SvgIcon icon="ri:settings-line" class="inline-block align-text-bottom text-16px" />
               </template>
             </n-button>
-            <n-button quaternary size="tiny" @click="setVisiable(element, index)">
+            <n-button quaternary size="tiny" @click="setVisiable(index)">
               <template #icon>
                 <SvgIcon icon="material-symbols:delete-outline" class="inline-block align-text-bottom text-16px" />
               </template>

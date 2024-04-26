@@ -3,9 +3,10 @@ import { FormKit, FormKitSchema } from '@formkit/vue'
 import { getNode } from '@formkit/core'
 import { ref } from 'vue'
 import { useDialog } from 'naive-ui'
-import type { viewModelEntity, TableEntitySearch } from ':/typings/designer'
-import { designerDoApplication } from ':/api'
 import { RCriterias, RQuery } from ':/utils/query'
+import { designerDoApplication } from ':/api'
+import type { TableEntitySearch, viewModelEntity } from ':/typings/designer'
+
 export function useEditDialog() {
   const editDialog = useDialog()
   const modal = defineModal({
@@ -82,11 +83,10 @@ export function useEditDialog() {
     }
     loadView()
     async function submit() {
-
       const values = getNode('FormKitRef')?.value
-      const param={dataSource:{
-        viewModelCode:values.code
-      },...values}
+      const param = { dataSource: {
+        viewModelCode: values.code,
+      }, ...values }
       const { result, message }
         = await designerDoApplication.saveAndRelease(param)()
       if (result) {

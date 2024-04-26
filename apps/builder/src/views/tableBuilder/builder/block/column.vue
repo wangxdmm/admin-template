@@ -60,8 +60,8 @@ const columns = ref<Column>({
   label: '',
   render: '',
   type: ValueType.STRING,
-  backgroundColors: [{ value: '#12234a', condition: '$', name: '颜色' }, { value: '#12234a', condition: '$', name: '颜色1' }],
-  colors: [{ value: '#12234a', condition: '$', name: '颜色' }, { value: '#12234a', condition: '$', name: '颜色1' }],
+  backgroundColors: [],
+  colors: [],
 })
 
 function submit() {
