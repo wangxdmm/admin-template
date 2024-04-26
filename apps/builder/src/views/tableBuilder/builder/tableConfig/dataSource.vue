@@ -5,7 +5,7 @@ import { titleClass } from '../share'
 import { viewModels } from '../useData'
 import { tableSchema } from '../tableSchema'
 
-const dataSource = computed<DataSource>({
+const dataSource = computed<DataSource & Record<string, any>>({
   get: () => tableSchema.value.dataSource || {},
   set: (val) => {
     tableSchema.value.dataSource = val
@@ -59,7 +59,12 @@ const data = {
 
 <template>
   <div>
-    <FormKit v-model="dataSource as TODO" type="form" :actions="false" :incomplete-message="false">
+    <FormKit
+      v-model="dataSource"
+      type="form"
+      :actions="false"
+      :incomplete-message="false"
+    >
       <FormKitSchema :schema :data />
     </FormKit>
   </div>

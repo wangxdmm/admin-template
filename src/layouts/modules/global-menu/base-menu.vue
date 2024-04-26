@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, h, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import type { MentionOption, MenuProps } from 'naive-ui'
 import { SimpleScrollbar } from ':/materials/src'
@@ -56,6 +56,20 @@ function handleClickMenu(key: RouteKey) {
   routerPushByKey(key)
 }
 
+function renderLabel(options: MentionOption) {
+  if (options.icon) {
+    return options.label
+  }
+  else {
+    return [
+      h('span', {
+        class: 'mr-12px',
+      }),
+      options.label,
+    ]
+  }
+}
+
 watch(
   () => route.name,
   () => {
@@ -80,6 +94,7 @@ watch(
       :options="naiveMenus"
       :inverted="darkTheme"
       :indent="18"
+      :render-label="renderLabel"
       responsive
       @update:value="handleClickMenu"
     />

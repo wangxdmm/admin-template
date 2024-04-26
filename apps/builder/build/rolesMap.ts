@@ -4,10 +4,10 @@ export default {
       id: '1',
       icon: 'ri:table-fill',
     },
-    tableBuilder_builder: {
+    tableBuilder_list: {
       id: '2',
     },
-    tableBuilder_list: {
+    tableBuilder_builder: {
       id: '3',
     },
   },

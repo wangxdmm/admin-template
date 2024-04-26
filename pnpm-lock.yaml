@@ -18,11 +18,11 @@ importers:
         specifier: ^1.0.4
         version: 1.0.4
       '@runafe/formkit-naive-ui':
-        specifier: ^1.1.33
-        version: 1.1.33(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.1.1)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.25)
+        specifier: ^1.1.34
+        version: 1.1.34(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.1.1)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.25)
       '@runafe/magic-system':
-        specifier: 1.3.31
-        version: 1.3.31(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.1.1)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.25)
+        specifier: 1.3.32
+        version: 1.3.32(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.1.1)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.25)
       '@vueuse/core':
         specifier: 10.9.0
         version: 10.9.0(vue@3.4.23)
@@ -86,7 +86,7 @@ importers:
     devDependencies:
       '@antfu/eslint-config':
         specifier: ^2.15.0
-        version: 2.15.0(@vue/compiler-sfc@3.4.24)(eslint-plugin-format@0.1.0)(eslint@9.0.0)(typescript@5.4.5)(vitest@1.4.0)
+        version: 2.15.0(@vue/compiler-sfc@3.4.25)(eslint-plugin-format@0.1.0)(eslint@9.0.0)(typescript@5.4.5)(vitest@1.4.0)
       '@iconify/json':
         specifier: 2.2.201
         version: 2.2.201
@@ -206,7 +206,7 @@ importers:
         version: 0.17.5(@vueuse/core@10.9.0)(rollup@4.14.1)
       unplugin-icons:
         specifier: 0.18.5
-        version: 0.18.5(@vue/compiler-sfc@3.4.24)
+        version: 0.18.5(@vue/compiler-sfc@3.4.25)
       unplugin-vue-components:
         specifier: 0.26.0
         version: 0.26.0(rollup@4.14.1)(vue@3.4.23)
@@ -244,8 +244,8 @@ importers:
         specifier: workspace:^
         version: link:../..
       '@runafe/unified-api-designer':
-        specifier: 0.0.17
-        version: 0.0.17(@monan/easy-axios@1.1.1)
+        specifier: 0.0.18
+        version: 0.0.18(@monan/easy-axios@1.1.1)
       '@runafe/unified-api-user':
         specifier: 0.0.4
         version: 0.0.4(@monan/easy-axios@1.1.1)
@@ -276,7 +276,7 @@ packages:
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
 
-  /@antfu/eslint-config@2.15.0(@vue/compiler-sfc@3.4.24)(eslint-plugin-format@0.1.0)(eslint@9.0.0)(typescript@5.4.5)(vitest@1.4.0):
+  /@antfu/eslint-config@2.15.0(@vue/compiler-sfc@3.4.25)(eslint-plugin-format@0.1.0)(eslint@9.0.0)(typescript@5.4.5)(vitest@1.4.0):
     resolution: {integrity: sha512-qoqw+0N8bqz0vBIigGJamaIf1LdzXcmCDuleygJAF3EtACLieKyIMvpOdc2TU9AnuPbMBFCkN40340UWRChELw==}
     hasBin: true
     peerDependencies:
@@ -328,7 +328,7 @@ packages:
       '@typescript-eslint/parser': 7.7.1(eslint@9.0.0)(typescript@5.4.5)
       eslint: 9.0.0
       eslint-config-flat-gitignore: 0.1.5
-      eslint-flat-config-utils: 0.2.3
+      eslint-flat-config-utils: 0.2.4
       eslint-merge-processors: 0.1.0(eslint@9.0.0)
       eslint-plugin-antfu: 2.1.2(eslint@9.0.0)
       eslint-plugin-eslint-comments: 3.2.0(eslint@9.0.0)
@@ -337,16 +337,16 @@ packages:
       eslint-plugin-jsdoc: 48.2.3(eslint@9.0.0)
       eslint-plugin-jsonc: 2.15.1(eslint@9.0.0)
       eslint-plugin-markdown: 4.0.1(eslint@9.0.0)
-      eslint-plugin-n: 17.2.1(eslint@9.0.0)
+      eslint-plugin-n: 17.3.1(eslint@9.0.0)
       eslint-plugin-no-only-tests: 3.1.0
-      eslint-plugin-perfectionist: 2.9.0(eslint@9.0.0)(typescript@5.4.5)(vue-eslint-parser@9.4.2)
+      eslint-plugin-perfectionist: 2.10.0(eslint@9.0.0)(typescript@5.4.5)(vue-eslint-parser@9.4.2)
       eslint-plugin-toml: 0.11.0(eslint@9.0.0)
       eslint-plugin-unicorn: 52.0.0(eslint@9.0.0)
       eslint-plugin-unused-imports: 3.1.0(@typescript-eslint/eslint-plugin@7.7.1)(eslint@9.0.0)
       eslint-plugin-vitest: 0.5.4(@typescript-eslint/eslint-plugin@7.7.1)(eslint@9.0.0)(typescript@5.4.5)(vitest@1.4.0)
       eslint-plugin-vue: 9.25.0(eslint@9.0.0)
       eslint-plugin-yml: 1.14.0(eslint@9.0.0)
-      eslint-processor-vue-blocks: 0.1.2(@vue/compiler-sfc@3.4.24)(eslint@9.0.0)
+      eslint-processor-vue-blocks: 0.1.2(@vue/compiler-sfc@3.4.25)(eslint@9.0.0)
       globals: 15.0.0
       jsonc-eslint-parser: 2.4.0
       local-pkg: 0.5.0
@@ -1716,8 +1716,8 @@ packages:
       unplugin: 1.7.1
     dev: true
 
-  /@runafe/formkit-naive-ui@1.1.33(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.1.1)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.25):
-    resolution: {integrity: sha512-GZcV9SOTOA6MIoEIWn6wYRyzqgRFXXmtFfi5Lhn1yFfn5Z/wCmb6O86AhmQ9KrNMOlPnqZJ9sK/GtncERSS6Vw==}
+  /@runafe/formkit-naive-ui@1.1.34(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.1.1)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.25):
+    resolution: {integrity: sha512-j0B0Lu3MAkoenMU3LFlMUGuhCbS2ds7+WfTCGM0Lbfszv5TGpZY5dqE+GJ6NioHbgz5LZEVKzjmKvSE2nKDhUw==}
     peerDependencies:
       '@formkit/core': ^1.5.9
       '@formkit/i18n': ^1.5.9
@@ -1737,7 +1737,7 @@ packages:
       '@formkit/vue': 1.6.2(unocss@0.59.0)(vue@3.4.23)
       '@monan/shared': 1.0.4
       '@monan/types': 1.0.1
-      '@runafe/magic-system': 1.3.31(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.1.1)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.25)
+      '@runafe/magic-system': 1.3.32(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.1.1)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.25)
       date-fns: 3.6.0
       merge-anything: 5.1.7
       naive-ui: /@runafe/naive-ui@2.38.1-lamp.15(vue@3.4.23)
@@ -1752,8 +1752,8 @@ packages:
       - xe-utils
     dev: false
 
-  /@runafe/magic-system@1.3.31(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.1.1)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.25):
-    resolution: {integrity: sha512-EDpMz+E1wFTF0g5Ta5LkQ3GGGTbK4zootDPHLVOpNgwIztPyeSyWajRAWyJR2t0Ykd1IrFK7FnDz26hAHApArA==}
+  /@runafe/magic-system@1.3.32(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.1.1)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.14.1)(vue-final-modal@4.5.4)(vue@3.4.23)(xe-utils@3.5.25):
+    resolution: {integrity: sha512-J+8csV/zOn9quhE90rj1oX0zcQgtvljwyBP9j59ecLay+VBlGZSUKB9Xofq57/l8kCGmk+Fk/ZPnsO/rqsfopA==}
     peerDependencies:
       '@formkit/core': ^1.5.9
       '@formkit/i18n': ^1.5.9
@@ -1778,7 +1778,7 @@ packages:
       '@monan/easy-axios': 1.1.1(axios@1.6.8)
       '@monan/shared': 1.0.4
       '@monan/types': 1.0.1
-      '@runafe/unified-api-designer': 0.0.13(@monan/easy-axios@1.1.1)
+      '@runafe/unified-api-designer': 0.0.18(@monan/easy-axios@1.1.1)
       '@vueuse/core': 10.9.0(vue@3.4.23)
       date-fns: 3.6.0
       gsap: 3.12.5
@@ -1852,17 +1852,8 @@ packages:
       - typescript
     dev: true
 
-  /@runafe/unified-api-designer@0.0.13(@monan/easy-axios@1.1.1):
-    resolution: {integrity: sha512-BEAEtVAmi5Vz5QqSaKUU057boQ1Y7g3Ore6KnKNOj1P+oC1b4xBW8Mw+Xnu0KMEnUNA2a+OX6HfpHqi02/gVIA==}
-    peerDependencies:
-      '@monan/easy-axios': ^1.0.12
-    dependencies:
-      '@monan/easy-axios': 1.1.1(axios@1.6.8)
-      '@runafe/unified-model': 0.0.3
-    dev: false
-
-  /@runafe/unified-api-designer@0.0.17(@monan/easy-axios@1.1.1):
-    resolution: {integrity: sha512-6K6gAOtXtBTE0gLvqR5PERq9l36lf+O3PDdBSIhN1ObXNVGUCCeSC5h7zLJ7U0N93od89VZgWVLOYZSc92FntA==}
+  /@runafe/unified-api-designer@0.0.18(@monan/easy-axios@1.1.1):
+    resolution: {integrity: sha512-91KlTylvaI2kLMzzom80xnK0KveJoN9iBNUsgCc+kPZ1PzJhUK0WDru7L6wSe11zogSZOJYqiPaxWPSKyp4/0w==}
     peerDependencies:
       '@monan/easy-axios': ^1.0.12
     dependencies:
@@ -2978,11 +2969,11 @@ packages:
       estree-walker: 2.0.2
       source-map-js: 1.2.0
 
-  /@vue/compiler-core@3.4.24:
-    resolution: {integrity: sha512-vbW/tgbwJYj62N/Ww99x0zhFTkZDTcGh3uwJEuadZ/nF9/xuFMC4693P9r+3sxGXISABpDKvffY5ApH9pmdd1A==}
+  /@vue/compiler-core@3.4.25:
+    resolution: {integrity: sha512-Y2pLLopaElgWnMNolgG8w3C5nNUVev80L7hdQ5iIKPtMJvhVpG0zhnBG/g3UajJmZdvW0fktyZTotEHD1Srhbg==}
     dependencies:
       '@babel/parser': 7.24.4
-      '@vue/shared': 3.4.24
+      '@vue/shared': 3.4.25
       entities: 4.5.0
       estree-walker: 2.0.2
       source-map-js: 1.2.0
@@ -2994,11 +2985,11 @@ packages:
       '@vue/compiler-core': 3.4.23
       '@vue/shared': 3.4.23
 
-  /@vue/compiler-dom@3.4.24:
-    resolution: {integrity: sha512-4XgABML/4cNndVsQndG6BbGN7+EoisDwi3oXNovqL/4jdNhwvP8/rfRMTb6FxkxIxUUtg6AI1/qZvwfSjxJiWA==}
+  /@vue/compiler-dom@3.4.25:
+    resolution: {integrity: sha512-Ugz5DusW57+HjllAugLci19NsDK+VyjGvmbB2TXaTcSlQxwL++2PETHx/+Qv6qFwNLzSt7HKepPe4DcTE3pBWg==}
     dependencies:
-      '@vue/compiler-core': 3.4.24
-      '@vue/shared': 3.4.24
+      '@vue/compiler-core': 3.4.25
+      '@vue/shared': 3.4.25
     dev: true
 
   /@vue/compiler-sfc@3.4.23:
@@ -3014,14 +3005,14 @@ packages:
       postcss: 8.4.38
       source-map-js: 1.2.0
 
-  /@vue/compiler-sfc@3.4.24:
-    resolution: {integrity: sha512-nRAlJUK02FTWfA2nuvNBAqsDZuERGFgxZ8sGH62XgFSvMxO2URblzulExsmj4gFZ8e+VAyDooU9oAoXfEDNxTA==}
+  /@vue/compiler-sfc@3.4.25:
+    resolution: {integrity: sha512-m7rryuqzIoQpOBZ18wKyq05IwL6qEpZxFZfRxlNYuIPDqywrXQxgUwLXIvoU72gs6cRdY6wHD0WVZIFE4OEaAQ==}
     dependencies:
       '@babel/parser': 7.24.4
-      '@vue/compiler-core': 3.4.24
-      '@vue/compiler-dom': 3.4.24
-      '@vue/compiler-ssr': 3.4.24
-      '@vue/shared': 3.4.24
+      '@vue/compiler-core': 3.4.25
+      '@vue/compiler-dom': 3.4.25
+      '@vue/compiler-ssr': 3.4.25
+      '@vue/shared': 3.4.25
       estree-walker: 2.0.2
       magic-string: 0.30.10
       postcss: 8.4.38
@@ -3034,11 +3025,11 @@ packages:
       '@vue/compiler-dom': 3.4.23
       '@vue/shared': 3.4.23
 
-  /@vue/compiler-ssr@3.4.24:
-    resolution: {integrity: sha512-ZsAtr4fhaUFnVcDqwW3bYCSDwq+9Gk69q2r/7dAHDrOMw41kylaMgOP4zRnn6GIEJkQznKgrMOGPMFnLB52RbQ==}
+  /@vue/compiler-ssr@3.4.25:
+    resolution: {integrity: sha512-H2ohvM/Pf6LelGxDBnfbbXFPyM4NE3hrw0e/EpwuSiYu8c819wx+SVGdJ65p/sFrYDd6OnSDxN1MB2mN07hRSQ==}
     dependencies:
-      '@vue/compiler-dom': 3.4.24
-      '@vue/shared': 3.4.24
+      '@vue/compiler-dom': 3.4.25
+      '@vue/shared': 3.4.25
     dev: true
 
   /@vue/devtools-api@6.6.1:
@@ -3096,8 +3087,8 @@ packages:
   /@vue/shared@3.4.23:
     resolution: {integrity: sha512-wBQ0gvf+SMwsCQOyusNw/GoXPV47WGd1xB5A1Pgzy0sQ3Bi5r5xm3n+92y3gCnB3MWqnRDdvfkRGxhKtbBRNgg==}
 
-  /@vue/shared@3.4.24:
-    resolution: {integrity: sha512-BW4tajrJBM9AGAknnyEw5tO2xTmnqgup0VTnDAMcxYmqOX0RG0b9aSUGAbEKolD91tdwpA6oCwbltoJoNzpItw==}
+  /@vue/shared@3.4.25:
+    resolution: {integrity: sha512-k0yappJ77g2+KNrIaF0FFnzwLvUBLUYr8VOwz+/6vLsmItFp51AcxLL7Ey3iPd7BIRyWPOcqUjMnm7OkahXllA==}
     dev: true
 
   /@vueuse/core@10.9.0(vue@3.4.23):
@@ -4481,8 +4472,8 @@ packages:
       parse-gitignore: 2.0.0
     dev: true
 
-  /eslint-flat-config-utils@0.2.3:
-    resolution: {integrity: sha512-tfrMNXZfuN4q7sFi1Cr//BN3qdI7c8fLJhbshlp8l9PZIqZ7eVeeyd2Regtu/P9kjOlv18lRlBALzsZaF7ByUg==}
+  /eslint-flat-config-utils@0.2.4:
+    resolution: {integrity: sha512-k7MJkSIfF0bs5eQu1KXyV0AhsvdsqSt1pQfZNLwf6qkozuHQV6aNHg5f8+3Ya+WTzpB+e7I3hMhs4qBwx7nEkw==}
     dependencies:
       '@types/eslint': 8.56.10
       pathe: 1.1.2
@@ -4663,8 +4654,8 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-n@17.2.1(eslint@9.0.0):
-    resolution: {integrity: sha512-uW1+df2bo06kR7ix6nB614RUlvjRPrYxlaX832O6e1MCJp4V7YozEdvMgCYuvn4ltnjPu1FVYhQ2KRrmTNoJfg==}
+  /eslint-plugin-n@17.3.1(eslint@9.0.0):
+    resolution: {integrity: sha512-25+HTtKe1F8U/M4ERmdzbz/xkm/gaY0OYC8Fcv1z/WvpLJ8Xfh9LzJ13JV5uj4QyCUD8kOPJrNjn/3y+tc57Vw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: '>=8.23.0 || ^9.0.0'
@@ -4677,7 +4668,7 @@ packages:
       eslint: 9.0.0
       eslint-plugin-es-x: 7.6.0(eslint@9.0.0)
       get-tsconfig: 4.7.3
-      globals: 14.0.0
+      globals: 15.0.0
       ignore: 5.3.1
       minimatch: 9.0.4
       semver: 7.6.0
@@ -4688,8 +4679,8 @@ packages:
     engines: {node: '>=5.0.0'}
     dev: true
 
-  /eslint-plugin-perfectionist@2.9.0(eslint@9.0.0)(typescript@5.4.5)(vue-eslint-parser@9.4.2):
-    resolution: {integrity: sha512-ipFtDrqtF99qVVo+FE1fo6aHyLLp7hg6PNGfzY5KxQjcl0XCbyEFvjtR1NfkHDTN9rdFeEDxg59LLOv3VOAHAw==}
+  /eslint-plugin-perfectionist@2.10.0(eslint@9.0.0)(typescript@5.4.5)(vue-eslint-parser@9.4.2):
+    resolution: {integrity: sha512-P+tdrkHeMWBc55+DZsoDOAftV1WCsEoHaKm6JC7zajFus/syfT4vUPBFb3atGFSuyaVnGQGHlcKpP9X3Q0gH/w==}
     peerDependencies:
       astro-eslint-parser: ^0.16.0
       eslint: '>=8.0.0 || ^9.0.0'
@@ -4708,7 +4699,7 @@ packages:
       vue-eslint-parser:
         optional: true
     dependencies:
-      '@typescript-eslint/utils': 6.21.0(eslint@9.0.0)(typescript@5.4.5)
+      '@typescript-eslint/utils': 7.7.1(eslint@9.0.0)(typescript@5.4.5)
       eslint: 9.0.0
       minimatch: 9.0.4
       natural-compare-lite: 1.4.0
@@ -4869,7 +4860,7 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-processor-vue-blocks@0.1.2(@vue/compiler-sfc@3.4.24)(eslint@9.0.0):
+  /eslint-processor-vue-blocks@0.1.2(@vue/compiler-sfc@3.4.25)(eslint@9.0.0):
     resolution: {integrity: sha512-PfpJ4uKHnqeL/fXUnzYkOax3aIenlwewXRX8jFinA1a2yCFnLgMuiH3xvCgvHHUlV2xJWQHbCTdiJWGwb3NqpQ==}
     peerDependencies:
       '@vue/compiler-sfc': ^3.3.0
@@ -4878,7 +4869,7 @@ packages:
       eslint:
         optional: true
     dependencies:
-      '@vue/compiler-sfc': 3.4.24
+      '@vue/compiler-sfc': 3.4.25
       eslint: 9.0.0
     dev: true
 
@@ -8603,7 +8594,7 @@ packages:
       - rollup
     dev: true
 
-  /unplugin-icons@0.18.5(@vue/compiler-sfc@3.4.24):
+  /unplugin-icons@0.18.5(@vue/compiler-sfc@3.4.25):
     resolution: {integrity: sha512-KVNAohXbZ7tVcG1C3p6QaC7wU9Qrj7etv4XvsMMJAxr5LccQZ+Iuv5LOIv/7GtqXaGN1BuFCqRO1ErsHEgEXdQ==}
     peerDependencies:
       '@svgr/core': '>=7.0.0'
@@ -8626,7 +8617,7 @@ packages:
       '@antfu/install-pkg': 0.3.2
       '@antfu/utils': 0.7.7
       '@iconify/utils': 2.1.22
-      '@vue/compiler-sfc': 3.4.24
+      '@vue/compiler-sfc': 3.4.25
       debug: 4.3.4
       kolorist: 1.8.0
       local-pkg: 0.5.0

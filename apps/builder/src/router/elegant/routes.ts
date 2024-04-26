@@ -69,8 +69,8 @@ export const generatedRoutes: GeneratedRoute[] = [
         component: 'view.tableBuilder_builder',
         meta: {
           title: 'tableBuilder_builder',
-          roles: ['2'],
-          id: '2'
+          roles: ['3'],
+          id: '3'
         }
       },
       {
@@ -79,8 +79,8 @@ export const generatedRoutes: GeneratedRoute[] = [
         component: 'view.tableBuilder_list',
         meta: {
           title: 'tableBuilder_list',
-          roles: ['3'],
-          id: '3'
+          roles: ['2'],
+          id: '2'
         }
       }
     ]
