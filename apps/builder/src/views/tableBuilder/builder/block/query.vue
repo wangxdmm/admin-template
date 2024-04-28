@@ -106,6 +106,7 @@ function addScreen() {
     return false
   }
   columnCondition.use({
+    title: '添加筛查条件',
     columns: allColumn,
     save(cols: (AdvancedQueryField & { selectable: boolean })[]) {
       const names: string[] = []

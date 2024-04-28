@@ -1,29 +1,36 @@
 <script setup lang="tsx">
-import {reactive, ref} from 'vue'
-import {useRouter} from 'vue-router';
-import {defineDataTable} from '@runafe/magic-system'
-import {NButton, NPopconfirm, NSpace, useDialog} from 'naive-ui'
+import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { defineDataTable } from '@runafe/magic-system'
+import { NButton, NPopconfirm, NSpace, useDialog } from 'naive-ui'
 import dayjs from 'dayjs'
-import {useEditDialog} from './editDialog'
-import type {viewModelEntity} from ':/typings/designer'
-import {designerDoApplication} from ':/api'
-import {RCriterias, RQuery} from ':/utils/query/index'
+import { useEditDialog } from './editDialog'
+import type { TableEntitySearch, viewModelEntity } from ':/typings/designer'
+import { designerDoApplication } from ':/api'
+import { RCriterias, RQuery } from ':/utils/query/index'
 
 const schema = [
   {
     $formkit: 'n:text',
     name: 'name',
-    label: '名称',
+    label: '显示名',
   },
   {
-    $formkit: 'n:text',
+    $formkit: 'n:select',
     name: 'code',
     label: '视图编号',
     id: 'appCode',
+    valueField: 'code',
+    labelField: 'name',
+    options: '$viewList',
   },
 ]
 const defaultValue = ref({})
-const formData = reactive({})
+const formData = reactive<{
+  viewList: TableEntitySearch[]
+}>({
+  viewList: [],
+})
 const editDialog = useEditDialog()
 const rsDialog = useDialog()
 const router = useRouter()
@@ -32,7 +39,7 @@ const columns = [
     field: 'code',
     title: '视图编号',
     align: 'center',
-    width: 200,
+    width: 360,
     sortable: false,
   },
   {
@@ -63,7 +70,7 @@ const columns = [
     width: 200,
     sortable: false,
     slots: {
-      default: ({row}: { row: viewModelEntity }) => {
+      default: ({ row }: { row: viewModelEntity }) => {
         return row.createdAt
           ? dayjs(row.createdAt).format('YYYY-MM-DD HH:mm:ss')
           : null
@@ -77,7 +84,7 @@ const columns = [
     width: 190,
     fixed: 'right',
     slots: {
-      default: ({row}: { row: viewModelEntity }) => {
+      default: ({ row }: { row: viewModelEntity }) => {
         return (
           <NSpace>
             <NButton
@@ -114,7 +121,7 @@ const Table = defineDataTable<viewModelEntity>(columns as TODO, {
   immediate: true,
   checkedOnClick: true,
   getData: async (params, ctx) => {
-    const {pageIndex, pageSize} = params
+    const { pageIndex, pageSize } = params
     const query = RQuery.of(
       RCriterias.must(RCriterias.eq('appCode', 'CHARGE'))
         .must(RCriterias.eq('name', defaultValue.value.name ?? null))
@@ -123,7 +130,7 @@ const Table = defineDataTable<viewModelEntity>(columns as TODO, {
       pageIndex,
       pageSize,
     )
-    const {wholeData} = await designerDoApplication.search(query)()
+    const { wholeData } = await designerDoApplication.search(query)()
     if (wholeData) {
       ctx.setData(wholeData.data)
       return [
@@ -147,7 +154,7 @@ function operationHandle(row: viewModelEntity, type: number) {
     })
   }
   if (type === 2) {
-    router.push({path:'/tableBuilder/builder',query:{code:row.code}})
+    router.push({ path: '/tableBuilder/builder', query: { code: row.code } })
   }
   // 删除数据
   if (type === 3) {
@@ -156,7 +163,7 @@ function operationHandle(row: viewModelEntity, type: number) {
 }
 
 async function deleteData(code: string) {
-  const {result, message} = await designerDoApplication.deleteAndRelease({
+  const { result, message } = await designerDoApplication.deleteAndRelease({
     code,
   })()
   if (result) {
@@ -184,6 +191,20 @@ function add() {
     },
   })
 }
+
+async function loadView() {
+  const query = RQuery.of(
+    RCriterias.must(RCriterias.eq('appCode', 'CHARGE')),
+    [],
+  )
+  const { wholeData } = await designerDoApplication.viewSearch(query)()
+  if (wholeData) {
+    formData.viewList = wholeData.data as TableEntitySearch[]
+  }
+}
+onMounted(() => {
+  loadView()
+})
 </script>
 
 <template>
@@ -204,7 +225,7 @@ function add() {
         </rs-search>
       </template>
       <template #default="{ height }">
-        <Table.Component :height/>
+        <Table.Component :height />
       </template>
     </rs-content>
   </rs-page>

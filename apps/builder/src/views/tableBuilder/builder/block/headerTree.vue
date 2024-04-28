@@ -1,33 +1,21 @@
 <script setup lang="tsx">
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import type { TreeDropInfo, TreeOption } from 'naive-ui'
-import { NSpace } from 'naive-ui'
-import { isArray } from 'lodash-es'
+import { NSpace, useMessage } from 'naive-ui'
 import { defineModal } from '@runafe/magic-system'
-import type { Column, HeaderColumn } from '@runafe/unified-api-designer'
+import type { Field, HeaderColumn } from '@runafe/unified-api-designer'
 import { TableHeaderType } from '@runafe/unified-api-designer'
 import { FormKit, FormKitSchema } from '@formkit/vue'
 import type { FormKitSchemaDefinition } from '@formkit/core'
+import { getNode } from '@formkit/core'
+import { defaultColumn, tableSchema } from '../tableSchema'
+import { useColumnDialog } from './columnDialog'
 import { useColumnCondition } from './ColumnCondition'
+import { traverseTree } from ':/utils/treeFunction'
 
 defineExpose({ name: 'RsHeaderTree' })
-
-function createLabel(level: number): string {
-  if (level === 4) {
-    return '道生一'
-  }
-  if (level === 3) {
-    return '一生二'
-  }
-  if (level === 2) {
-    return '二生三'
-  }
-  if (level === 1) {
-    return '三生万物'
-  }
-  return ''
-}
-
+const message = useMessage()
+const columnDialog = useColumnDialog()
 const modal = defineModal({
   width: 300,
 })
@@ -37,8 +25,25 @@ const tableHeaderType = ref([{ label: '分组', value: TableHeaderType.GROUP }, 
   value: TableHeaderType.COLUMN,
 }])
 const selectType = ref<TableHeaderType>(TableHeaderType.GROUP)
-const treeData = ref(createData())
+const treeData = computed({
+  get: () => tableSchema.value.headerColumns || [],
+  set: (val: HeaderColumn[]) => {
+    tableSchema.value.headerColumns = val
+  },
+})
+const isAddGroup = ref<number>(1)
+const selectColumn = computed<Field[]>(() => {
+  const names = tableSchema.value.columns.map(v => v.name)
+  return (tableSchema.value.fields ?? []).filter(item => !names.includes(item.name))
+})
 const gropSchema: FormKitSchemaDefinition = [
+  {
+    $formkit: 'n:text',
+    name: 'name',
+    label: '唯一标识',
+    disabled: '$isName',
+    validation: 'required',
+  },
   {
     $formkit: 'n:text',
     name: 'label',
@@ -50,15 +55,18 @@ const gropForm = ref()
 const config = reactive({
   labelPlacement: 'left',
   labelAlign: 'right',
-  labelWidth: 70,
+  labelWidth: 80,
 })
-
-function updateNode(tree, newNode, key?: string, operation?: string) {
+const groupData = reactive({
+  isName: computed(() => isAddGroup.value === 3),
+})
+function updateNode(tree, newNode: TreeOption, key: string, operation?: string, keyNode?: string) {
   // 递归函数，用于在树中查找和更新节点
   function traverseAndUpdate(nodes) {
     for (let i = 0; i < nodes.length; i++) {
       const currentNode = nodes[i]
-      if (currentNode[key] === newNode[key]) {
+      const nodeId: string = keyNode || newNode[key]
+      if (currentNode[key] === nodeId) {
         // 如果找到匹配的节点，则更新它
         if (operation === 'add') {
           currentNode.children = currentNode.children || [] // 确保children数组存在
@@ -68,7 +76,7 @@ function updateNode(tree, newNode, key?: string, operation?: string) {
           nodes.splice(i, 1)
         }
         else {
-          Object.assign(currentNode, newNode)
+          nodes = Object.assign(currentNode, newNode)
         }
         return // 更新后退出循环
       }
@@ -81,54 +89,29 @@ function updateNode(tree, newNode, key?: string, operation?: string) {
   traverseAndUpdate(tree)
 }
 
-function add(row) {
-  if (!isArray(row.option.children)) {
-    row.option.children = [{
-      label: 'Node 2',
-      key: (Math.random() * 1000).toFixed(3),
-      children: [],
-    }]
-  }
-  else {
-    row.option.children = [...row.option.children, {
-      label: 'Node 2',
-      key: (Math.random() * 1000).toFixed(3),
-      children: [],
-    }]
-  }
+function edit(row: { option: TreeOption }) {
+  isAddGroup.value = 3
+  addHeader(row)
 }
-
-function edit({ option }) {
-  option.label = '1111'
-  updateNode(treeData.value, option, 'key', 'edit')
+function addGroup() {
+  isAddGroup.value = 1
+  addHeader({})
 }
-
 function del({ option }: { option: TreeOption }) {
-  updateNode(treeData.value, option, 'key', 'delete')
+  updateNode(treeData.value, option, 'name', 'delete')
 }
-
-function createData(level = 4, baseKey = ''): TreeOption[] | undefined {
-  if (!level) {
-    return undefined
-  }
-  return [1, 2, 3, 4, 5].map((_, index) => {
-    const key = `${baseKey}${level}${index}`
-    const label = createLabel(level)
-    return {
-      label,
-      key,
-      children: createData(level - 1, key),
-    }
-  })
-}
-
 function renderSuffix(row) {
   return (<NSpace>
-    <n-button quaternary size="tiny" onClick={() => {
-      addHeader({ row })
-    }}>
+    {
+      row.option.type === 'GROUP'
+        ? <n-button quaternary size="tiny" onClick={() => {
+          isAddGroup.value = 2
+          addHeader(row)
+        }}>
       <svg-icon icon="icon-park-outline:add" class="text-16px"/>
     </n-button>
+        : null
+    }
     <n-button quaternary size="tiny" onClick={() => {
       edit(row)
     }}>
@@ -153,7 +136,7 @@ function findSiblingsAndIndex(
   if (!nodes) { return [null, null] }
   for (let i = 0; i < nodes.length; ++i) {
     const siblingNode = nodes[i]
-    if (siblingNode.key === node.key) { return [nodes, i] }
+    if (siblingNode.name === node.name) { return [nodes, i] }
     const [siblings, index] = findSiblingsAndIndex(node, siblingNode.children)
     if (siblings && index !== null) { return [siblings, index] }
   }
@@ -193,8 +176,10 @@ function handleDrop({ node, dragNode, dropPosition }: TreeDropInfo) {
   }
   treeData.value = Array.from(treeData.value)
 }
-
-function addHeader({ row }: { row?: Column | HeaderColumn }) {
+const selectOption = ref<TreeOption>({})
+function addHeader({ option }: { option: TreeOption }) {
+  selectOption.value = { ...option }
+  selectType.value = TableHeaderType.GROUP
   modal.load({
     title: () => '选择表头类型',
     default: () => (<n-space>
@@ -216,14 +201,38 @@ function addHeader({ row }: { row?: Column | HeaderColumn }) {
             modal.openAt(1)
           }
           else {
+            if (selectColumn.value.length === 0) {
+              return message.warning('请设置表格列')
+            }
+            const columns = selectColumn.value.filter((c) => {
+              if (!traverseTree(treeData.value, 'name').includes(c.name)) {
+                c.selectable = false
+                return true
+              }
+              else {
+                return false
+              }
+            })
+            if (columns.length === 0) {
+              return message.warning('没有可用配置列')
+            }
             columnCondition.use({
-              columns: [
-                { name: 'name', label: '姓名', matcher: '', visible: true },
-                { name: 'age', label: '年龄', matcher: '', visible: true },
-                { name: 'sex', label: '性别', matcher: '', visible: true },
-              ],
+              title: '添加表头分组',
+              columns,
               save(data) {
-                console.log(data)
+                const selects = data.filter(v => v.selectable).map(item => ({ ...item, ...defaultColumn }))
+                if (selects.length) {
+                  if (isAddGroup.value === 1) {
+                    treeData.value.push(...selects)
+                  }
+                  else {
+                    selects.forEach((v) => {
+                      updateNode(treeData.value, v, 'name', 'add', selectOption.value.name)
+                    })
+                  }
+                  modal.closeAt(1)
+                  modal.closeAt(0)
+                }
               },
             })
           }
@@ -235,16 +244,26 @@ function addHeader({ row }: { row?: Column | HeaderColumn }) {
   }).spawn({
     width: 400,
   }).load({
-    title: () => '添加表头',
-    default: () => (<FormKit type="form"
+    title: () => isAddGroup.value === 3 ? '修改表头' : '添加表头',
+    default: () => (<FormKit type="form" id="groupForm"
                              v-model={gropForm.value}
                              actions={false}
                              incomplete-message={false}
                              config={config}
-                             onSubmit={() => {
-
+                             onSubmit={(val) => {
+                               if (isAddGroup.value === 1) {
+                                 treeData.value?.push({ ...val, type: selectType.value, children: [] })
+                               }
+                               else if (isAddGroup.value === 2) {
+                                 updateNode(treeData.value, { ...val, type: selectType.value, children: [] }, 'name', 'add', selectOption.value.name)
+                               }
+                               else {
+                                 updateNode(treeData.value, val, 'name', 'edit')
+                               }
+                               modal.closeAt(1)
+                               modal.closeAt(0)
                              }}>
-        <FormKitSchema schema={gropSchema}></FormKitSchema>
+        <FormKitSchema schema={gropSchema} data={groupData}></FormKitSchema>
       </FormKit>
     ),
     footer: () => [
@@ -257,29 +276,32 @@ function addHeader({ row }: { row?: Column | HeaderColumn }) {
       <n-button
         type="primary"
         onClick={() => {
-
+          getNode('groupForm')?.submit()
         }}
       >
         确定
       </n-button>,
     ],
   })
-  if (!row) {
+  if (isAddGroup.value === 1 || isAddGroup.value === 2) {
     modal.openAt(0)
+    gropForm.value = {
+      name: '',
+      label: '',
+    }
   }
   else {
-    if (row.type === TableHeaderType.GROUP) {
+    if (selectOption.value.type === TableHeaderType.GROUP) {
       modal.openAt(1)
+      for (const key in selectOption.value) {
+        gropForm.value[key] = selectOption.value[key]
+      }
     }
     else {
-      columnCondition.use({
-        columns: [
-          { name: 'name', label: '姓名', matcher: '', visible: true },
-          { name: 'age', label: '年龄', matcher: '', visible: true },
-          { name: 'sex', label: '性别', matcher: '', visible: true },
-        ],
-        save(data) {
-          console.log(data)
+      columnDialog.open({
+        row: selectOption.value,
+        set(data) {
+          updateNode(treeData.value, { ...selectOption.value, ...data }, 'name', 'edit')
         },
       })
     }
@@ -289,7 +311,7 @@ function addHeader({ row }: { row?: Column | HeaderColumn }) {
 
 <template>
   <div>
-    <n-button class="w-full" @click="addHeader">
+    <n-button class="w-full" @click="addGroup">
       <template #icon>
         <SvgIcon icon="carbon:add" class="inline-block align-text-bottom text-20px" />
       </template>
@@ -299,7 +321,7 @@ function addHeader({ row }: { row?: Column | HeaderColumn }) {
       block-line
       draggable
       :data="treeData"
-      key-field="key"
+      key-field="name"
       :show-line="true"
       :render-suffix="renderSuffix"
       :render-prefix="renderPrefix"

@@ -1,4 +1,5 @@
 import type { TableSchema } from '@runafe/unified-api-designer'
+import { ColumnFixedMode, HorizontalAlign, ValueType } from '@runafe/unified-api-designer'
 
 export const tableSchema = ref<TableSchema>({
   code: '',
@@ -36,8 +37,8 @@ export const tableSchema = ref<TableSchema>({
       { value: '#12234a', condition: '$', name: '报停1' },
     ],
   },
-  Columns: [],
-  HeaderColumns: [],
+  columns: [],
+  headerColumns: [],
   pagination: {
 
     pageSizes: [
@@ -51,3 +52,21 @@ export const tableSchema = ref<TableSchema>({
     advancedQueryFields: [], // 高级查询字段
   },
 } as unknown as TableSchema)
+
+export const defaultColumn = {
+  description: '',
+  align: HorizontalAlign.LEFT,
+  resizable: false,
+  sortable: false,
+  fixed: ColumnFixedMode.NONE,
+  type: ValueType.STRING,
+  editable: false,
+  wordWrap: false,
+  textRows: null,
+  precision: null,
+  showThousandSeparator: true,
+  render: null,
+  useCopy: false,
+  colors: [],
+  backgroundColors: [],
+}

@@ -1,12 +1,11 @@
 import { defineModal } from '@runafe/magic-system'
-import type { DataTableColumn } from 'naive-ui'
 import { NButton, NCheckbox, NEllipsis, NIcon, NInput, NSpace } from 'naive-ui'
 import type { Field } from '@runafe/unified-api-designer'
 import { match } from 'pinyin-pro'
 
 export function useColumnCondition() {
   const modal = defineModal({
-    width: 460,
+    width: 470,
   })
   return {
     use: (options: { title?: string, columns: Field[], save: (columns: any) => void }) => {
@@ -64,29 +63,32 @@ export function useColumnCondition() {
               }}>反选</NButton>
             </NSpace>
           </div>,
+          <n-scrollbar style="max-height: 400px">
           <div class={{
             ':uno: flex flex-wrap gap-4':
               true,
           }}>
-            {
-              lists.value.map((element: DataTableColumn, index: number) => (<div
-                key={element.name}
-                class={{
-                  ':uno: w-50 bg-#f5f7fa b-1 b-solid h-32px pl-8px flex-sb_c b-#d9e2e8 b-rd-5px':
-                    true,
-                }}
-              >
-                <NCheckbox checked={element.selectable}
-                           onUpdate:checked={(v) => {
-                             element.selectable = v
-                           }}>
-                  <NEllipsis class="ml-4px overflow-hidden max-w-200px!">
-                    {element.label}
-                  </NEllipsis>
-                </NCheckbox>
-              </div>))
-            }
-          </div>,
+              {
+                lists.value.map(element => (<div
+                  key={element.name}
+                  class={{
+                    ':uno: w-50 bg-#f5f7fa b-1 b-solid h-32px pl-8px flex-sb_c b-#d9e2e8 b-rd-5px':
+                      true,
+                  }}
+                >
+                  <NCheckbox checked={element.selectable}
+                            onUpdate:checked={(v) => {
+                              element.selectable = v
+                            }}>
+                    <NEllipsis class="ml-4px overflow-hidden max-w-200px!">
+                      {element.label}
+                    </NEllipsis>
+                  </NCheckbox>
+                </div>))
+                }
+
+          </div>
+          </n-scrollbar>,
         ]),
         footer: [
           <NButton

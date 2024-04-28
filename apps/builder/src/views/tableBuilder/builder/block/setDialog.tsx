@@ -18,6 +18,7 @@ export function useSetDialog() {
         name: 'name',
         id: 'name',
         label: '唯一标识',
+        disabled: true,
         maxlength: 50,
         validation: [['required'], ['matches', '/^[a-zA-Z0-9_]+$/']],
         validationMessages: { matches: '请输入正确的唯一标识' },

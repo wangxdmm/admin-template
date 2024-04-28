@@ -57,7 +57,7 @@ function setVisiable(index: number) {
       >
         <li
           v-for="(element, index) in list" :key="element[props.nameField] || index"
-          class="flex b-1 b-solid h-32px pl-8px flex-sb_c b-#d9e2e8 w-full align--center"
+          class="flex b-1 b-solid h-32px pl-8px flex-sb_c b-#d9e2e8 w-full align--center rounded"
         >
           <span class="h-100% line-height-32px handle cursor-move">
             <SvgIcon icon="icon-park-outline:drag" class="inline-block align-text-bottom text-16px" />

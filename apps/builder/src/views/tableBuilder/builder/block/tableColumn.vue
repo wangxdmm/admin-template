@@ -6,11 +6,12 @@ import type {
   Field,
 } from '@runafe/unified-api-designer'
 import { isArray, unionBy } from 'lodash-es'
-import { tableSchema } from '../tableSchema'
+import { defaultColumn, tableSchema } from '../tableSchema'
 import { useColumnDialog } from './columnDialog'
 import RnConditions from './condition.vue'
 import { useColumnCondition } from './ColumnCondition'
 import RsHeaderTree from './headerTree.vue'
+import { traverseTree } from ':/utils/treeFunction'
 
 defineExpose({ name: 'TableColumn' })
 const columnCondition = useColumnCondition()
@@ -39,7 +40,7 @@ function addColumn() {
     return
   }
   const selectNames = columns.value.map(v => v.name)
-  const allColumn = fields.value.map((n) => {
+  const allColumn = fields.value.filter(c => !traverseTree(tableSchema.value.headerColumns || [], 'name').includes(c.name)).map((n) => {
     if (selectNames.includes(n.name)) {
       n.selectable = true
     }
@@ -48,7 +49,11 @@ function addColumn() {
     }
     return n
   })
+  if (allColumn.length === 0) {
+    return message.warning('没有可用配置列')
+  }
   columnCondition.use({
+    title: '添加表格列',
     columns: allColumn,
     save(cols: Field[]) {
       const names: string[] = []
@@ -57,11 +62,9 @@ function addColumn() {
           names.push(v.name)
         }
         return v.selectable
-      },
-      )
+      }).map(item => ({ ...item, ...defaultColumn }))
       columns.value = [...unionBy(columns.value.filter(f => names.includes(f.name)), selectArry, 'name')]
     },
-
   })
 }
 </script>
@@ -71,7 +74,7 @@ function addColumn() {
     <div class="my-10px">
       表格列设置
     </div>
-    <RnConditions v-model="columns" @update="editColumn" @add="addColumn" />
+    <RnConditions v-model="columns" button-name="添加表格列" @update="editColumn" @add="addColumn" />
     <div class="my-10px">
       表头分组设置
     </div>

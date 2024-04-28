@@ -34,7 +34,6 @@ export function useEditDialog() {
         name: 'code',
         id: 'code',
         label: '视图编号',
-        disabled: '$editable',
         labelField: 'name',
         valueField: 'code',
         options: '$viewList',
@@ -65,10 +64,8 @@ export function useEditDialog() {
       size: 'small',
     })
     const checkForm = reactive<{
-      editable: boolean
       viewList: TableEntitySearch[]
     }>({
-      editable: options.type === 1,
       viewList: [],
     })
     async function loadView() {
