@@ -84,5 +84,14 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       }
     ]
+  },
+  {
+    name: 'test',
+    path: '/test',
+    component: 'layout.base$view.test',
+    meta: {
+      title: 'test',
+      constant: true
+    }
   }
 ];

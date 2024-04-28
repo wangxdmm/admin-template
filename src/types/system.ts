@@ -1,5 +1,6 @@
 import type { Router } from 'vue-router'
 import type { AtLeast } from '@monan/types'
+import type { Restful } from '@monan/easy-axios'
 import type { ElegantConstRoute, ServerMenu } from './route'
 import type { ThemeSetting } from './theme'
 import type { UserLoginParam } from './user'
@@ -8,6 +9,7 @@ export interface SystemConfig {
   formKitConfig: TODO
   theme?: ThemeSetting
   home?: string
+  http?: Restful<any>
   setting: TODO
   router: {
     instance: Router

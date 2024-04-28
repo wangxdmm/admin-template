@@ -29,6 +29,7 @@ declare module "@elegant-router/types" {
     "tableBuilder": "/tableBuilder";
     "tableBuilder_builder": "/tableBuilder/builder";
     "tableBuilder_list": "/tableBuilder/list";
+    "test": "/test";
   };
 
   /**
@@ -70,6 +71,7 @@ declare module "@elegant-router/types" {
     | "entry"
     | "login"
     | "tableBuilder"
+    | "test"
   >;
 
   /**
@@ -92,6 +94,7 @@ declare module "@elegant-router/types" {
     | "500"
     | "entry"
     | "login"
+    | "test"
     | "tableBuilder_builder"
     | "tableBuilder_list"
   >;

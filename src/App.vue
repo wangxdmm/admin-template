@@ -34,7 +34,9 @@ const naiveDateLocale = computed(() => {
   return naiveDateLocales[appStore.locale]
 })
 
-const config = defineSystemConfig({})
+const config = defineSystemConfig({
+  http: props.config?.http,
+})
 </script>
 
 <template>

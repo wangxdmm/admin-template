@@ -16,6 +16,7 @@ const sys = defineSystem(() => ({
   logo: Logo,
   formKitConfig,
   setting: {},
+  http,
   title: 'CBB开发平台',
   router: {
     map: routeMap,

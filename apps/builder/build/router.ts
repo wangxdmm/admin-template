@@ -42,7 +42,7 @@ export function setupElegantRouter(envs: Env.ImportMeta) {
     },
     onRouteMetaGen(routeName) {
       const key = routeName
-      const constantRoutes = ['login', '403', '404', '500', 'entry']
+      const constantRoutes = ['login', '403', '404', '500', 'entry', 'test']
       const data = rolesMap[envs.VITE_APP_CODE][routeName]
 
       // 非一级

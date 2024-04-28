@@ -2,6 +2,7 @@ import process from 'node:process'
 import { URL, fileURLToPath } from 'node:url'
 import { defineConfig, loadEnv } from 'vite'
 import dayjs from 'dayjs'
+import { getGlobalDefines } from '@runafe/tools-build'
 import { setupVitePlugins } from './build'
 
 export default defineConfig((configEnv) => {
@@ -14,14 +15,28 @@ export default defineConfig((configEnv) => {
   return {
     base: viteEnv.VITE_BASE_URL,
     resolve: {
-      alias: {
-        ':': fileURLToPath(new URL('./src', import.meta.url)),
-      },
+      alias: [
+        {
+          find: ':',
+          replacement: fileURLToPath(new URL('./src', import.meta.url)),
+        },
+        // {
+        //   find: '@runafe/magic-system/style',
+        //   replacement:
+        //     '/root/app/smart-heating/smart-heating/packages/magic-system/dist/style.css',
+        // },
+        // {
+        //   find: '@runafe/magic-system',
+        //   replacement:
+        //     '/root/app/smart-heating/smart-heating/packages/magic-system/src/index.ts',
+        // },
+      ],
     },
     plugins: setupVitePlugins(viteEnv),
     define: {
       __DEV__: configEnv.mode === 'development',
       BUILD_TIME: JSON.stringify(buildTime),
+      ...getGlobalDefines(),
     },
     server: {
       host: '0.0.0.0',
