@@ -2,7 +2,6 @@
 import type { DataSource } from '@runafe/unified-api-designer'
 import type { FormKitSchemaDefinition } from '@formkit/core'
 import { titleClass } from '../share'
-import { viewModels } from '../useData'
 import { tableSchema } from '../tableSchema'
 
 const dataSource = computed<DataSource & Record<string, any>>({
@@ -11,7 +10,6 @@ const dataSource = computed<DataSource & Record<string, any>>({
     tableSchema.value.dataSource = val
   },
 })
-
 const schema: FormKitSchemaDefinition = [
   {
     $el: 'p',
@@ -21,13 +19,10 @@ const schema: FormKitSchemaDefinition = [
     },
   },
   {
-    $formkit: 'n:select',
-    name: 'viewModelCode',
-    label: '视图',
-    validation: 'required',
-    options: '$viewModels',
-    valueField: 'code',
-    labelField: 'name',
+    $formkit: 'n:text',
+    name: 'viewTitle',
+    label: '视图名称',
+    disabled: true,
   },
   {
     $formkit: 'n:text',
@@ -51,10 +46,6 @@ const schema: FormKitSchemaDefinition = [
     label: '是否启用初始加载数据',
   },
 ]
-
-const data = {
-  viewModels,
-}
 </script>
 
 <template>
@@ -65,7 +56,7 @@ const data = {
       :actions="false"
       :incomplete-message="false"
     >
-      <FormKitSchema :schema :data />
+      <FormKitSchema :schema />
     </FormKit>
   </div>
 </template>

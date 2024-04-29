@@ -23,6 +23,7 @@ const queryConfig = computed<QueryConfig>({
     tableSchema.value.queryConfig = val
   },
 })
+
 const fields = computed<Field[]>(() => tableSchema.value.fields ?? [])
 
 function addQuery() {

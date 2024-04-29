@@ -44,3 +44,4 @@ const rightClickMenus = computed<UnifiedAction[]>({
     <Actions v-model="rightClickMenus" title="右键菜单功能" />
   </div>
 </template>
+../useTableSchema

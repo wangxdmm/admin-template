@@ -1,23 +1,37 @@
-export interface viewModelEntity {
+export interface ViewModelEntity {
   appCode: string
   code: string
-  desc: string
+  desc?: string
+  fields: ViewModelField[]
+  inactive: boolean
+  itemId: string
+  locked: boolean
+  modelName: string
+  serverId: string
   name: string
+  orgId?: number
   actionConfig?: any
-  columns?: any
   createdAt?: string
   createdBy?: string
-  dataSource?: string
-  headerColumns?: any
-  itemId?: string
   lastUpdatedAt?: string
   lastUpdatedBy?: string
-  orgId?: any
-  pagination?: any
-  queryConfig?: any
-  styleConfig?: any
 }
 
+export interface ViewModelField {
+  name: string
+  label: string
+  desc: string
+  type: string
+  metaCode: string
+  unit: string
+  attachmentSource: string
+  selectable: boolean
+  filterable: boolean
+  supportMatchers: string[]
+  sortable: boolean
+  itemId: string
+
+}
 export interface TableEntitySearch {
   appCode: string
   code: string

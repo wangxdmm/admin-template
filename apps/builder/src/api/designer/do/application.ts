@@ -1,13 +1,17 @@
 import type { Restful, defineAPI } from '@monan/easy-axios'
-import type { TableEntitySearch } from ':/typings/designer'
+import type {
+  TableSchema,
+} from '@runafe/unified-api-designer'
+import type { ViewModelEntity } from ':/typings/designer'
 
 export function designerDoApplicationCreator<T extends Restful<any>>(http: T) {
   return http.create<[
-    defineAPI<'search', Record<string, any>, TableEntitySearch[]>,
-    defineAPI<'saveAndRelease', TableEntitySearch, void>,
+    defineAPI<'search', Record<string, any>, ViewModelEntity[]>,
+    defineAPI<'saveAndRelease', ViewModelEntity, void>,
     defineAPI<'deleteAndRelease', { code: string }, void>,
-    defineAPI<'viewSearch', Record<string, any>, TableEntitySearch[]>,
-    defineAPI<'getByCode', { code: string }, TableEntitySearch>,
+    defineAPI<'viewSearch', Record<string, any>, ViewModelEntity[]>,
+    defineAPI<'getByCode', { code: string }, ViewModelEntity>,
+    defineAPI<'getTableSchema', { code: string }, TableSchema>,
   ]>(
     '/designer/do/application',
     [
@@ -16,6 +20,7 @@ export function designerDoApplicationCreator<T extends Restful<any>>(http: T) {
       'delete::/tableEntity/deleteAndRelease?code={code}->deleteAndRelease',
       'post::/dataViewEntity/search->viewSearch',
       'get::/dataViewEntity/getByCode::?->getByCode',
+      'get::/tableEntity/getByCode?code={code}->getTableSchema',
     ],
   )
 }

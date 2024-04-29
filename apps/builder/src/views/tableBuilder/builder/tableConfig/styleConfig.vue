@@ -149,3 +149,4 @@ function bgEdit(row?: ColorSchema) {
     </FormKit>
   </div>
 </template>
+../useTableSchema

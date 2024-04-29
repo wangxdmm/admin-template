@@ -5,7 +5,7 @@ import { defineDataTable } from '@runafe/magic-system'
 import { NButton, NPopconfirm, NSpace, useDialog } from 'naive-ui'
 import dayjs from 'dayjs'
 import { useEditDialog } from './editDialog'
-import type { TableEntitySearch, viewModelEntity } from ':/typings/designer'
+import type { TableEntitySearch, ViewModelEntity } from ':/typings/designer'
 import { designerDoApplication } from ':/api'
 import { RCriterias, RQuery } from ':/utils/query/index'
 
@@ -70,7 +70,7 @@ const columns = [
     width: 200,
     sortable: false,
     slots: {
-      default: ({ row }: { row: viewModelEntity }) => {
+      default: ({ row }: { row: ViewModelEntity }) => {
         return row.createdAt
           ? dayjs(row.createdAt).format('YYYY-MM-DD HH:mm:ss')
           : null
@@ -84,7 +84,7 @@ const columns = [
     width: 190,
     fixed: 'right',
     slots: {
-      default: ({ row }: { row: viewModelEntity }) => {
+      default: ({ row }: { row: ViewModelEntity }) => {
         return (
           <NSpace>
             <NButton
@@ -117,7 +117,7 @@ const columns = [
     },
   },
 ]
-const Table = defineDataTable<viewModelEntity>(columns as TODO, {
+const Table = defineDataTable<ViewModelEntity>(columns as TODO, {
   immediate: true,
   checkedOnClick: true,
   getData: async (params, ctx) => {
@@ -142,7 +142,7 @@ const Table = defineDataTable<viewModelEntity>(columns as TODO, {
   },
 })
 
-function operationHandle(row: viewModelEntity, type: number) {
+function operationHandle(row: ViewModelEntity, type: number) {
   // 编辑表格
   if (type === 1) {
     editDialog.open({

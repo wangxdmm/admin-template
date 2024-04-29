@@ -1,10 +1,14 @@
 import { RCriterias, RQuery } from ':/utils/query'
-import type { viewModelEntity } from ':/typings/designer'
+import type { ViewModelEntity } from ':/typings/designer'
 import { designerDoApplication } from ':/api'
 
 const appCode = 'CHARGE'
 
-export const viewModels = shallowRef<viewModelEntity[]>([])
+export const viewModels = shallowRef<ViewModelEntity[]>([])
+
+export const viewModel = ref<ViewModelEntity>({} as ViewModelEntity)
+
+export const viewModelFields = computed(() => viewModel.value.fields)
 
 function init() {
   getViewModels()
@@ -21,6 +25,10 @@ async function getViewModels() {
   )
   const { backData } = await designerDoApplication.viewSearch(query)()
   if (backData) {
-    viewModels.value = backData
+    viewModels.value = backData as ViewModelEntity[]
   }
+}
+
+export function updateViewModel(val: ViewModelEntity) {
+  viewModel.value = val
 }

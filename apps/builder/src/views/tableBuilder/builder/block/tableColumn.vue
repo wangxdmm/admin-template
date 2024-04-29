@@ -80,3 +80,4 @@ function addColumn() {
     <RsHeaderTree />
   </n-scrollbar>
 </template>
+../useTableSchema

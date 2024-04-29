@@ -56,3 +56,4 @@ const data = {
     </FormKit>
   </div>
 </template>
+../useTableSchema

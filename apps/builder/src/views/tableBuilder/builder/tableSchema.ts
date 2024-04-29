@@ -1,45 +1,13 @@
-import type { TableSchema } from '@runafe/unified-api-designer'
+import type {
+  TableSchema,
+} from '@runafe/unified-api-designer'
 import { ColumnFixedMode, HorizontalAlign, ValueType } from '@runafe/unified-api-designer'
 
-export const tableSchema = ref<TableSchema>({
-  code: '',
-  name: '',
-  appCode: '',
-  desc: '',
-  dataSource: {
-    viewModelCode: '',
-    serverName: '',
-    filter: '',
-    loadOnInit: true,
-    primaryKeyFieldName: '',
-  },
-  metrics: [],
-  actionConfig: {
-    generalButtons: [],
-    rowButtons: [],
-    cellActions: [],
-    rightClickMenus: [],
-    treeTable: {
+export const tableSchema: Ref<TableSchema> = ref({ dataSource: { serverName: 'charge-manager' } } as TableSchema)
 
-    },
-  },
-  styleConfig: {
-    rowBackgroundColors: [],
-  },
-  columns: [],
-  headerColumns: [],
-  pagination: {
-    pageSizes: [
-      { size: 10, defaultOption: true },
-      { size: 20, defaultOption: false },
-    ],
-  },
-  queryConfig: {
-    enabled: false, // 启用
-    generalQueryFields: [], // 普通查询字段
-    advancedQueryFields: [], // 高级查询字段
-  },
-} as unknown as TableSchema)
+export function updateSchema(val: TableSchema) {
+  tableSchema.value = val
+}
 
 export const defaultColumn = {
   description: '',

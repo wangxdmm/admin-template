@@ -3,7 +3,8 @@ import { useRoute } from 'vue-router'
 import { defineSchemaTable } from '@runafe/magic-system'
 import TableConfig from './tableConfig/view.vue'
 import ActionConfig from './actionConfig/view.vue'
-import { defaultTable, tableSchema } from './tableSchema'
+import { tableSchema, updateSchema } from './tableSchema'
+import { updateViewModel } from './viewModels'
 import Query from './block/query.vue'
 import tableColumn from './block/tableColumn.vue'
 import { designerDoApplication } from ':/api'
@@ -11,16 +12,25 @@ import { designerDoApplication } from ':/api'
 const show = ref(false)
 const router = useRoute()
 async function loadCode() {
-  const { code } = router.query
-  const { backData } = await designerDoApplication.getByCode({ code })()
+  const { code } = router.query as { code: string }
+  const { backData } = await designerDoApplication.getTableSchema({ code })()
   if (backData) {
+<<<<<<< HEAD
     tableSchema.value = Object.assign(
       {},
       JSON.parse(JSON.stringify(defaultTable)),
       backData,
     )
+=======
+    updateSchema({ ...backData, dataSource: { serverName: 'charge-manager' } })
+    const { backData: models } = await designerDoApplication.getByCode({ code: backData.code })()
+    if (models) {
+      updateViewModel(models)
+    }
+>>>>>>> 02668e9 (fix: api)
   }
 }
+
 const Schema = defineSchemaTable(tableSchema, {
   data: {},
 })
@@ -87,4 +97,4 @@ onMounted(() => {
       </n-scrollbar>
     </div>
   </div>
-</template>
+</template>./useTableSchema

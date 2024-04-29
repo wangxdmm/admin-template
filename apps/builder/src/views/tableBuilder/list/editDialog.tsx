@@ -5,7 +5,7 @@ import { ref } from 'vue'
 import { useDialog } from 'naive-ui'
 import { RCriterias, RQuery } from ':/utils/query'
 import { designerDoApplication } from ':/api'
-import type { TableEntitySearch, viewModelEntity } from ':/typings/designer'
+import type { TableEntitySearch, ViewModelEntity } from ':/typings/designer'
 
 export function useEditDialog() {
   const editDialog = useDialog()
@@ -14,7 +14,7 @@ export function useEditDialog() {
   })
 
   function open(options: {
-    row?: viewModelEntity
+    row?: ViewModelEntity
     type: number
     reload: () => void
   }) {
