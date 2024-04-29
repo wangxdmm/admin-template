@@ -14,7 +14,11 @@ async function loadCode() {
   const { code } = router.query
   const { backData } = await designerDoApplication.getByCode({ code })()
   if (backData) {
-    tableSchema.value = Object.assign({}, JSON.parse(JSON.stringify(defaultTable)), backData)
+    tableSchema.value = Object.assign(
+      {},
+      JSON.parse(JSON.stringify(defaultTable)),
+      backData,
+    )
   }
 }
 const Schema = defineSchemaTable(tableSchema, {
@@ -59,26 +63,28 @@ onMounted(() => {
         {{ tableSchema }}
       </pre>
     </div>
-    <div class="absolute right-0 top-4px bottom-4px">
-      <RsPlainCard content-class="w-400px p-16px!">
-        <n-tabs type="line" animated>
-          <n-tab-pane name="props" tab="表格属性">
-            <TableConfig />
-          </n-tab-pane>
-          <n-tab-pane name="query" tab="查询条件">
-            <Query />
-          </n-tab-pane>
-          <n-tab-pane name="colunmn" tab="表格列设置">
-            <tableColumn />
-          </n-tab-pane>
-          <n-tab-pane name="actions" tab="功能设置">
-            <ActionConfig />
-          </n-tab-pane>
-          <n-tab-pane name="feature" tab="添加表格列">
-            统计指标
-          </n-tab-pane>
-        </n-tabs>
-      </RsPlainCard>
+    <div class="absolute right-0 top-4px bottom-4px bg-#fff w-420px">
+      <n-scrollbar>
+        <div class="p-16px">
+          <n-tabs type="line" animated>
+            <n-tab-pane name="props" tab="表格属性">
+              <TableConfig />
+            </n-tab-pane>
+            <n-tab-pane name="query" tab="查询条件">
+              <Query />
+            </n-tab-pane>
+            <n-tab-pane name="colunmn" tab="表格列设置">
+              <tableColumn />
+            </n-tab-pane>
+            <n-tab-pane name="actions" tab="功能设置">
+              <ActionConfig />
+            </n-tab-pane>
+            <n-tab-pane name="feature" tab="添加表格列">
+              统计指标
+            </n-tab-pane>
+          </n-tabs>
+        </div>
+      </n-scrollbar>
     </div>
   </div>
 </template>
