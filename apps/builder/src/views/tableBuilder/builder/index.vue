@@ -1,10 +1,9 @@
 <script lang="ts" setup>
-import type { TableSchema } from '@runafe/unified-api-designer'
 import { useRoute } from 'vue-router'
 import { defineSchemaTable } from '@runafe/magic-system'
 import TableConfig from './tableConfig/view.vue'
 import ActionConfig from './actionConfig/view.vue'
-import { tableSchema } from './tableSchema'
+import { defaultTable, tableSchema } from './tableSchema'
 import Query from './block/query.vue'
 import tableColumn from './block/tableColumn.vue'
 import { designerDoApplication } from ':/api'
@@ -15,7 +14,7 @@ async function loadCode() {
   const { code } = router.query
   const { backData } = await designerDoApplication.getByCode({ code })()
   if (backData) {
-    tableSchema.value = { ...tableSchema.value, ...backData } as TableSchema
+    tableSchema.value = Object.assign({}, JSON.parse(JSON.stringify(defaultTable)), backData)
   }
 }
 const Schema = defineSchemaTable(tableSchema, {
@@ -39,7 +38,7 @@ onMounted(() => {
 
 <template>
   <div class="relative size-full p-16px">
-    <div class="flex-s_c gap-16px">
+    <div class="flex-s_c gap-16px bg-#fff mr-400px p-8px">
       <NButton
         size="medium"
         type="primary"
@@ -54,15 +53,15 @@ onMounted(() => {
       <NButton type="primary">
         发布
       </NButton>
+      <NButton type="success">
+        重置
+      </NButton>
+      <NButton type="success">
+        查看schema
+      </NButton>
     </div>
-    <div class="flex">
-      <!-- <pre>{{ tableSchema }}</pre> -->
-      <div class="size-600px mt-16px">
-        <Schema.Component />
-      </div>
-      <pre class="size-600px overflow-auto">
-        {{ tableSchema }}
-      </pre>
+    <div class="h-800px w-full pr-400px mt-16px">
+      <Schema.Component />
     </div>
     <div class="absolute right-0 top-4px bottom-4px">
       <RsPlainCard content-class="w-400px p-16px! overflow-y-scroll">

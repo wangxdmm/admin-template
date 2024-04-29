@@ -11,7 +11,6 @@ import { useColumnDialog } from './columnDialog'
 import RnConditions from './condition.vue'
 import { useColumnCondition } from './ColumnCondition'
 import RsHeaderTree from './headerTree.vue'
-import { traverseTree } from ':/utils/treeFunction'
 
 defineExpose({ name: 'TableColumn' })
 const columnCondition = useColumnCondition()
@@ -40,7 +39,7 @@ function addColumn() {
     return
   }
   const selectNames = columns.value.map(v => v.name)
-  const allColumn = fields.value.filter(c => !traverseTree(tableSchema.value.headerColumns || [], 'name').includes(c.name)).map((n) => {
+  const allColumn = fields.value.map((n) => {
     if (selectNames.includes(n.name)) {
       n.selectable = true
     }

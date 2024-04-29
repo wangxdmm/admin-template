@@ -3,7 +3,7 @@ import { computed, reactive, ref } from 'vue'
 import type { TreeDropInfo, TreeOption } from 'naive-ui'
 import { NSpace, useMessage } from 'naive-ui'
 import { defineModal } from '@runafe/magic-system'
-import type { Field, HeaderColumn } from '@runafe/unified-api-designer'
+import type { Column, HeaderColumn } from '@runafe/unified-api-designer'
 import { TableHeaderType } from '@runafe/unified-api-designer'
 import { FormKit, FormKitSchema } from '@formkit/vue'
 import type { FormKitSchemaDefinition } from '@formkit/core'
@@ -32,10 +32,7 @@ const treeData = computed({
   },
 })
 const isAddGroup = ref<number>(1)
-const selectColumn = computed<Field[]>(() => {
-  const names = tableSchema.value.columns.map(v => v.name)
-  return (tableSchema.value.fields ?? []).filter(item => !names.includes(item.name))
-})
+const selectColumn = computed<Column[]>(() => tableSchema.value.columns)
 const gropSchema: FormKitSchemaDefinition = [
   {
     $formkit: 'n:text',
@@ -126,7 +123,11 @@ function renderSuffix(row) {
 }
 
 function renderPrefix({ option }: { option: TreeOption }) {
-  return (<svg-icon icon="radix-icons:file-text" class="text-16px"/>)
+  let prefix = <svg-icon icon="bx:coin-stack" class="text-16px"/>
+  if (option.type === 'GROUP') {
+    prefix = <svg-icon icon="ion:folder-outline" class="text-16px"/>
+  }
+  return (prefix)
 }
 
 function findSiblingsAndIndex(
@@ -202,7 +203,7 @@ function addHeader({ option }: { option: TreeOption }) {
           }
           else {
             if (selectColumn.value.length === 0) {
-              return message.warning('请设置表格列')
+              return message.warning('请先添加表格列')
             }
             const columns = selectColumn.value.filter((c) => {
               if (!traverseTree(treeData.value, 'name').includes(c.name)) {

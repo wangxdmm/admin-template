@@ -7,40 +7,28 @@ export const tableSchema = ref<TableSchema>({
   appCode: '',
   desc: '',
   dataSource: {
-    viewModelCode: 'adept-settlement',
-    serverName: 'string',
-    filter: 'string',
+    viewModelCode: '',
+    serverName: '',
+    filter: '',
     loadOnInit: true,
-    primaryKeyFieldName: 'string',
+    primaryKeyFieldName: '',
   },
   metrics: [],
   actionConfig: {
-    generalButtons: [
-      { name: '111', label: '删除' },
-    ],
-    rowButtons: [
-      { name: '111', label: '删除' },
-    ],
-    cellActions: [
-      { name: '111', label: '删除' },
-    ],
-    rightClickMenus: [
-      { name: '111', label: '删除' },
-    ],
+    generalButtons: [],
+    rowButtons: [],
+    cellActions: [],
+    rightClickMenus: [],
     treeTable: {
 
     },
   },
   styleConfig: {
-    rowBackgroundColors: [
-      { value: '#12234a', condition: '$', name: '报停' },
-      { value: '#12234a', condition: '$', name: '报停1' },
-    ],
+    rowBackgroundColors: [],
   },
   columns: [],
   headerColumns: [],
   pagination: {
-
     pageSizes: [
       { size: 10, defaultOption: true },
       { size: 20, defaultOption: false },
@@ -69,4 +57,44 @@ export const defaultColumn = {
   useCopy: false,
   colors: [],
   backgroundColors: [],
+}
+
+export const defaultTable = {
+  code: '',
+  name: '',
+  appCode: '',
+  desc: '',
+  dataSource: {
+    viewModelCode: '',
+    serverName: '',
+    filter: '',
+    loadOnInit: true,
+    primaryKeyFieldName: '',
+  },
+  metrics: [],
+  actionConfig: {
+    generalButtons: [],
+    rowButtons: [],
+    cellActions: [],
+    rightClickMenus: [],
+    treeTable: {
+
+    },
+  },
+  styleConfig: {
+    rowBackgroundColors: [],
+  },
+  columns: [],
+  headerColumns: [],
+  pagination: {
+    pageSizes: [
+      { size: 10, defaultOption: true },
+      { size: 20, defaultOption: false },
+    ],
+  },
+  queryConfig: {
+    enabled: false, // 启用
+    generalQueryFields: [], // 普通查询字段
+    advancedQueryFields: [], // 高级查询字段
+  },
 }

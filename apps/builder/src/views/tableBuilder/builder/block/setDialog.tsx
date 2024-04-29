@@ -1,17 +1,38 @@
+import { computed } from 'vue'
 import { defineModal } from '@runafe/magic-system'
 import { FormKit, FormKitSchema } from '@formkit/vue'
 import { getNode } from '@formkit/core'
+import type {
+  Field,
+} from '@runafe/unified-api-designer'
+import { tableSchema } from '../tableSchema'
 
 export function useSetDialog() {
   const modal = defineModal({
     width: 500,
   })
-
+  const fields = computed<Field[]>(() => tableSchema.value.fields ?? [])
   function open<T>(options: {
     type: number
     row: T
     set: (row: T) => void
   }) {
+    const matcherList = [{ label: '等于空', value: 'ISNULL' }, { label: '不等于空', value: 'NOT_NULL' }, {
+      label: '等于',
+      value: 'EQ',
+    }, { label: '不等于', value: 'NOT_EQ' }, { label: '大于', value: 'GT' }, { label: '大于等于', value: 'GE' }, {
+      label: '小于',
+      value: 'LT',
+    }, { label: '小于等于', value: 'LE' }, { label: '包含', value: 'LIKE' }, { label: '不包含', value: 'NOT_LIKE' }, { label: '开始于', value: 'PREFIX_LIKE' }, {
+      label: '结束于',
+      value: 'SUFFIX_LIKE',
+    }, { label: '介于', value: 'BETWEEN' }, { label: '不介于', value: 'NOT_BETWEEN' }, { label: '存在于', value: 'IN' }, { label: '不存在于', value: 'NOT_IN' }]
+
+    const checkForm = reactive({
+      ishow: options.type === 1,
+      isMultiple: options.type !== 1,
+      matcherList: matcherList.filter(v => fields.value.find(c => c.name === options.row.name).supportMatchers.includes(v.value)),
+    })
     const userSchema = ref([
       {
         $formkit: 'n:text',
@@ -35,7 +56,10 @@ export function useSetDialog() {
         name: 'matcher',
         id: 'matcher',
         label: '匹配方式',
+        multiple: '$isMultiple',
         options: '$matcherList',
+        validation: [['required']],
+        validationMessages: { required: '必填' },
       },
       {
         $formkit: 'n:textarea',
@@ -61,20 +85,6 @@ export function useSetDialog() {
       labelWidth: 80,
       size: 'small',
     })
-    const checkForm = reactive({
-      ishow: options.type === 1,
-      matcherList: [{ label: '等于空', value: 'ISNULL' }, { label: '不等于空', value: 'NOT_NULL' }, {
-        label: '等于',
-        value: 'EQ',
-      }, { label: '不等于', value: 'NOT_EQ' }, { label: '大于', value: 'GT' }, { label: '大于等于', value: 'GE' }, {
-        label: '小于',
-        value: 'LT',
-      }, { label: '小于等于', value: 'LE' }, { label: '包含', value: 'LIKE' }, { label: '不包含', value: 'NOT_LIKE' }, { label: '开始于', value: 'PREFIX_LIKE' }, {
-        label: '结束于',
-        value: 'SUFFIX_LIKE',
-      }, { label: '介于', value: 'BETWEEN' }, { label: '不介于', value: 'NOT_BETWEEN' }, { label: '存在于', value: 'IN' }, { label: '不存在于', value: 'NOT_IN' }],
-    })
-
     function init() {
       for (const argumentsKey in options.row) {
         getNode(argumentsKey)?.input(options.row[argumentsKey],
