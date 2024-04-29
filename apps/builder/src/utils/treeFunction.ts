@@ -1,9 +1,10 @@
 import { flatten } from 'un-flatten-tree'
+import type { HeaderColumn } from '@runafe/unified-api-designer'
 
-export function traverseTree(tree: any) {
+export function traverseTree(tree: HeaderColumn,key:string) {
   return flatten(
     tree,
     (node: any) => node.children,
-    node => node,
+    node => node[key],
   )
 }
