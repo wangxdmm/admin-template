@@ -60,11 +60,7 @@ const schema: TableSchema = {
         color: 'primary',
         label: '增加',
         command: `
-<<<<<<< HEAD
-        <Action onClick="_T.DATA.newName = 'new name'" />
-=======
         <Action onClick="_.DATA.newName = 'new name'" />
->>>>>>> 6f45454 (feat: add parser)
         `,
       },
       {
@@ -90,11 +86,7 @@ const schema: TableSchema = {
         color: 'primary',
         label: '增加',
         command: `
-<<<<<<< HEAD
-        <Action onClick="_T.DATA.newName = 'new name'" />
-=======
         <Action onClick="_.DATA.newName = 'new name'" />
->>>>>>> 6f45454 (feat: add parser)
         `,
       },
       {
@@ -125,22 +117,14 @@ const schema: TableSchema = {
           name: 'little',
           value: 'red',
           condition: createElementStr(CONDITION_TAG, {
-<<<<<<< HEAD
-            value: `_T.RV <= 800`,
-=======
             value: `_.RV <= 800`,
->>>>>>> 6f45454 (feat: add parser)
           }),
         },
         {
           name: 'normal',
           value: 'blue',
           condition: createElementStr(CONDITION_TAG, {
-<<<<<<< HEAD
-            value: `_T.RV > 800 && _T.RV <= 1800`,
-=======
             value: `_.RV > 800 && _.RV <= 1800`,
->>>>>>> 6f45454 (feat: add parser)
           }),
         },
       ],
@@ -149,11 +133,7 @@ const schema: TableSchema = {
           name: 'much',
           value: 'yellow',
           condition: createElementStr(CONDITION_TAG, {
-<<<<<<< HEAD
-            value: `_T.RV > 1900`,
-=======
             value: `_.RV > 1900`,
->>>>>>> 6f45454 (feat: add parser)
           }),
         },
       ],
