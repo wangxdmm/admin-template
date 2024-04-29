@@ -90,7 +90,7 @@ export function useColumnCondition() {
           </div>
           </n-scrollbar>,
         ]),
-        footer: [
+        footer: () => [
           <NButton
             onClick={() => {
               modal.close()

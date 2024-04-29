@@ -21,16 +21,6 @@ const Schema = defineSchemaTable(tableSchema, {
   data: {},
 })
 
-watch(
-  tableSchema,
-  () => {
-    Schema.init()
-  },
-  {
-    deep: true,
-  },
-)
-
 onMounted(() => {
   loadCode()
 })
@@ -60,11 +50,17 @@ onMounted(() => {
         查看schema
       </NButton>
     </div>
-    <div class="h-800px w-full pr-400px mt-16px">
-      <Schema.Component />
+    <div class="flex">
+      <!-- <pre>{{ tableSchema }}</pre> -->
+      <div class="size-600px mt-16px">
+        <Schema.Component />
+      </div>
+      <pre class="size-600px overflow-auto">
+        {{ tableSchema }}
+      </pre>
     </div>
     <div class="absolute right-0 top-4px bottom-4px">
-      <RsPlainCard content-class="w-400px p-16px! overflow-y-scroll">
+      <RsPlainCard content-class="w-400px p-16px!">
         <n-tabs type="line" animated>
           <n-tab-pane name="props" tab="表格属性">
             <TableConfig />
