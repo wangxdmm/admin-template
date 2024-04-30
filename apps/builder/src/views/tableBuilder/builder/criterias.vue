@@ -1,5 +1,5 @@
 <script lang='ts' setup>
-import { criteriasFields } from './viewModels'
+import { criteriasFields } from './options'
 import { useCriterias } from ':/components/criterias'
 
 const props = defineProps<{
