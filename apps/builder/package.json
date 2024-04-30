@@ -16,7 +16,9 @@
     "@runafe/unified-model": "0.0.3",
     "@tsparticles/slim": "^3.3.0",
     "@tsparticles/vue3": "^3.0.1",
+    "merge-anything": "^5.1.7",
     "un-flatten-tree": "^2.0.12",
-    "vue-draggable-plus": "0.3.5"
+    "vue-draggable-plus": "0.3.5",
+    "vue3-json-viewer": "^2.2.2"
   }
 }

@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { useRoute } from 'vue-router'
-import { defineSchemaTable } from '@runafe/magic-system'
+import { defineModal, defineSchemaTable } from '@runafe/magic-system'
 import { useMessage } from 'naive-ui'
+import { JsonViewer } from 'vue3-json-viewer'
 import TableConfig from './tableConfig/view.vue'
 import ActionConfig from './actionConfig/view.vue'
 import { tableSchema, updateSchema } from './tableSchema'
@@ -9,6 +10,10 @@ import { updateViewModel } from './viewModels'
 import Query from './block/query.vue'
 import tableColumn from './block/tableColumn.vue'
 import { designerDoApplication } from ':/api'
+
+const codeModal = defineModal({
+  width: 800,
+})
 
 const show = ref(false)
 const router = useRoute()
@@ -26,7 +31,9 @@ async function loadCode() {
   }
 }
 async function saveAndRelease() {
-  const { result, message } = await designerDoApplication.saveAndRelease(tableSchema.value)()
+  const { result, message } = await designerDoApplication.saveAndRelease(
+    tableSchema.value,
+  )()
   if (result) {
     rsMassage.success(message ?? '')
   }
@@ -37,6 +44,17 @@ const Schema = defineSchemaTable(tableSchema, {
 
 onMounted(() => {
   loadCode()
+})
+
+codeModal.load({
+  title: () => tableSchema.value.name,
+  default: () => {
+    return h(JsonViewer, {
+      value: tableSchema.value,
+      copyable: true,
+      class: [um_dss('jv-code', ['p-0!'])],
+    })
+  },
 })
 </script>
 
@@ -60,18 +78,15 @@ onMounted(() => {
       <NButton type="success">
         重置
       </NButton>
-      <NButton type="success">
+      <NButton type="success" @click="() => codeModal.open()">
         查看schema
       </NButton>
     </div>
     <div class="flex">
       <!-- <pre>{{ tableSchema }}</pre> -->
-      <div class="size-600px mt-16px">
+      <div class="um_calc('100% - 460px', 'w') mt-16px h-800px">
         <Schema.Component />
       </div>
-      <pre class="size-600px overflow-auto">
-        {{ tableSchema }}
-      </pre>
     </div>
     <div class="absolute right-0 top-4px bottom-4px bg-#fff w-420px">
       <n-scrollbar>

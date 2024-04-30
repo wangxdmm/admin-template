@@ -2,6 +2,7 @@ import { defineSystem, getToken } from '@runafe/easy-admin'
 import Particles from '@tsparticles/vue3'
 import { loadSlim } from '@tsparticles/slim'
 import type { LoginParam } from '@runafe/unified-model'
+import JsonViewer from 'vue3-json-viewer'
 import { createRoutes, getAuthVueRoutes, router, setupRouter } from './router'
 import formKitConfig from './formkit.config'
 import { routeMap } from './router/elegant/transform'
@@ -11,6 +12,7 @@ import Logo from './assets/logo.png'
 import 'uno.css'
 import '@runafe/easy-admin/style'
 import '@runafe/magic-system/style'
+import 'vue3-json-viewer/dist/index.css'
 
 const sys = defineSystem(() => ({
   logo: Logo,
@@ -86,9 +88,12 @@ const sys = defineSystem(() => ({
     sys.authStore().resetStore()
   })
 
-  sys.app.use(Particles, {
-    init: async engine => await loadSlim(engine),
-  })
+  sys.app
+    .use(Particles, {
+      init: async engine => await loadSlim(engine),
+    })
+    .use(JsonViewer)
+
   await setupRouter(sys.app)
   sys.app.mount('#app')
 })()

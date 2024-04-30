@@ -19,7 +19,7 @@ const columnCondition = useColumnCondition()
 const massage = useMessage()
 const queryConfig = computed<QueryConfig>({
   get: () => {
-    return tableSchema.value.queryConfig || {
+    return tableSchema.value.queryConfig ||= {
       generalQueryFields: [],
       advancedQueryFields: [],
     }

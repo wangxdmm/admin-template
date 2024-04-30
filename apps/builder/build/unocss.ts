@@ -16,6 +16,7 @@ export function setupUnocss(viteEnv: Env.ImportMeta) {
   )
 
   return unocss({
+    configFile: '../../uno.config.ts',
     presets: [
       presetIcons({
         prefix: `${VITE_ICON_PREFIX}-`,

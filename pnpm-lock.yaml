@@ -258,12 +258,18 @@ importers:
       '@tsparticles/vue3':
         specifier: ^3.0.1
         version: 3.0.1(typescript@5.4.5)
+      merge-anything:
+        specifier: ^5.1.7
+        version: 5.1.7
       un-flatten-tree:
         specifier: ^2.0.12
         version: 2.0.12
       vue-draggable-plus:
         specifier: 0.3.5
         version: 0.3.5(@types/sortablejs@1.15.8)
+      vue3-json-viewer:
+        specifier: ^2.2.2
+        version: 2.2.2(vue@3.4.23)
 
 packages:
 
@@ -9278,6 +9284,18 @@ packages:
       semver: 7.6.0
       typescript: 5.4.5
     dev: true
+
+  /vue3-json-viewer@2.2.2(vue@3.4.23):
+    resolution: {integrity: sha512-56l3XDGggnpwEqZieXsSMhNT4NhtO6d7zuSAxHo4i0UVxymyY2jRb7UMQOU1ztChKALZCAzX7DlgrsnEhxu77A==}
+    peerDependencies:
+      vue: ^3.2.0 || ^3.3.4
+    peerDependenciesMeta:
+      vue:
+        optional: true
+    dependencies:
+      clipboard: 2.0.11
+      vue: 3.4.23(typescript@5.4.5)
+    dev: false
 
   /vue3-moveable@0.28.0:
     resolution: {integrity: sha512-vplQO0XkxVEtXMDh2/lZE+c5kMycGXAfYFMvbwFKi8UVYzVk8MTgVHr4fxO9Z+4i4Rb+U/IEIgkhHRMAbx8FJg==}

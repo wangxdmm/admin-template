@@ -7,7 +7,7 @@ import type { ViewModelEntity } from ':/typings/designer'
 export function designerDoApplicationCreator<T extends Restful<any>>(http: T) {
   return http.create<[
     defineAPI<'search', Record<string, any>, ViewModelEntity[]>,
-    defineAPI<'saveAndRelease', ViewModelEntity, void>,
+    defineAPI<'saveAndRelease', TableSchema, void>,
     defineAPI<'deleteAndRelease', { code: string }, void>,
     defineAPI<'viewSearch', Record<string, any>, ViewModelEntity[]>,
     defineAPI<'getByCode', { code: string }, ViewModelEntity>,

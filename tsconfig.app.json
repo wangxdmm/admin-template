@@ -40,6 +40,7 @@
     "env.d.ts",
     "global.d.ts",
     "uno.config.ts",
-    "vite.*.ts"
+    "vite.*.ts",
+    "uno-preset.ts"
   ]
 }
