@@ -2,7 +2,7 @@
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { defineDataTable } from '@runafe/magic-system'
-import { NButton, NPopconfirm, NSpace, useDialog } from 'naive-ui'
+import { NButton, NPopconfirm, NSpace, useMessage } from 'naive-ui'
 import dayjs from 'dayjs'
 import { useEditDialog } from './editDialog'
 import type { TableEntitySearch, ViewModelEntity } from ':/typings/designer'
@@ -25,26 +25,26 @@ const schema = [
     options: '$viewList',
   },
 ]
-const defaultValue = ref({})
+const defaultValue = ref<{ name: string, code: string }>({ name: '', code: '' })
 const formData = reactive<{
   viewList: TableEntitySearch[]
 }>({
   viewList: [],
 })
 const editDialog = useEditDialog()
-const rsDialog = useDialog()
+const rsDialog = useMessage()
 const router = useRouter()
 const columns = [
   {
     field: 'code',
-    title: '视图编号',
+    title: '关联视图',
     align: 'center',
     width: 360,
     sortable: false,
   },
   {
     field: 'name',
-    title: '显示名',
+    title: '表格名称',
     align: 'center',
     width: 200,
     sortable: false,
@@ -163,11 +163,11 @@ function operationHandle(row: ViewModelEntity, type: number) {
 }
 
 async function deleteData(code: string) {
-  const { result, message } = await designerDoApplication.deleteAndRelease({
+  const { result } = await designerDoApplication.deleteAndRelease({
     code,
   })()
   if (result) {
-    rsDialog.success(message)
+    rsDialog.success('删除成功')
     refreshTable()
   }
 }

@@ -3,12 +3,12 @@ import { computed } from 'vue'
 import { useMessage } from 'naive-ui'
 import type {
   AdvancedQueryField,
-  Field,
   GeneralQueryField,
   QueryConfig,
 } from '@runafe/unified-api-designer'
 import { isArray, unionBy } from 'lodash-es'
 import { tableSchema } from '../tableSchema'
+import { viewModelFields } from '../viewModels'
 import { useSetDialog } from './setDialog'
 import RnConditions from './condition.vue'
 import { useColumnCondition } from './ColumnCondition'
@@ -24,15 +24,13 @@ const queryConfig = computed<QueryConfig>({
   },
 })
 
-const fields = computed<Field[]>(() => tableSchema.value.fields ?? [])
-
 function addQuery() {
-  if (!isArray(fields.value) || fields.value.length === 0) {
+  if (!isArray(viewModelFields.value) || viewModelFields.value.length === 0) {
     massage.warning('配置列为空')
     return
   }
   const selectNames = queryConfig.value.generalQueryFields.map(v => v.name)
-  const allColumn = fields.value
+  const allColumn = viewModelFields.value
     .filter(item => item.filterable)
     .map((n) => {
       if (selectNames.includes(n.name)) {
@@ -86,12 +84,12 @@ function editScreen(row: AdvancedQueryField, index: number) {
 }
 
 function addScreen() {
-  if (!isArray(fields.value) || fields.value.length === 0) {
+  if (!isArray(viewModelFields.value) || viewModelFields.value.length === 0) {
     massage.warning('配置列为空')
     return
   }
   const selectNames = queryConfig.value.advancedQueryFields.map(v => v.name)
-  const allColumn = fields.value
+  const allColumn = viewModelFields.value
     .filter(item => item.filterable)
     .map((n) => {
       if (selectNames.includes(n.name)) {

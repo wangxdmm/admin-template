@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { useRoute } from 'vue-router'
 import { defineSchemaTable } from '@runafe/magic-system'
+import { useMessage } from 'naive-ui'
 import TableConfig from './tableConfig/view.vue'
 import ActionConfig from './actionConfig/view.vue'
 import { tableSchema, updateSchema } from './tableSchema'
@@ -11,6 +12,7 @@ import { designerDoApplication } from ':/api'
 
 const show = ref(false)
 const router = useRoute()
+const rsMassage = useMessage()
 async function loadCode() {
   const { code } = router.query as { code: string }
   const { backData } = await designerDoApplication.getTableSchema({ code })()
@@ -22,7 +24,12 @@ async function loadCode() {
     }
   }
 }
-
+async function saveAndRelease() {
+  const { result, message } = await designerDoApplication.saveAndRelease(tableSchema.value)()
+  if (result) {
+    rsMassage.success(message ?? '')
+  }
+}
 const Schema = defineSchemaTable(tableSchema, {
   data: {},
 })
@@ -46,7 +53,7 @@ onMounted(() => {
       >
         保存
       </NButton>
-      <NButton type="primary">
+      <NButton type="primary" @click="saveAndRelease">
         发布
       </NButton>
       <NButton type="success">

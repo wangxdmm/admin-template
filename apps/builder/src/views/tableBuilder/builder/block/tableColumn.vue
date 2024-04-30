@@ -7,6 +7,7 @@ import type {
 } from '@runafe/unified-api-designer'
 import { isArray, unionBy } from 'lodash-es'
 import { defaultColumn, tableSchema } from '../tableSchema'
+import { viewModelFields } from '../viewModels'
 import { useColumnDialog } from './columnDialog'
 import RnConditions from './condition.vue'
 import { useColumnCondition } from './ColumnCondition'
@@ -22,8 +23,6 @@ const columns = computed<Column[]>({
     tableSchema.value.columns = val
   },
 })
-const fields = computed<Field[]>(() => tableSchema.value.fields ?? [])
-
 function editColumn(row: Column, index: number) {
   columnDialog.open({
     row,
@@ -34,12 +33,12 @@ function editColumn(row: Column, index: number) {
 }
 
 function addColumn() {
-  if (!isArray(fields.value) || fields.value.length === 0) {
+  if (!isArray(viewModelFields.value) || viewModelFields.value.length === 0) {
     message.warning('配置列为空')
     return
   }
   const selectNames = columns.value.map(v => v.name)
-  const allColumn = fields.value.map((n) => {
+  const allColumn = viewModelFields.value.map((n) => {
     if (selectNames.includes(n.name)) {
       n.selectable = true
     }

@@ -2,13 +2,13 @@ import { defineModal } from '@runafe/magic-system'
 import { FormKit, FormKitSchema } from '@formkit/vue'
 import { getNode } from '@formkit/core'
 import { ref } from 'vue'
-import { useDialog } from 'naive-ui'
+import { useMessage } from 'naive-ui'
 import { RCriterias, RQuery } from ':/utils/query'
 import { designerDoApplication } from ':/api'
 import type { TableEntitySearch, ViewModelEntity } from ':/typings/designer'
 
 export function useEditDialog() {
-  const editDialog = useDialog()
+  const editDialog = useMessage()
   const modal = defineModal({
     width: 500,
   })
@@ -45,7 +45,7 @@ export function useEditDialog() {
         $formkit: 'n:text',
         name: 'name',
         id: 'name',
-        label: '显示名',
+        label: '表格名称',
         maxlength: 10,
       },
       {
@@ -81,15 +81,18 @@ export function useEditDialog() {
     }
     loadView()
     async function submit() {
-      const values = getNode('FormKitRef')?.value
+      const values = getNode('FormKitRef')?.value as ViewModelEntity
+      const checkView = checkForm.viewList.find(v => v.code === values.code) as ViewModelEntity
       const param = { dataSource: {
         viewModelCode: values.code,
-      }, ...values }
+        viewTitle: checkView.name,
+        serverName: checkView.serverId,
+      }, ...values, code: `${values.appCode}-${new Date().getTime()}-TABLEENTITY` }
       const { result, message }
         = await designerDoApplication.saveAndRelease(param)()
       if (result) {
         modal.close()
-        editDialog.success(message)
+        editDialog.success(message ?? '')
         if (options.reload) {
           options.reload()
         }
