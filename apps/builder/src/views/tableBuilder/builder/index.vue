@@ -46,7 +46,12 @@ function resetFormdata() {
   }
   updateSchema(restData())
 }
-
+async function save() {
+  const { result, message } = await designerDoApplication.save(tableSchema.value)()
+  if (result) {
+    rsMassage.warning(message ?? '')
+  }
+}
 onMounted(() => {
   loadCode()
 })
@@ -69,11 +74,7 @@ codeModal.load({
       <NButton
         size="medium"
         type="primary"
-        @click="
-          () => {
-            show = true
-          }
-        "
+        @click="save"
       >
         保存
       </NButton>

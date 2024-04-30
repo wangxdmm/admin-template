@@ -3,6 +3,7 @@ import { FormKit, FormKitSchema } from '@formkit/vue'
 import { getNode } from '@formkit/core'
 import { ref } from 'vue'
 import { useMessage } from 'naive-ui'
+import type { TableSchema } from '@runafe/unified-api-designer'
 import { RCriterias, RQuery } from ':/utils/query'
 import { designerDoApplication } from ':/api'
 import type { TableEntitySearch, ViewModelEntity } from ':/typings/designer'
@@ -80,16 +81,36 @@ export function useEditDialog() {
       }
     }
     loadView()
-    async function submit() {
+    function submit() {
       const values = getNode('FormKitRef')?.value as ViewModelEntity
       const checkView = checkForm.viewList.find(v => v.code === values.code) as ViewModelEntity
+
       const param = { dataSource: {
         viewModelCode: values.code,
         viewTitle: checkView.name,
         serverName: checkView.serverId,
-      }, ...values, code: `${values.appCode}-${new Date().getTime()}-TABLEENTITY` }
+      }, ...values, code: `${values.appCode}-${new Date().getTime()}-TABLEENTITY` } as unknown as TableSchema
+      if (options.type === 1) {
+        save(param)
+      }
+      else {
+        add(param)
+      }
+    }
+    async function add(param: TableSchema) {
       const { result, message }
-        = await designerDoApplication.saveAndRelease(param)()
+      = await designerDoApplication.add(param)()
+      if (result) {
+        modal.close()
+        editDialog.success(message ?? '')
+        if (options.reload) {
+          options.reload()
+        }
+      }
+    }
+    async function save(param: TableSchema) {
+      const { result, message }
+      = await designerDoApplication.save(param)()
       if (result) {
         modal.close()
         editDialog.success(message ?? '')
@@ -103,7 +124,12 @@ export function useEditDialog() {
         for (const argumentsKey in options.row) {
           const node = getNode(argumentsKey)
           if (node) {
-            node.input(options.row[argumentsKey])
+            if (argumentsKey === 'code') {
+              node.input(options.row?.dataSource.viewModelCode)
+            }
+            else {
+              node.input(options.row[argumentsKey as keyof ViewModelEntity])
+            }
           }
         }
       }

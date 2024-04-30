@@ -12,6 +12,8 @@ export function designerDoApplicationCreator<T extends Restful<any>>(http: T) {
     defineAPI<'viewSearch', Record<string, any>, ViewModelEntity[]>,
     defineAPI<'getByCode', { code: string }, ViewModelEntity>,
     defineAPI<'getTableSchema', { code: string }, TableSchema>,
+    defineAPI<'save', TableSchema, void>,
+    defineAPI<'add', TableSchema, void>,
   ]>(
     '/designer/do/application',
     [
@@ -21,6 +23,8 @@ export function designerDoApplicationCreator<T extends Restful<any>>(http: T) {
       'post::/dataViewEntity/search->viewSearch',
       'get::/dataViewEntity/getByCode::?->getByCode',
       'get::/tableEntity/getByCode?code={code}->getTableSchema',
+      'put::/tableEntity/save',
+      'post::/tableEntity/add',
     ],
   )
 }

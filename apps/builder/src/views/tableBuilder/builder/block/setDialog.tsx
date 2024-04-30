@@ -1,6 +1,7 @@
 import { defineModal } from '@runafe/magic-system'
 import { FormKit, FormKitSchema } from '@formkit/vue'
 import { getNode } from '@formkit/core'
+
 import type { AdvancedQueryField, GeneralQueryField } from '@runafe/unified-api-designer'
 import { viewModelFields } from '../viewModels'
 import { matcherList } from './common'
