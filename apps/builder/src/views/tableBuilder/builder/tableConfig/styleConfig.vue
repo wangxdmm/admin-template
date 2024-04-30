@@ -6,7 +6,7 @@ import { FormKit, FormKitSchema } from '@formkit/vue'
 import RnConditions from '../block/condition.vue'
 import { tableSchema } from '../tableSchema'
 
-const styleConfig = computed<StyleConfig>({
+const styleConfig = computed<Partial<StyleConfig>>({
   get: () => tableSchema.value.styleConfig!,
   set: (val) => {
     tableSchema.value.styleConfig = val
@@ -78,7 +78,6 @@ const schema: FormKitSchemaDefinition = [
       onUpdate: '$actions.bgEdit',
       labelField: 'name',
       class: 'm-b-20px',
-
     },
   },
 ]
@@ -105,32 +104,37 @@ const bgConfigSchema: FormKitSchemaDefinition = [
 ]
 
 function bgEdit(row?: ColorSchema, index?: number) {
-  const bgForm = ref<ColorSchema>(row || {} as ColorSchema)
+  const bgForm = ref<ColorSchema>(row || ({} as ColorSchema))
   let formNode: FormKitNode
   load({
     title: () => '背景颜色',
-    default: () => (<FormKit type="form"
-            v-model={bgForm.value}
-            onNode={(n: FormKitNode) => {
-              formNode = n
-            }}
-            actions={false}
-            incomplete-message={false}
-            onSubmit={() => {
-              if (index || index === 0) {
-                styleConfig.value.rowBackgroundColors![index] = bgForm.value
-              }
-              else {
-                styleConfig.value.rowBackgroundColors?.push(bgForm.value)
-              }
-              close()
-            }}>
-      <FormKitSchema schema={bgConfigSchema} ></FormKitSchema>
-    </FormKit>),
+    default: () => (
+      <FormKit
+        type="form"
+        v-model={bgForm.value}
+        onNode={(n: FormKitNode) => {
+          formNode = n
+        }}
+        actions={false}
+        incomplete-message={false}
+        onSubmit={() => {
+          if (index || index === 0) {
+            styleConfig.value.rowBackgroundColors![index] = bgForm.value
+          }
+          else {
+            styleConfig.value.rowBackgroundColors?.push(bgForm.value)
+          }
+          close()
+        }}
+      >
+        <FormKitSchema schema={bgConfigSchema}></FormKitSchema>
+      </FormKit>
+    ),
     footer: () => [
-      <n-button onClick={() => {
-        close()
-      }}
+      <n-button
+        onClick={() => {
+          close()
+        }}
       >
         关闭
       </n-button>,
@@ -149,7 +153,12 @@ function bgEdit(row?: ColorSchema, index?: number) {
 
 <template>
   <div>
-    <FormKit v-model="styleConfig as TODO " type="form" :actions="false" :incomplete-message="false">
+    <FormKit
+      v-model="styleConfig"
+      type="form"
+      :actions="false"
+      :incomplete-message="false"
+    >
       <FormKitSchema :schema :data :library />
     </FormKit>
   </div>
