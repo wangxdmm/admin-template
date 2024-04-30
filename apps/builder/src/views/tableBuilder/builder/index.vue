@@ -15,7 +15,6 @@ const codeModal = defineModal({
   width: 800,
 })
 
-const show = ref(false)
 const router = useRoute()
 const rsMassage = useMessage()
 async function loadCode() {
@@ -49,7 +48,7 @@ function resetFormdata() {
 async function save() {
   const { result, message } = await designerDoApplication.save(tableSchema.value)()
   if (result) {
-    rsMassage.warning(message ?? '')
+    rsMassage.success(message ?? '保存成功')
   }
 }
 onMounted(() => {

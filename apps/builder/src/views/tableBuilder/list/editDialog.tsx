@@ -89,7 +89,7 @@ export function useEditDialog() {
         viewModelCode: values.code,
         viewTitle: checkView.name,
         serverName: checkView.serverId,
-      }, ...values, code: `${values.appCode}-${new Date().getTime()}-TABLEENTITY` } as unknown as TableSchema
+      }, ...values, code: options.type === 1 ? options.row?.code : `${values.appCode}-${new Date().getTime()}-TABLEENTITY` } as unknown as TableSchema
       if (options.type === 1) {
         save(param)
       }
