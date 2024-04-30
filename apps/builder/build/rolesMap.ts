@@ -10,6 +10,9 @@ export default {
     tableBuilder_builder: {
       id: '3',
     },
+    tableBuilder_doc: {
+      id: '4',
+    },
   },
 } as Record<
   number,

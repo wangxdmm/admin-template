@@ -154,6 +154,7 @@ export const routeMap: RouteMap = {
   "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?",
   "tableBuilder": "/tableBuilder",
   "tableBuilder_builder": "/tableBuilder/builder",
+  "tableBuilder_doc": "/tableBuilder/doc",
   "tableBuilder_list": "/tableBuilder/list",
   "test": "/test"
 };

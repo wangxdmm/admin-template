@@ -74,6 +74,16 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       },
       {
+        name: 'tableBuilder_doc',
+        path: '/tableBuilder/doc',
+        component: 'view.tableBuilder_doc',
+        meta: {
+          title: 'tableBuilder_doc',
+          roles: ['4'],
+          id: '4'
+        }
+      },
+      {
         name: 'tableBuilder_list',
         path: '/tableBuilder/list',
         component: 'view.tableBuilder_list',

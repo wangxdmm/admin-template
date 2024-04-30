@@ -28,6 +28,7 @@ declare module "@elegant-router/types" {
     "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?";
     "tableBuilder": "/tableBuilder";
     "tableBuilder_builder": "/tableBuilder/builder";
+    "tableBuilder_doc": "/tableBuilder/doc";
     "tableBuilder_list": "/tableBuilder/list";
     "test": "/test";
   };
@@ -96,6 +97,7 @@ declare module "@elegant-router/types" {
     | "login"
     | "test"
     | "tableBuilder_builder"
+    | "tableBuilder_doc"
     | "tableBuilder_list"
   >;
 

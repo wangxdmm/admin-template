@@ -45,6 +45,12 @@ const sys = defineSystem(() => ({
             title: '设计器',
           },
         },
+        {
+          meta: {
+            id: '4',
+            title: '说明',
+          },
+        },
       ]),
   },
   auth: {

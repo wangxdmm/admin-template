@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineSchemaTable } from '@runafe/magic-system'
+import { defineSchemaTable, tableHelp } from '@runafe/magic-system'
 import {
   ColumnFixedMode,
   CriteriaMatcher,
@@ -55,7 +55,7 @@ const schema: TableSchema = {
         command: `
         {
           onClick: () => {
-            console.log(_$)
+            console.log($$)
           }
         }
         `,
@@ -67,7 +67,7 @@ const schema: TableSchema = {
         command: `
         {
           onClick: () => {
-            console.log(_$)
+            console.log($$)
           }
         }
         `,
@@ -79,7 +79,7 @@ const schema: TableSchema = {
         command: `
         {
           onClick: () => {
-            console.log(_$.row)
+            console.log($$.row)
           }
         }
         `,
@@ -93,7 +93,7 @@ const schema: TableSchema = {
         command: `
         {
           onClick: () => {
-            _$.ctx.alert(1)
+            $$.ctx.alert(1)
           }
         }
         `,
@@ -105,7 +105,7 @@ const schema: TableSchema = {
         command: `
         {
           onClick: () => {
-            _$.ctx.alert('导出')
+            $$.ctx.alert('导出')
           }
         }
         `,
@@ -117,6 +117,7 @@ const schema: TableSchema = {
       name: 'bankName',
       label: '所属银行',
       type: ValueType.STRING,
+      useCopy: true,
     },
     {
       name: 'inHousingId',
@@ -130,7 +131,7 @@ const schema: TableSchema = {
           value: 'red',
           condition: `
           {
-            on: () => _$.cellValue <= 800,
+            if: () => $$.cellValue <= 800,
           }
           `,
         },
@@ -138,7 +139,7 @@ const schema: TableSchema = {
           name: 'normal',
           value: 'blue',
           condition: `{
-            on: () => _$.cellValue < 10000,
+            if: () => $$.cellValue < 10000,
           }`,
         },
       ],
@@ -147,29 +148,11 @@ const schema: TableSchema = {
           name: 'much',
           value: 'yellow',
           condition: `{
-            on: () => _$.cellValue >= 1000,
+            if: () => $$.cellValue >= 1000,
           }`,
         },
       ],
     },
-    // {
-    //   name: 'inSchool',
-    //   label: '是否上学',
-    //   type: ValueType.BOOLEAN,
-    // },
-    // {
-    //   name: 'date',
-    //   label: '上学日期',
-    //   type: ValueType.DATE,
-    //   render: createElementStr(COLUMN_RENDER, {
-    //     formatter: 'yyyy-MM-dd',
-    //   }),
-    // },
-    // {
-    //   name: 'age',
-    //   label: '年龄',
-    //   type: ValueType.NUMBER,
-    // },
   ],
   headerColumns: [],
   pagination: {
@@ -202,6 +185,7 @@ const Schema = defineSchemaTable<Entity>(schema, {
 
 <template>
   <rs-page>
+    <pre>{{ tableHelp.btnCommand }}</pre>
     <Schema.Component />
   </rs-page>
 </template>

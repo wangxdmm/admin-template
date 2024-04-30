@@ -100,7 +100,7 @@ codeModal.load({
         <Schema.Component />
       </div>
     </div>
-    <div class="absolute right-0 top-4px bottom-4px bg-#fff w-420px">
+    <div class="absolute right-0 top-4px bottom-4px bg-#fff w-420px shadow">
       <n-scrollbar>
         <div class="p-16px">
           <n-tabs type="line" animated>

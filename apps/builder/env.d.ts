@@ -61,6 +61,9 @@ declare namespace Env {
 
 declare module 'vue3-json-viewer' {
   const JsonViewer: import('vue').Component
+  const install: import('vue').Plugin
+
+  export default install
 
   export { JsonViewer }
 }
