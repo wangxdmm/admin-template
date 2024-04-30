@@ -3,6 +3,7 @@ import type { UnifiedAction } from '@runafe/unified-api-designer'
 import { defineModal } from '@runafe/magic-system'
 import type { FormKitNode } from '@formkit/core'
 import { FormKit, FormKitSchema } from '@formkit/vue'
+import { useMessage } from 'naive-ui'
 import { titleClass } from '../share'
 import RnConditions from '../block/condition.vue'
 import { schema } from './schema'
@@ -12,12 +13,14 @@ const props = defineProps<{
   modelValue: UnifiedAction[]
 }>()
 
-const actions = defineModel<UnifiedAction[]>()
+const message = useMessage()
+
+const actions = ref<UnifiedAction[]>(props.modelValue || [])
 
 const { load, close } = defineModal({ width: 600 })
 
-function add() {
-  const formValue = ref<UnifiedAction>({} as UnifiedAction)
+function edit(row?: UnifiedAction, index?: number) {
+  const formValue = ref<UnifiedAction>(row || {} as UnifiedAction)
   let formNode: FormKitNode
   load({
     title: () => props.title,
@@ -29,7 +32,12 @@ function add() {
             actions={false}
             incomplete-message={false}
             onSubmit={() => {
-              actions.value?.push(formValue.value)
+              if (row && (index || index === 0)) {
+                actions.value?.splice(index, 1, formValue.value)
+              }
+              else {
+                actions.value?.push(formValue.value)
+              }
               close()
             }}>
       <FormKitSchema schema={schema} ></FormKitSchema>
@@ -44,6 +52,9 @@ function add() {
       <n-button
         type="primary"
         onClick={() => {
+          if (actions.value?.find(item => item.name === formValue.value.name)) {
+            return message.error('该唯一标识已存在')
+          }
           formNode?.submit()
         }}
       >
@@ -59,6 +70,6 @@ function add() {
     <p :class="titleClass">
       {{ props.title }}
     </p>
-    <RnConditions v-model="actions" :button-name="`添加${props.title}`" @add="add" />
+    <RnConditions v-model="actions" name-field="name" :button-name="`添加${props.title}`" @add="edit" @update="edit" />
   </div>
 </template>

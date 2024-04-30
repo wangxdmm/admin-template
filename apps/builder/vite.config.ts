@@ -66,6 +66,7 @@ export default defineConfig((configEnv) => {
         'file-saver',
         'js-file-downloader',
         'md5',
+        'copy-to-clipboard',
       ],
       exclude: ['@runafe/magic-system', '@runafe/formkit-naive-ui'],
     },

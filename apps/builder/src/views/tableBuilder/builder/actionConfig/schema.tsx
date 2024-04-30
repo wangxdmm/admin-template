@@ -6,11 +6,13 @@ export const schema: FormKitSchemaDefinition = [
     name: 'name',
     label: '唯一标识',
     maxlength: 50,
+    validation: [['required'], ['matches', '/^[a-zA-Z0-9_]+$/']],
   },
   {
     $formkit: 'n:text',
     name: 'label',
     label: '显示名',
+    validation: 'required',
     maxlength: 10,
   },
   {

@@ -197,10 +197,10 @@ export function getDefaultTable() {
     },
     metrics: [],
     actionConfig: {
-      generalButtons: [],
       rowButtons: [],
       cellActions: [],
       rightClickMenus: [],
+      generalButtons: [],
       treeTable: { },
       rowSelect: {
         enabled: false,

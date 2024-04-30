@@ -142,10 +142,12 @@ function edit(row?: PaginationSize, index?: number) {
                   p.defaultOption = false
                 })
               }
-              pagination.value.pageSizes?.push({ size, defaultOption })
               if (row && (index || index === 0)) {
                 { /* pagination.value.pageSizes![index] = sizeForm.value */ }
                 pagination.value.pageSizes?.splice(index, 1, sizeForm.value)
+              }
+              else {
+                pagination.value.pageSizes?.push({ size, defaultOption })
               }
               pagination.value.pageSizes?.sort((a, b) => a.size - b.size)
               close()
