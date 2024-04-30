@@ -65,6 +65,7 @@ export default defineConfig((configEnv) => {
         'grid-layout-plus',
         'file-saver',
         'js-file-downloader',
+        'copy-to-clipboard',
         'md5',
         'copy-to-clipboard',
       ],
