@@ -8,9 +8,6 @@ import { viewModelFields } from '../viewModels'
 const treeTable = computed<ActionConfig['treeTable']>({
   get: () => tableSchema.value.actionConfig?.treeTable || {},
   set: (val) => {
-    if (!tableSchema.value.actionConfig) {
-      tableSchema.value.actionConfig = {}
-    }
     tableSchema.value.actionConfig!.treeTable = val
   },
 })
@@ -36,7 +33,8 @@ const schema: FormKitSchemaDefinition = [
     if: '$get(treeTableEnabled).value',
     validation: 'required',
     options: '$tableColumns',
-
+    labelField: 'label',
+    valueField: 'name',
   },
   {
     $formkit: 'n:select',
@@ -45,6 +43,8 @@ const schema: FormKitSchemaDefinition = [
     if: '$get(treeTableEnabled).value',
     validation: 'required',
     options: '$viewModelFields',
+    labelField: 'label',
+    valueField: 'name',
   },
 
 ]
