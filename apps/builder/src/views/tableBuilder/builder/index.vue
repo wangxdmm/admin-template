@@ -15,19 +15,11 @@ async function loadCode() {
   const { code } = router.query as { code: string }
   const { backData } = await designerDoApplication.getTableSchema({ code })()
   if (backData) {
-<<<<<<< HEAD
-    tableSchema.value = Object.assign(
-      {},
-      JSON.parse(JSON.stringify(defaultTable)),
-      backData,
-    )
-=======
     updateSchema({ ...backData, dataSource: { serverName: 'charge-manager' } })
     const { backData: models } = await designerDoApplication.getByCode({ code: backData.code })()
     if (models) {
       updateViewModel(models)
     }
->>>>>>> 02668e9 (fix: api)
   }
 }
 
