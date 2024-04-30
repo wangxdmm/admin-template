@@ -94,6 +94,12 @@ const sys = defineSystem(() => ({
     sys.authStore().resetStore()
   })
 
+  sys.app.config.errorHandler = (err) => {
+    if (__DEV__) {
+      console.error(err)
+    }
+  }
+
   sys.app
     .use(Particles, {
       init: async engine => await loadSlim(engine),
