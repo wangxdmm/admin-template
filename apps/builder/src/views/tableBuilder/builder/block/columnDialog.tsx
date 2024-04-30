@@ -1,22 +1,23 @@
-import {defineModal} from '@runafe/magic-system'
+import { defineModal } from '@runafe/magic-system'
+import type { Column } from '@runafe/unified-api-designer'
 import RsColumn from './column.vue'
-import type {Column} from '@runafe/unified-api-designer'
+
 export function useColumnDialog() {
   const modal = defineModal({
     width: 800,
   })
 
   function open(options: {
-    row: Column,
+    row: Column
     set: (row: Column) => void
   }) {
-    const columnRef=ref<InstanceType<typeof RsColumn>>()
-    function submitHandle(){
-      columnRef.value.submitHandle()
+    const columnRef = ref<InstanceType<typeof RsColumn>>()
+    function submitHandle() {
+      columnRef.value?.submitHandle()
     }
     modal.load({
       title: () => '表格列设置',
-      default: () => (<RsColumn ref={columnRef} {...options} onClose={()=>{ modal.close()}}/>),
+      default: () => (<RsColumn ref={columnRef} {...options} onClose={() => { modal.close() }}/>),
       footer: () => [
         <n-button
           onClick={() => {
@@ -33,6 +34,6 @@ export function useColumnDialog() {
   }
 
   return {
-    open
+    open,
   }
 }

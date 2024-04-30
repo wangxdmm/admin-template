@@ -21,7 +21,7 @@ const props = defineProps({
 })
 const emits = defineEmits(['add', 'update'])
 defineExpose({ name: 'RnConditions' })
-const list = defineModel()
+const list = defineModel<TODO>()
 
 function addCondition() {
   emits('add')

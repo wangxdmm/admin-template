@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { useMessage } from 'naive-ui'
 import type {
   AdvancedQueryField,
+  Field,
   GeneralQueryField,
   QueryConfig,
 } from '@runafe/unified-api-designer'
@@ -19,16 +20,17 @@ const columnCondition = useColumnCondition()
 const massage = useMessage()
 const queryConfig = computed<QueryConfig>({
   get: () => {
-    return tableSchema.value.queryConfig ||= {
-      generalQueryFields: [],
-      advancedQueryFields: [],
+    if (tableSchema.value.queryConfig) {
+      return tableSchema.value.queryConfig
+    }
+    else {
+      return tableSchema.value.queryConfig = { enabled: false, generalQueryFields: [], advancedQueryFields: [] }
     }
   },
   set: (val: QueryConfig) => {
     tableSchema.value.queryConfig = val
   },
 })
-
 function addQuery() {
   if (!isArray(viewModelFields.value) || viewModelFields.value.length === 0) {
     massage.warning('配置列为空')
@@ -51,7 +53,7 @@ function addQuery() {
     return false
   }
   columnCondition.use({
-    columns: allColumn,
+    columns: allColumn as Field[],
     save(cols: (GeneralQueryField & { selectable: boolean })[]) {
       const names: string[] = []
       const selectArry = cols.filter((v) => {
@@ -111,7 +113,7 @@ function addScreen() {
   }
   columnCondition.use({
     title: '添加筛查条件',
-    columns: allColumn,
+    columns: allColumn as Field[],
     save(cols: (AdvancedQueryField & { selectable: boolean })[]) {
       const names: string[] = []
       const selectArry = cols.filter((v) => {

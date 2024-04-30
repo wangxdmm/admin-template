@@ -47,11 +47,11 @@ const bgConfigSchema: FormKitSchemaDefinition = [
   },
 ]
 
-function agAdd(data, index) {
+function agAdd(data: ColorSchema, index: number) {
   addColors({ colorSchema: data, index, type: 1 })
 }
 
-function bgAdd(data, index) {
+function bgAdd(data: ColorSchema, index: number) {
   addColors({ colorSchema: data, index, type: 2 })
 }
 
@@ -295,18 +295,18 @@ function addColors(option: { colorSchema?: ColorSchema, index?: number, type: nu
     }} actions={false} incomplete-message={false} onSubmit={() => {
       if (option.type === 1) {
         if (option.index) {
-          columns.value.colors[option.index] = { ...bgForm.value }
+          (columns.value.colors ?? [])[option.index] = { ...bgForm.value }
         }
         else {
-          columns.value.colors.push(bgForm.value)
+          (columns.value.colors ?? []).push(bgForm.value)
         }
       }
       else {
         if (option.index) {
-          columns.value.backgroundColors[option.index] = { ...bgForm.value }
+          (columns.value.backgroundColors ?? [])[option.index] = { ...bgForm.value }
         }
         else {
-          columns.value.backgroundColors.push(bgForm.value)
+          (columns.value.backgroundColors ?? []).push(bgForm.value)
         }
       }
       modal.close()
@@ -332,9 +332,7 @@ function addColors(option: { colorSchema?: ColorSchema, index?: number, type: nu
   }).open()
 }
 onMounted(() => {
-  for (const rowKey in props.row) {
-    columns.value[rowKey] = props.row[rowKey]
-  }
+  columns.value = Object.assign(columns.value, props.row)
 })
 </script>
 

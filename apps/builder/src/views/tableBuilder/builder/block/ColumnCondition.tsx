@@ -8,7 +8,7 @@ export function useColumnCondition() {
     width: 470,
   })
   return {
-    use: (options: { title?: string, columns: Field[], save: (columns: any) => void }) => {
+    use: (options: { title?: string, columns: Field[], save: (columns: Field[]) => void }) => {
       const copylists = ref([...options.columns])
       const lists = ref([...options.columns])
       const search = ref<string>()

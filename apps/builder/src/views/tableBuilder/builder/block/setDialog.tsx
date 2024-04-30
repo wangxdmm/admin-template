@@ -1,37 +1,33 @@
-import { computed } from 'vue'
 import { defineModal } from '@runafe/magic-system'
 import { FormKit, FormKitSchema } from '@formkit/vue'
 import { getNode } from '@formkit/core'
-import type {
-  Field,
-} from '@runafe/unified-api-designer'
-import { tableSchema } from '../tableSchema'
+import { CriteriaMatcher } from '@runafe/unified-api-designer'
+import type { AdvancedQueryField, GeneralQueryField, QuerySingleCriteria } from '@runafe/unified-api-designer'
+import { viewModelFields } from '../viewModels'
 
 export function useSetDialog() {
   const modal = defineModal({
     width: 500,
   })
-  const fields = computed<Field[]>(() => tableSchema.value.fields ?? [])
-  function open<T>(options: {
+  function open<T extends GeneralQueryField | AdvancedQueryField>(options: {
     type: number
     row: T
     set: (row: T) => void
   }) {
-    const matcherList = [{ label: '等于空', value: 'ISNULL' }, { label: '不等于空', value: 'NOT_NULL' }, {
-      label: '等于',
-      value: 'EQ',
-    }, { label: '不等于', value: 'NOT_EQ' }, { label: '大于', value: 'GT' }, { label: '大于等于', value: 'GE' }, {
-      label: '小于',
-      value: 'LT',
-    }, { label: '小于等于', value: 'LE' }, { label: '包含', value: 'LIKE' }, { label: '不包含', value: 'NOT_LIKE' }, { label: '开始于', value: 'PREFIX_LIKE' }, {
-      label: '结束于',
-      value: 'SUFFIX_LIKE',
-    }, { label: '介于', value: 'BETWEEN' }, { label: '不介于', value: 'NOT_BETWEEN' }, { label: '存在于', value: 'IN' }, { label: '不存在于', value: 'NOT_IN' }]
-
+    const matcherList: QuerySingleCriteria[] = [{ fieldName: '等于空', matcher: CriteriaMatcher.ISNULL }, { fieldName: '不等于空', matcher: CriteriaMatcher.NOT_NULL }, {
+      fieldName: '等于',
+      matcher: CriteriaMatcher.EQ,
+    }, { fieldName: '不等于', matcher: CriteriaMatcher.NOT_EQ }, { fieldName: '大于', matcher: CriteriaMatcher.GT }, { fieldName: '大于等于', matcher: CriteriaMatcher.GE }, {
+      fieldName: '小于',
+      matcher: CriteriaMatcher.LT,
+    }, { fieldName: '小于等于', matcher: CriteriaMatcher.LE }, { fieldName: '包含', matcher: CriteriaMatcher.LIKE }, { fieldName: '不包含', matcher: CriteriaMatcher.NOT_LIKE }, { fieldName: '开始于', matcher: CriteriaMatcher.PREFIX_LIKE }, {
+      fieldName: '结束于',
+      matcher: CriteriaMatcher.SUFFIX_LIKE,
+    }, { fieldName: '介于', matcher: CriteriaMatcher.BETWEEN }, { fieldName: '不介于', matcher: CriteriaMatcher.NOT_BETWEEN }, { fieldName: '存在于', matcher: CriteriaMatcher.IN }, { fieldName: '不存在于', matcher: CriteriaMatcher.NOT_IN }]
     const checkForm = reactive({
       ishow: options.type === 1,
       isMultiple: options.type !== 1,
-      matcherList: matcherList.filter(v => fields.value.find(c => c.name === options.row.name).supportMatchers.includes(v.value)),
+      matcherList: matcherList.filter(v => viewModelFields.value.find(c => c.name === options.row.name)?.supportMatchers.includes(v.matcher)),
     })
     const userSchema = ref([
       {
@@ -57,6 +53,8 @@ export function useSetDialog() {
         id: 'matcher',
         label: '匹配方式',
         multiple: '$isMultiple',
+        labelField: 'fieldName',
+        valueField: '',
         options: '$matcherList',
         validation: [['required']],
         validationMessages: { required: '必填' },

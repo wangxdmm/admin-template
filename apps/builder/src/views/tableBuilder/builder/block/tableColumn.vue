@@ -34,7 +34,7 @@ function editColumn(row: Column, index: number) {
 
 function addColumn() {
   if (!isArray(viewModelFields.value) || viewModelFields.value.length === 0) {
-    message.warning('配置列为空')
+    message.warning('视图字段为空')
     return
   }
   const selectNames = columns.value.map(v => v.name)
@@ -46,7 +46,7 @@ function addColumn() {
       n.selectable = false
     }
     return n
-  })
+  }) as Field[]
   if (allColumn.length === 0) {
     return message.warning('没有可用配置列')
   }
