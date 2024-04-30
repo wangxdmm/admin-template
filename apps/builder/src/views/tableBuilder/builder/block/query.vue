@@ -18,7 +18,12 @@ const setDialog = useSetDialog()
 const columnCondition = useColumnCondition()
 const massage = useMessage()
 const queryConfig = computed<QueryConfig>({
-  get: () => tableSchema.value.queryConfig || {},
+  get: () => {
+    return tableSchema.value.queryConfig || {
+      generalQueryFields: [],
+      advancedQueryFields: [],
+    }
+  },
   set: (val: QueryConfig) => {
     tableSchema.value.queryConfig = val
   },

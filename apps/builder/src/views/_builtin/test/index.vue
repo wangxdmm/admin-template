@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import {
-  CONDITION_TAG,
-  createElementStr,
-  defineSchemaTable,
-} from '@runafe/magic-system'
+import { defineSchemaTable } from '@runafe/magic-system'
 import {
   ColumnFixedMode,
   CriteriaMatcher,
@@ -35,14 +31,11 @@ const schema: TableSchema = {
         name: 'inHousingId',
         label: '小区名称',
         matcher: CriteriaMatcher.IN,
-        inputComponent: `<Query $formkit="n:select" options="$_.STORE.get('inHousingId').options" />`,
+        inputComponent: `{
+          $formkit: 'n:select',
+          options: '1,2,3'
+        }`,
       },
-      // {
-      //   name: 'name',
-      //   matcher: CriteriaMatcher.EQ,
-      //   label: '姓名',
-      //   inputComponent: `<Query $formkit="n:password" />`,
-      // },
     ],
     advancedQueryFields: [],
   },
@@ -60,7 +53,11 @@ const schema: TableSchema = {
         color: 'primary',
         label: '增加',
         command: `
-        <Action onClick="_.DATA.newName = 'new name'" />
+        {
+          onClick: () => {
+            console.log(_$)
+          }
+        }
         `,
       },
       {
@@ -68,7 +65,11 @@ const schema: TableSchema = {
         color: 'error',
         label: '删除',
         command: `
-        <Action onClick="alert('delete')" />
+        {
+          onClick: () => {
+            console.log(_$)
+          }
+        }
         `,
       },
       {
@@ -76,7 +77,11 @@ const schema: TableSchema = {
         color: 'default',
         label: '导出',
         command: `
-        <Action onClick="alert('export')" />
+        {
+          onClick: () => {
+            console.log(_$.row)
+          }
+        }
         `,
       },
     ],
@@ -86,7 +91,11 @@ const schema: TableSchema = {
         color: 'primary',
         label: '增加',
         command: `
-        <Action onClick="_.DATA.newName = 'new name'" />
+        {
+          onClick: () => {
+            _$.ctx.alert(1)
+          }
+        }
         `,
       },
       {
@@ -94,7 +103,11 @@ const schema: TableSchema = {
         color: 'warning',
         label: '导出',
         command: `
-        <Action onClick="alert('export')" />
+        {
+          onClick: () => {
+            _$.ctx.alert('导出')
+          }
+        }
         `,
       },
     ],
@@ -109,32 +122,33 @@ const schema: TableSchema = {
       name: 'inHousingId',
       label: '小区id',
       type: ValueType.STRING,
-      selectable: true,
       precision: 2,
       showThousandSeparator: true,
       colors: [
         {
           name: 'little',
           value: 'red',
-          condition: createElementStr(CONDITION_TAG, {
-            value: `_.RV <= 800`,
-          }),
+          condition: `
+          {
+            on: () => _$.cellValue <= 800,
+          }
+          `,
         },
         {
           name: 'normal',
           value: 'blue',
-          condition: createElementStr(CONDITION_TAG, {
-            value: `_.RV > 800 && _.RV <= 1800`,
-          }),
+          condition: `{
+            on: () => _$.cellValue < 10000,
+          }`,
         },
       ],
       backgroundColors: [
         {
           name: 'much',
           value: 'yellow',
-          condition: createElementStr(CONDITION_TAG, {
-            value: `_.RV > 1900`,
-          }),
+          condition: `{
+            on: () => _$.cellValue >= 1000,
+          }`,
         },
       ],
     },
@@ -177,7 +191,12 @@ const schema: TableSchema = {
 }
 
 const Schema = defineSchemaTable<Entity>(schema, {
-  data: {},
+  data: {
+    alert(...args: any[]) {
+      // eslint-disable-next-line no-alert
+      alert(...args)
+    },
+  },
 })
 </script>
 
