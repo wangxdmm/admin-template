@@ -3,6 +3,7 @@ import type { DataSource } from '@runafe/unified-api-designer'
 import type { FormKitSchemaDefinition } from '@formkit/core'
 import { titleClass } from '../share'
 import { tableSchema } from '../tableSchema'
+import Criterias from '../criterias.vue'
 
 const dataSource = computed<DataSource & Record<string, any>>({
   get: () => tableSchema.value.dataSource || {},
@@ -10,6 +11,7 @@ const dataSource = computed<DataSource & Record<string, any>>({
     tableSchema.value.dataSource = val
   },
 })
+
 const schema: FormKitSchemaDefinition = [
   {
     $el: 'p',
@@ -36,9 +38,13 @@ const schema: FormKitSchemaDefinition = [
     disabled: true,
   },
   {
-    $formkit: 'n:text',
-    name: 'filter',
-    label: '数据范围',
+    $cmp: 'Criterias',
+    props: {
+      modelValue: '$dataSource.filter',
+      label: '数据范围',
+
+    },
+
   },
   {
     $formkit: 'n:switch',
@@ -46,6 +52,14 @@ const schema: FormKitSchemaDefinition = [
     label: '是否启用初始加载数据',
   },
 ]
+
+const library = markRaw({
+  Criterias,
+})
+
+const data = {
+  dataSource,
+}
 </script>
 
 <template>
@@ -56,7 +70,7 @@ const schema: FormKitSchemaDefinition = [
       :actions="false"
       :incomplete-message="false"
     >
-      <FormKitSchema :schema />
+      <FormKitSchema :schema :library :data />
     </FormKit>
   </div>
 </template>

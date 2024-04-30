@@ -43,6 +43,7 @@ export const defaultTable: TableSchema = {
     rowButtons: [],
     cellActions: [],
     rightClickMenus: [],
+    treeTable: { },
     rowSelect: {
       enabled: false,
     },
@@ -65,12 +66,14 @@ export const defaultTable: TableSchema = {
   },
 }
 const cacheData = ref<string>(JSON.stringify(defaultTable))
-export const tableSchema: Ref<TableSchema> = ref(defaultTable as TableSchema)
+
+export const tableSchema: Ref<TableSchema> = ref(defaultTable as unknown as TableSchema)
 
 export const tableColumns: ComputedRef<Column[]> = computed(() => tableSchema.value.columns || [])
 
 export function updateSchema(val: TableSchema) {
   const defaultTable = getDefaultTable()
+
   for (const key in val) {
     if (val[key]) {
       defaultTable[key] = val[key]
@@ -201,11 +204,7 @@ export function getDefaultTable() {
       rowButtons: [],
       cellActions: [],
       rightClickMenus: [],
-      treeTable: {
-        nodeField: '11',
-        parentField: '11',
-
-      },
+      treeTable: { },
       rowSelect: {
         enabled: false,
       },

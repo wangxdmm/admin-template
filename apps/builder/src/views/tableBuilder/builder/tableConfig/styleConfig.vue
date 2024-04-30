@@ -7,7 +7,7 @@ import RnConditions from '../block/condition.vue'
 import { tableSchema } from '../tableSchema'
 
 const styleConfig = computed<StyleConfig>({
-  get: () => tableSchema.value.styleConfig,
+  get: () => tableSchema.value.styleConfig!,
   set: (val) => {
     tableSchema.value.styleConfig = val
   },
@@ -25,8 +25,8 @@ const data = {
     bgAdd: () => {
       bgEdit()
     },
-    bgEdit: (row: ColorSchema) => {
-      bgEdit(row)
+    bgEdit: (row: ColorSchema, index: number) => {
+      bgEdit(row, index)
     },
   },
 }
@@ -104,7 +104,7 @@ const bgConfigSchema: FormKitSchemaDefinition = [
   },
 ]
 
-function bgEdit(row?: ColorSchema) {
+function bgEdit(row?: ColorSchema, index?: number) {
   const bgForm = ref<ColorSchema>(row || {} as ColorSchema)
   let formNode: FormKitNode
   load({
@@ -117,7 +117,12 @@ function bgEdit(row?: ColorSchema) {
             actions={false}
             incomplete-message={false}
             onSubmit={() => {
-              styleConfig.value.rowBackgroundColors?.push(bgForm.value)
+              if (index || index === 0) {
+                styleConfig.value.rowBackgroundColors![index] = bgForm.value
+              }
+              else {
+                styleConfig.value.rowBackgroundColors?.push(bgForm.value)
+              }
               close()
             }}>
       <FormKitSchema schema={bgConfigSchema} ></FormKitSchema>
@@ -144,9 +149,8 @@ function bgEdit(row?: ColorSchema) {
 
 <template>
   <div>
-    <FormKit v-model="styleConfig" type="form" :actions="false" :incomplete-message="false">
+    <FormKit v-model="styleConfig as TODO " type="form" :actions="false" :incomplete-message="false">
       <FormKitSchema :schema :data :library />
     </FormKit>
   </div>
 </template>
-../useTableSchema

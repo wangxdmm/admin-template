@@ -162,4 +162,3 @@ function sizeAdd() {
     </FormKit>
   </div>
 </template>
-../useTableSchema
