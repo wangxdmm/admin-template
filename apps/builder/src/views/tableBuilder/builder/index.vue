@@ -5,7 +5,7 @@ import { useMessage } from 'naive-ui'
 import { JsonViewer } from 'vue3-json-viewer'
 import TableConfig from './tableConfig/view.vue'
 import ActionConfig from './actionConfig/view.vue'
-import { tableSchema, updateSchema } from './tableSchema'
+import { getCache, restData, tableSchema, updateSchema } from './tableSchema'
 import { updateViewModel } from './viewModels'
 import Query from './block/query.vue'
 import tableColumn from './block/tableColumn.vue'
@@ -41,6 +41,12 @@ async function saveAndRelease() {
 const Schema = defineSchemaTable(tableSchema, {
   data: {},
 })
+function resetFormdata() {
+  if (getCache() === JSON.stringify(tableSchema.value)) {
+    return rsMassage.warning('当前数据没有修改，不能重置！')
+  }
+  updateSchema(restData())
+}
 
 onMounted(() => {
   loadCode()
@@ -75,9 +81,16 @@ codeModal.load({
       <NButton type="primary" @click="saveAndRelease">
         发布
       </NButton>
-      <NButton type="success">
-        重置
-      </NButton>
+      <n-popconfirm
+        @positive-click="resetFormdata"
+      >
+        <template #trigger>
+          <NButton type="success">
+            重置
+          </NButton>
+        </template>
+        请确认是否重置数据？
+      </n-popconfirm>
       <NButton type="success" @click="() => codeModal.open()">
         查看schema
       </NButton>
