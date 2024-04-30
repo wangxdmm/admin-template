@@ -1,13 +1,12 @@
 import type {
+  Column,
   TableSchema,
 } from '@runafe/unified-api-designer'
 import { ColumnFixedMode, HorizontalAlign, ValueType } from '@runafe/unified-api-designer'
 
 export const tableSchema: Ref<TableSchema> = ref({ dataSource: { serverName: 'charge-manager' } } as TableSchema)
 
-export function updateSchema(val: TableSchema) {
-  tableSchema.value = val
-}
+export const tableColumns: ComputedRef<Column[]> = computed(() => tableSchema.value.columns || [])
 
 export const defaultColumn = {
   description: '',
@@ -48,6 +47,9 @@ export const defaultTable = {
     treeTable: {
 
     },
+    rowSelect: {
+      enabled: false,
+    },
   },
   styleConfig: {
     rowBackgroundColors: [],
@@ -65,4 +67,8 @@ export const defaultTable = {
     generalQueryFields: [], // 普通查询字段
     advancedQueryFields: [], // 高级查询字段
   },
+}
+
+export function updateSchema(val: TableSchema) {
+  tableSchema.value = val
 }

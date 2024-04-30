@@ -8,7 +8,7 @@ export const viewModels = shallowRef<ViewModelEntity[]>([])
 
 export const viewModel = ref<ViewModelEntity>({} as ViewModelEntity)
 
-export const viewModelFields = computed(() => viewModel.value.fields)
+export const viewModelFields = computed(() => viewModel.value.fields || [])
 
 function init() {
   getViewModels()

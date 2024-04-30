@@ -7,7 +7,10 @@ import { tableSchema } from '../tableSchema'
 const rowSelect = computed<ActionConfig['rowSelect']>({
   get: () => tableSchema.value.actionConfig?.rowSelect || {},
   set: (val) => {
-    tableSchema.value.actionConfig!.rowSelect = val
+    if (!tableSchema.value.actionConfig) {
+      tableSchema.value.actionConfig = {}
+    }
+    tableSchema.value.actionConfig.rowSelect = val
   },
 })
 

@@ -2,11 +2,15 @@
 import type { ActionConfig } from '@runafe/unified-api-designer'
 import type { FormKitSchemaDefinition } from '@formkit/core'
 import { titleClass } from '../share'
-import { tableSchema } from '../tableSchema'
+import { tableColumns, tableSchema } from '../tableSchema'
+import { viewModelFields } from '../viewModels'
 
 const treeTable = computed<ActionConfig['treeTable']>({
   get: () => tableSchema.value.actionConfig?.treeTable || {},
   set: (val) => {
+    if (!tableSchema.value.actionConfig) {
+      tableSchema.value.actionConfig = {}
+    }
     tableSchema.value.actionConfig!.treeTable = val
   },
 })
@@ -31,7 +35,8 @@ const schema: FormKitSchemaDefinition = [
     label: '节点字段',
     if: '$get(treeTableEnabled).value',
     validation: 'required',
-    options: 'fields',
+    options: '$tableColumns',
+
   },
   {
     $formkit: 'n:select',
@@ -39,13 +44,15 @@ const schema: FormKitSchemaDefinition = [
     label: '父级关联字段',
     if: '$get(treeTableEnabled).value',
     validation: 'required',
-    options: 'fields',
+    options: '$viewModelFields',
   },
 
 ]
 
 const data = {
   titleClass,
+  tableColumns,
+  viewModelFields,
 }
 </script>
 
@@ -56,4 +63,3 @@ const data = {
     </FormKit>
   </div>
 </template>
-../useTableSchema

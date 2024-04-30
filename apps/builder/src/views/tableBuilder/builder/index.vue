@@ -16,7 +16,7 @@ async function loadCode() {
   const { backData } = await designerDoApplication.getTableSchema({ code })()
   if (backData) {
     updateSchema({ ...backData, dataSource: { serverName: 'charge-manager' } })
-    const { backData: models } = await designerDoApplication.getByCode({ code: backData.code })()
+    const { backData: models } = await designerDoApplication.getByCode({ code: backData.dataSource.viewModelCode })()
     if (models) {
       updateViewModel(models)
     }
@@ -89,4 +89,4 @@ onMounted(() => {
       </n-scrollbar>
     </div>
   </div>
-</template>./useTableSchema
+</template>
