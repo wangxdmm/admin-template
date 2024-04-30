@@ -54,10 +54,7 @@ export const defaultTable: TableSchema = {
   columns: [],
   headerColumns: [],
   pagination: {
-    pageSizes: [
-      { size: 10, defaultOption: true },
-      { size: 20, defaultOption: false },
-    ],
+    pageSizes: [],
   },
   queryConfig: {
     enabled: false, // 启用

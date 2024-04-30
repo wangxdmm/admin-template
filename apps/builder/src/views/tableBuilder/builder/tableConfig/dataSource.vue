@@ -3,6 +3,7 @@ import type { DataSource } from '@runafe/unified-api-designer'
 import type { FormKitSchemaDefinition } from '@formkit/core'
 import { titleClass } from '../share'
 import { tableSchema } from '../tableSchema'
+import { viewModelFields } from '../viewModels'
 import Criterias from '../criterias.vue'
 
 const dataSource = computed<DataSource & Record<string, any>>({
@@ -27,9 +28,12 @@ const schema: FormKitSchemaDefinition = [
     disabled: true,
   },
   {
-    $formkit: 'n:text',
+    $formkit: 'n:select',
     name: 'primaryKeyFieldName',
     label: '视图唯一标识字段',
+    options: '$viewModelFields',
+    valueField: 'name',
+
   },
   {
     $formkit: 'n:text',
@@ -59,6 +63,7 @@ const library = markRaw({
 
 const data = {
   dataSource,
+  viewModelFields,
 }
 </script>
 

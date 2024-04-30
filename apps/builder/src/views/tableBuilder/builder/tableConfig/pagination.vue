@@ -28,7 +28,12 @@ const data = {
   },
   titleClass: 'font-bold m-b-10px',
   actions: {
-    sizeAdd,
+    sizeAdd: () => {
+      edit()
+    },
+    sizeEdit: (row: PaginationSize, index: number) => {
+      edit(row, index)
+    },
   },
 }
 
@@ -60,7 +65,7 @@ const schema: FormKitSchemaDefinition = [
           modelValue: '$pageSizes',
           buttonName: '添加每页显示行数',
           onAdd: '$actions.sizeAdd',
-          nameField: 'label',
+          onUpdate: '$actions.sizeEdit',
           class: 'm-b-20px',
         },
       },
@@ -90,11 +95,11 @@ const schema: FormKitSchemaDefinition = [
         name: 'numberJump',
         label: '是否允许页码跳转',
       },
-      {
-        $formkit: 'n:switch',
-        name: 'endless',
-        label: '是否开启无尽模式',
-      },
+      // {
+      //   $formkit: 'n:switch',
+      //   name: 'endless',
+      //   label: '是否开启无尽模式',
+      // },
     ],
   },
 
@@ -105,6 +110,7 @@ const bgConfigSchema: FormKitSchemaDefinition = [
     $formkit: 'n:number',
     name: 'size',
     label: '行数',
+    validation: 'required',
     showButton: false,
     min: 10,
     max: 3000,
@@ -116,8 +122,9 @@ const bgConfigSchema: FormKitSchemaDefinition = [
   },
 ]
 
-function sizeAdd() {
-  const sizeForm = ref<PaginationSize>({} as PaginationSize)
+function edit(row?: PaginationSize, index?: number) {
+  const sizeForm = ref<PaginationSize>(row || {} as PaginationSize)
+
   let formNode: FormKitNode
   load({
     title: () => '每页行数设置',
@@ -130,7 +137,17 @@ function sizeAdd() {
             incomplete-message={false}
             onSubmit={() => {
               const { size, defaultOption } = sizeForm.value
+              if (defaultOption) {
+                pagination.value.pageSizes?.forEach((p) => {
+                  p.defaultOption = false
+                })
+              }
               pagination.value.pageSizes?.push({ size, defaultOption })
+              if (row && (index || index === 0)) {
+                { /* pagination.value.pageSizes![index] = sizeForm.value */ }
+                pagination.value.pageSizes?.splice(index, 1, sizeForm.value)
+              }
+              pagination.value.pageSizes?.sort((a, b) => a.size - b.size)
               close()
             }}>
       <FormKitSchema schema={bgConfigSchema} ></FormKitSchema>
