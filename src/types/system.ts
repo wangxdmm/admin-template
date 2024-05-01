@@ -12,6 +12,7 @@ export interface SystemConfig {
   http?: Restful<any>
   setting: TODO
   router: {
+    hideInMenuRoutes?: string[]
     instance: Router
     getServerRawRoutes: () => Promise<AtLeast<ServerMenu, 'meta'>[]>
     createRoutes: () => any
@@ -29,10 +30,10 @@ export interface SystemConfig {
     VITE_MENU_ICON?: string
   }
   hooks?: {
-    initSystem?: () => Promise<any>
+    initSystem?: () => Promise<any> | undefined | void
     afterLogOut?: () => any
     // init system info, you can set all infomations in this hooks
-    onSystemInit?: () => Promise<boolean>
+    onSystemInit?: () => Promise<boolean> | boolean | undefined | void
   }
 }
 

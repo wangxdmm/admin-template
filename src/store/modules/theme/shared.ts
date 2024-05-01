@@ -262,6 +262,7 @@ export function getNaiveTheme(colors: ThemeColor) {
       colorLoading,
     },
   }
+  debugger
 
   return theme
 }

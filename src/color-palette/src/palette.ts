@@ -1,10 +1,10 @@
+import { getColors } from 'theme-colors'
 import { getDeltaE, getHsl, isValidColor, transformHslToHex } from './color'
 import { getColorName } from './name'
 import type {
   ColorPaletteFamily,
   ColorPaletteFamilyWithNearestPalette,
 } from './type'
-import defaultPalettes from './json/palette.json'
 
 export function getNearestColorPaletteFamily(
   color: string,
@@ -57,10 +57,22 @@ export function getColorPaletteFamily(color: string, colorName: string) {
   if (!isValidColor(color)) { throw new Error('Invalid color, please check color value!') }
 
   const { h: h1, s: s1 } = getHsl(color)
+  const generatedColors = {
+    key: `${color}_generated`,
+    palettes: Object.entries(getColors(color)).map(([number, hexcode]) => ({
+      hexcode,
+      number: Number(number),
+      name: getColorName(hexcode),
+    })),
+  }
 
   const { nearestLightnessPalette, palettes } = getNearestColorPaletteFamily(
     color,
-    defaultPalettes as ColorPaletteFamily[],
+    // generate colors automaticly
+    [
+      generatedColors,
+      // ...defaultPalettes,
+    ] as unknown as ColorPaletteFamily[],
   )
 
   const { number, hexcode } = nearestLightnessPalette

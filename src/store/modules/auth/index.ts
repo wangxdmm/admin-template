@@ -24,10 +24,9 @@ export const authStoreCreator = storeCreatorCreator(
       const { loading: loginLoading, startLoading, endLoading } = useLoading()
       const token = ref(getToken())
       const userInfo = reactive(getUserInfo())
-      /** Is login */
       const isLogin = computed(() => Boolean(token.value))
       const systemPerm = ref<string[]>([])
-      /** Reset auth store */
+
       async function resetStore(forceToLogin?: boolean) {
         const authStore = useAuthStore()
 

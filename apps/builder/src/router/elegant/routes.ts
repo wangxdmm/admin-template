@@ -101,7 +101,8 @@ export const generatedRoutes: GeneratedRoute[] = [
     component: 'layout.base$view.test',
     meta: {
       title: 'test',
-      constant: true
+      hideInMenu: true,
+      roles: ['test']
     }
   }
 ];

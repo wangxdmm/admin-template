@@ -20,8 +20,8 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   500: () => import(":/views/_builtin/500/index.vue"),
   entry: () => import(":/views/_builtin/entry/index.vue"),
   login: () => import(":/views/_builtin/login/index.vue"),
-  test: () => import(":/views/_builtin/test/index.vue"),
   tableBuilder_builder: () => import(":/views/tableBuilder/builder/index.vue"),
   tableBuilder_doc: () => import(":/views/tableBuilder/doc/index.vue"),
   tableBuilder_list: () => import(":/views/tableBuilder/list/index.vue"),
+  test: () => import(":/views/test/index.vue"),
 };

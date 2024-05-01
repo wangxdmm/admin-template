@@ -33,7 +33,6 @@ const customRoutes: CustomRoute[] = [
 /** Create routes */
 export function createRoutes() {
   const constantRoutes: ElegantRoute[] = []
-
   const authRoutes: ElegantRoute[] = []
 
   ;[...customRoutes, ...generatedRoutes].forEach((item) => {

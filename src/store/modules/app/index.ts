@@ -36,11 +36,6 @@ export const appStoreCreator = storeCreatorCreator(
         setBool: setSiderCollapse,
         toggle: toggleSiderCollapse,
       } = useBoolean()
-      const {
-        bool: mixSiderFixed,
-        setBool: setMixSiderFixed,
-        toggle: toggleMixSiderFixed,
-      } = useBoolean()
 
       /** Is mobile layout */
       const isMobile = breakpoints.smaller('sm')
@@ -146,9 +141,6 @@ export const appStoreCreator = storeCreatorCreator(
         siderCollapse,
         setSiderCollapse,
         toggleSiderCollapse,
-        mixSiderFixed,
-        setMixSiderFixed,
-        toggleMixSiderFixed,
       }
     }),
   (store) => {

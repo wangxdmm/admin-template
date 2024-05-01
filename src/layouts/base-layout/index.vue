@@ -26,10 +26,7 @@ const layoutMode = computed(() => {
   return themeStore.layout.mode.includes(vertical) ? vertical : horizontal
 })
 
-const headerPropsConfig: Record<
-  ThemeLayoutMode,
-  HeaderProps
-> = {
+const headerPropsConfig: Record<ThemeLayoutMode, HeaderProps> = {
   'vertical': {
     showLogo: false,
     showMenu: false,
@@ -58,9 +55,7 @@ const siderVisible = computed(() => themeStore.layout.mode !== 'horizontal')
 
 const isVerticalMix = computed(() => themeStore.layout.mode === 'vertical-mix')
 
-const isHorizontalMix = computed(
-  () => themeStore.layout.mode === 'horizontal-mix',
-)
+const isHorizontalMix = computed(() => themeStore.layout.mode === 'horizontal-mix')
 
 const siderWidth = computed(() => getSiderWidth())
 
@@ -71,7 +66,7 @@ function getSiderWidth() {
 
   let w = isVerticalMix.value || isHorizontalMix.value ? mixWidth : width
 
-  if (isVerticalMix.value && appStore.mixSiderFixed) {
+  if (isVerticalMix.value) {
     w += mixChildMenuWidth
   }
 
@@ -79,15 +74,11 @@ function getSiderWidth() {
 }
 
 function getSiderCollapsedWidth() {
-  const { collapsedWidth, mixCollapsedWidth, mixChildMenuWidth }
-    = themeStore.sider
+  const { collapsedWidth, mixCollapsedWidth, mixChildMenuWidth } = themeStore.sider
 
-  let w
-    = isVerticalMix.value || isHorizontalMix.value
-      ? mixCollapsedWidth
-      : collapsedWidth
+  let w = isVerticalMix.value || isHorizontalMix.value ? mixCollapsedWidth : collapsedWidth
 
-  if (isVerticalMix.value && appStore.mixSiderFixed) {
+  if (isVerticalMix.value) {
     w += mixChildMenuWidth
   }
 

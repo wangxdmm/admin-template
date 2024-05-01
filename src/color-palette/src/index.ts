@@ -1,7 +1,6 @@
 import { getColorPaletteFamily } from './palette'
 import { getColorName } from './name'
 import type { ColorPalette, ColorPaletteFamily, ColorPaletteItem, ColorPaletteNumber } from './type'
-import defaultPalettes from './json/palette.json'
 
 /**
  * Get color palette by provided color and color name
@@ -49,8 +48,7 @@ export function getColorByColorPaletteNumber(color: string, num: ColorPaletteNum
 export default getColorPalette
 
 /** The builtin color palettes */
-const colorPalettes = defaultPalettes as ColorPaletteFamily[]
 
-export { getColorName, colorPalettes }
+export { getColorName }
 
 export type { ColorPalette, ColorPaletteNumber, ColorPaletteItem, ColorPaletteFamily }

@@ -1,4 +1,3 @@
-import process from 'node:process'
 import type { RouteMeta } from 'vue-router'
 import ElegantVueRouter from '@runafe/elegant-router-vue/vite'
 import rolesMap from './rolesMap'
@@ -42,29 +41,34 @@ export function setupElegantRouter(envs: Env.ImportMeta) {
     },
     onRouteMetaGen(routeName) {
       const key = routeName
-      const constantRoutes = ['login', '403', '404', '500', 'entry', 'test']
-      const data = rolesMap[envs.VITE_APP_CODE][routeName]
+      const constantRoutes = ['login', '403', '404', '500', 'entry']
+      const roleMeta = rolesMap[envs.VITE_APP_CODE][routeName]
+      const isConstRoute = constantRoutes.includes(key)
+      const isHidenRoute = !roleMeta && !isConstRoute
 
-      // 非一级
-      if (!data && !constantRoutes.includes(key)) {
-        console.error(`\n\nPlease add current route id of "${routeName}"\n\n`)
-        process.exit(1)
+      if (isHidenRoute) {
+        console.warn(`\n\nHidenRoute [${routeName}] detected!! \n\n`)
       }
 
       const meta: Partial<RouteMeta> = {
         title: key,
       }
 
-      if (data?.id) {
-        meta.roles = [data.id]
-        meta.id = data.id
-        if (data.icon) {
-          meta.icon = data.icon
+      if (roleMeta?.id) {
+        meta.roles = [roleMeta.id]
+        meta.id = roleMeta.id
+        if (roleMeta.icon) {
+          meta.icon = roleMeta.icon
         }
       }
 
-      if (constantRoutes.includes(key)) {
+      if (isConstRoute) {
         meta.constant = true
+      }
+
+      if (isHidenRoute) {
+        meta.hideInMenu = true
+        meta.roles = [routeName]
       }
 
       return meta

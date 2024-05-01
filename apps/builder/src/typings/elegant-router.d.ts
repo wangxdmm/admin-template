@@ -95,10 +95,10 @@ declare module "@elegant-router/types" {
     | "500"
     | "entry"
     | "login"
-    | "test"
     | "tableBuilder_builder"
     | "tableBuilder_doc"
     | "tableBuilder_list"
+    | "test"
   >;
 
   /**

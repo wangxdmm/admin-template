@@ -28,7 +28,10 @@ const appStore = useAppStore()
 const themeStore = useThemeStore()
 const routeStore = useRouteStore()
 const { routerPushByKey } = useRouterPush()
-const naiveMenus = computed(() => props.menus as unknown as MentionOption[])
+const naiveMenus = computed(() => {
+  const menus = props.menus as unknown as MentionOption[]
+  return menus
+})
 const isHorizontal = computed(() => props.mode === 'horizontal')
 const siderCollapse = computed(
   () => themeStore.layout.mode === 'vertical' && appStore.siderCollapse,

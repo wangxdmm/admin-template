@@ -165,3 +165,12 @@ export interface LangOption {
   label: string
   key: LangType
 }
+
+export interface NaiveColorAction {
+  scene: NaiveColorScene
+  handler: (color: string) => string
+}
+
+export type NaiveColorScene = '' | 'Suppl' | 'Hover' | 'Pressed' | 'Active'
+
+export type NaiveColorKey = `${ThemeColorKey}Color${NaiveColorScene}`

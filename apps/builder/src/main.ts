@@ -9,6 +9,7 @@ import { routeMap } from './router/elegant/transform'
 import { userLogin, userNormal } from './api'
 import http from './http'
 import Logo from './assets/logo.png'
+import 'virtual:svg-icons-register'
 import 'uno.css'
 import '@runafe/easy-admin/style'
 import '@runafe/magic-system/style'
@@ -16,11 +17,13 @@ import 'vue3-json-viewer/dist/index.css'
 
 const sys = defineSystem(() => ({
   logo: Logo,
+  home: 'entry',
   formKitConfig,
   setting: {},
   http,
   title: 'CBB开发平台',
   router: {
+    hideInMenuRoutes: ['test'],
     map: routeMap,
     getAuthVueRoutes,
     createRoutes,
@@ -71,11 +74,12 @@ const sys = defineSystem(() => ({
   },
   envs: {
     PROD: false,
+    VITE_ICON_LOCAL_PREFIX: import.meta.env.VITE_ICON_LOCAL_PREFIX,
   },
-  initSystem: async () => {},
+  initSystem: async () => { },
 }))
 
-;(async () => {
+  ; (async () => {
   http.registerDynamicRequestConfig('token', (config) => {
     // TODO compatible to 4.0 cookie
     const token = getToken()

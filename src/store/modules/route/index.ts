@@ -33,6 +33,32 @@ let _useRouteStore: ReturnType<typeof routeStoreCreator>
 
 export const useRouteStore = () => _useRouteStore()
 
+export function createServerMenuMap(
+  menus: ServerMenu[],
+  map: ServerMenuMap = new Map(),
+): ServerMenuMap {
+  menus.forEach((m, index) => {
+    const key = m.meta.id
+
+    if (key) {
+      if (map.has(key)) {
+        console.error(`Duplicated key in menus is ${key}, Please check.`)
+      }
+
+      map.set(key, {
+        order: index,
+        definition: m,
+      })
+    }
+
+    if (m.children?.length) {
+      createServerMenuMap(m.children, map)
+    }
+  })
+
+  return map
+}
+
 export const routeStoreCreator = storeCreatorCreator(
   config =>
     defineStore(SetupStoreId.Route, () => {
@@ -45,58 +71,28 @@ export const routeStoreCreator = storeCreatorCreator(
       const menus = ref<Menu[]>([])
       // id -> RawMenuMeta
       const serverMenuDefinitions = shallowRef<ServerMenuMap>(new Map())
-      const authRouteMode = ref('static')
+      const routeHome = ref(config.home || 'entry')
+      const cacheRoutes = ref<RouteKey[]>([])
 
-      /** Home route key */
-      const routeHome = ref(config.home!)
-
-      function flattenMenus(
-        menus: ServerMenu[],
-        map: ServerMenuMap = new Map(),
-      ): ServerMenuMap {
-        menus.forEach((m, index) => {
-          const key = m.meta.id
-
-          if (key) {
-            if (map.has(key)) {
-              console.error(`Duplicated key in menus is ${key}, Please check.`)
-            }
-
-            map.set(key, {
-              order: index,
-              definition: m,
-            })
-          }
-
-          if (m.children?.length) {
-            flattenMenus(m.children, map)
-          }
-        })
-
-        return map
-      }
-
-      async function initServerRawRoutes() {
+      async function initServerMenus() {
+        // For old system, routes has already generated, so, this function just map the serverRoutes to get some meta data like: id, name, and collect id as rules what means: if serverMenus has this id, the routes from elegant can be show.
         const routes = await config.router?.getServerRawRoutes()
 
         if (routes) {
-          serverMenuDefinitions.value = flattenMenus(routes)
-          authStore.updateUserRoles([...serverMenuDefinitions.value.keys()])
+          serverMenuDefinitions.value = createServerMenuMap(routes)
+          authStore.updateUserRoles(
+            [...serverMenuDefinitions.value.keys()].concat(config.router.hideInMenuRoutes ?? []),
+          )
         }
       }
 
-      /** Get global menus */
       function getGlobalMenus(routes: ElegantConstRoute[]) {
         menus.value = getGlobalMenusByAuthRoutes(routes)
       }
 
-      /** Update global menus by locale */
       function updateGlobalMenusByLocale() {
         menus.value = updateLocaleOfGlobalMenus(menus.value)
       }
-
-      /** Cache routes */
-      const cacheRoutes = ref<RouteKey[]>([])
 
       function getCacheRoutes(routes: RouteRecordRaw[]) {
         const { constantVueRoutes } = config.router.createRoutes()
@@ -139,7 +135,6 @@ export const routeStoreCreator = storeCreatorCreator(
         }
       }
 
-      /** Global breadcrumbs */
       const breadcrumbs = computed(() =>
         getBreadcrumbsByRoute(
           config.router.instance.currentRoute.value,
@@ -147,7 +142,6 @@ export const routeStoreCreator = storeCreatorCreator(
         ),
       )
 
-      /** Reset store */
       async function resetStore() {
         const routeStore = useRouteStore()
 
@@ -156,45 +150,34 @@ export const routeStoreCreator = storeCreatorCreator(
         resetVueRoutes()
       }
 
-      /** Reset vue routes */
       function resetVueRoutes() {
         removeRouteFns.forEach(fn => fn())
         removeRouteFns.length = 0
       }
 
-      /** Init auth route */
       async function initAuthRoute() {
-        if (authRouteMode.value === 'static') {
-          await initStaticAuthRoute()
-        }
-        else {
-          await initDynamicAuthRoute()
-        }
+        await initStaticAuthRoute()
 
         await authStore.initSystem()
 
         tabStore.initHomeTab()
       }
 
-      /** Init static auth route */
       async function initStaticAuthRoute() {
         const { authRoutes } = config.router.createRoutes()
 
-        await initServerRawRoutes()
+        await initServerMenus()
 
-        const filteredAuthRoutes = filterAuthRoutesByRoles(
+        const authedRoutes = filterAuthRoutesByRoles(
           authRoutes,
           authStore.userInfo.roles,
           serverMenuDefinitions.value,
         )
 
-        handleAuthRoutes(filteredAuthRoutes)
+        handleAuthRoutes(authedRoutes)
 
         setIsInitAuthRoute(true)
       }
-
-      // TODO remove?
-      async function initDynamicAuthRoute() {}
 
       function handleAuthRoutes(routes: ElegantConstRoute[]) {
         const sortRoutes = sortRoutesByOrder(routes)
@@ -219,21 +202,6 @@ export const routeStoreCreator = storeCreatorCreator(
         removeRouteFns.push(fn)
       }
 
-      // // eslint-disable-next-line unused-imports/no-unused-vars
-      // function handleUpdateRootRouteRedirect(redirectKey: LastLevelRouteKey) {
-      //   const redirect = getRoutePath(redirectKey)
-
-      //   if (redirect) {
-      //     const rootRoute: CustomRoute = { ...ROOT_ROUTE, redirect }
-
-      //     router.removeRoute(rootRoute.name)
-
-      //     const [rootVueRoute] = getAuthVueRoutes([rootRoute])
-
-      //     router.addRoute(rootVueRoute)
-      //   }
-      // }
-
       async function getIsAuthRouteExist(routePath: RoutePath) {
         const routeName = getRouteName(routePath as TODO)
 
@@ -241,17 +209,9 @@ export const routeStoreCreator = storeCreatorCreator(
           return false
         }
 
-        if (authRouteMode.value === 'static') {
-          const { authRoutes } = config.router.createRoutes()
+        const { authRoutes } = config.router.createRoutes()
 
-          return isRouteExistByRouteName(routeName, authRoutes)
-        }
-
-        // const { data } = await fetchIsRouteExist(routeName)
-
-        // return data
-
-        return {}
+        return isRouteExistByRouteName(routeName, authRoutes)
       }
 
       function getSelectedMenuKeyPath(selectedKey: string) {
@@ -272,7 +232,7 @@ export const routeStoreCreator = storeCreatorCreator(
         setIsInitAuthRoute,
         getIsAuthRouteExist,
         getSelectedMenuKeyPath,
-        getServerRawRoutes: initServerRawRoutes,
+        getServerRawRoutes: initServerMenus,
       }
     }),
   (store) => {

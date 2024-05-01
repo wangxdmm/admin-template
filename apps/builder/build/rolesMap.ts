@@ -1,5 +1,5 @@
 export default {
-  52: {
+  888: {
     tableBuilder: {
       id: '1',
       icon: 'ri:table-fill',
