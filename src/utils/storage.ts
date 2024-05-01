@@ -1,4 +1,4 @@
-import { createLocalforage, createStorage } from ':/global-utils/src'
+import { createLocalforage, createStorage } from ':/global-utils'
 import type { Local, Session } from ':/types/storge'
 
 export const localStg = createStorage<Local>('local')

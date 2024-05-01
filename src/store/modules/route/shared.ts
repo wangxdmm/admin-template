@@ -1,5 +1,5 @@
 import type { RouteLocationNormalizedLoaded, RouteRecordRaw } from 'vue-router'
-import { useSvgIconRender } from ':/global-hooks/src'
+import { useSvgIconRender } from ':/hooks'
 import { $t } from ':/locales'
 import SvgIcon from ':/components/custom/svg-icon.vue'
 import type {
@@ -176,7 +176,7 @@ function getGlobalMenuByBaseRoute(
   const {
     title,
     i18nKey,
-    icon = '', // TODO
+    icon = '',
     localIcon,
   } = route.meta ?? {}
 

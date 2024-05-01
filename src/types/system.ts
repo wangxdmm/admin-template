@@ -6,7 +6,6 @@ import type { ThemeSetting } from './theme'
 import type { UserLoginParam } from './user'
 
 export interface SystemConfig {
-  formKitConfig: TODO
   theme?: ThemeSetting
   home?: string
   http?: Restful<any>
@@ -30,14 +29,13 @@ export interface SystemConfig {
     VITE_MENU_ICON?: string
   }
   hooks?: {
-    initSystem?: () => Promise<any> | undefined | void
     afterLogOut?: () => any
     // init system info, you can set all infomations in this hooks
     onSystemInit?: () => Promise<boolean> | boolean | undefined | void
   }
 }
 
-export interface SystemContext {}
+export interface SystemContext { }
 
 export interface LoginBackData {
   access_token: string

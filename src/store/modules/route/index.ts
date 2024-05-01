@@ -14,7 +14,7 @@ import {
   sortRoutesByOrder,
   updateLocaleOfGlobalMenus,
 } from './shared'
-import { useBoolean } from ':/global-hooks/src'
+import { useBoolean } from ':/hooks'
 import { SetupStoreId } from ':/enum'
 import { getRouteName } from ':/transform'
 import type {

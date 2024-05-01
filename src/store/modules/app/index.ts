@@ -4,11 +4,10 @@ import { breakpointsTailwind, useBreakpoints, useTitle } from '@vueuse/core'
 import { useRouteStore } from '../route'
 import { useTabStore } from '../tab'
 import { useThemeStore } from '../theme'
-import { useBoolean } from ':/global-hooks/src'
+import { useBoolean } from ':/hooks'
 import { SetupStoreId } from ':/enum'
 import { $t, setLocale } from ':/locales'
-import { setDayjsLocale } from ':/locales/dayjs'
-import { localStg } from ':/utils/storage'
+import { localStg } from ':/utils'
 import type { LangOption, LangType } from ':/types'
 import { storeCreatorCreator } from ':/store/share'
 
@@ -81,10 +80,6 @@ export const appStoreCreator = storeCreatorCreator(
         useTitle(documentTitle)
       }
 
-      function init() {
-        setDayjsLocale(locale.value)
-      }
-
       // watch store
       scope.run(() => {
         // watch isMobile, if is mobile, collapse sider
@@ -110,9 +105,6 @@ export const appStoreCreator = storeCreatorCreator(
 
           // update tabs by locale
           tabStore.updateTabsByLocale()
-
-          // sey dayjs locale
-          setDayjsLocale(locale.value)
         })
       })
 
@@ -120,9 +112,6 @@ export const appStoreCreator = storeCreatorCreator(
       onScopeDispose(() => {
         scope.stop()
       })
-
-      // init
-      init()
 
       return {
         isMobile,

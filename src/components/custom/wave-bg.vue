@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { getColorPalette } from ':/global-utils/src'
+import { getColorPalette } from ':/global-utils'
 
 defineOptions({ name: 'WaveBg' })
 

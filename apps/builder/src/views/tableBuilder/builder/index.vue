@@ -29,9 +29,7 @@ async function loadCode() {
   }
 }
 async function saveAndRelease() {
-  const { result, message } = await designerDoApplication.saveAndRelease(
-    tableSchema.value,
-  )()
+  const { result, message } = await designerDoApplication.saveAndRelease(tableSchema.value)()
   if (result) {
     rsMassage.success(message ?? '')
   }
@@ -70,19 +68,13 @@ codeModal.load({
 <template>
   <div class="relative size-full p-16px">
     <div class="flex-s_c gap-16px bg-#fff mr-400px p-8px">
-      <NButton
-        size="medium"
-        type="primary"
-        @click="save"
-      >
+      <NButton size="medium" type="primary" @click="save">
         保存
       </NButton>
       <NButton type="primary" @click="saveAndRelease">
         发布
       </NButton>
-      <n-popconfirm
-        @positive-click="resetFormdata"
-      >
+      <n-popconfirm @positive-click="resetFormdata">
         <template #trigger>
           <NButton type="success">
             重置
@@ -100,28 +92,30 @@ codeModal.load({
         <Schema.Component />
       </div>
     </div>
-    <div class="absolute right-0 top-4px bottom-4px bg-#fff w-420px shadow">
-      <n-scrollbar>
-        <div class="p-16px">
-          <n-tabs type="line" animated>
-            <n-tab-pane name="props" tab="表格属性">
-              <TableConfig />
-            </n-tab-pane>
-            <n-tab-pane name="query" tab="查询条件">
-              <Query />
-            </n-tab-pane>
-            <n-tab-pane name="colunmn" tab="表格列设置">
-              <tableColumn />
-            </n-tab-pane>
-            <n-tab-pane name="actions" tab="功能设置">
-              <ActionConfig />
-            </n-tab-pane>
-            <n-tab-pane name="feature" tab="添加表格列">
-              统计指标
-            </n-tab-pane>
-          </n-tabs>
-        </div>
-      </n-scrollbar>
+    <div class="absolute right-0 top-4px bottom-4px w-420px shadow">
+      <DarkModeContainer class="h-full">
+        <n-scrollbar>
+          <div class="p-16px">
+            <n-tabs type="line" animated>
+              <n-tab-pane name="props" tab="表格属性">
+                <TableConfig />
+              </n-tab-pane>
+              <n-tab-pane name="query" tab="查询条件">
+                <Query />
+              </n-tab-pane>
+              <n-tab-pane name="colunmn" tab="表格列设置">
+                <tableColumn />
+              </n-tab-pane>
+              <n-tab-pane name="actions" tab="功能设置">
+                <ActionConfig />
+              </n-tab-pane>
+              <n-tab-pane name="feature" tab="添加表格列">
+                统计指标
+              </n-tab-pane>
+            </n-tabs>
+          </div>
+        </n-scrollbar>
+      </DarkModeContainer>
     </div>
   </div>
 </template>

@@ -1,16 +1,16 @@
 import type { GlobalThemeOverrides } from 'naive-ui'
 import { merge } from 'merge-anything'
-import { addColorAlpha, getRgbOfColor } from ':/global-utils/src'
+import { addColorAlpha, getRgbOfColor } from ':/global-utils'
 import {
   getColorByColorPaletteNumber,
   getColorPalette,
-} from ':/color-palette/src'
+} from ':/color-palette'
 import {
   themeSettings as defaultThemeSettings,
   overrideThemeSettings,
 } from ':/theme/settings'
 import { themeVars } from ':/theme/vars'
-import { localStg } from ':/utils/storage'
+import { localStg } from ':/utils'
 import type {
   BaseToken,
   SystemConfig,
@@ -262,7 +262,6 @@ export function getNaiveTheme(colors: ThemeColor) {
       colorLoading,
     },
   }
-  debugger
 
   return theme
 }

@@ -4,13 +4,13 @@ import ms from '@runafe/magic-system'
 import { merge } from 'merge-anything'
 import type { SystemConfig, SystemContext } from './types'
 import AppView from './App.vue'
-import { setupIconifyOffline, setupLoading, setupNProgress } from './plugins'
+import { setupLoading, setupNProgress } from './plugins'
 import { setupStore } from './store'
 import { setupI18n } from './locales'
 import SvgIcon from './components/custom/svg-icon.vue'
 import DarkModeContainer from './components/common/dark-mode-container.vue'
 import ExceptionBase from './components/common/exception-base.vue'
-import ':/styles/css/index.css'
+import ':/styles/index.css'
 import {
   appStoreCreator,
   authStoreCreator,
@@ -73,10 +73,9 @@ export function defineSystem(
   // init Plugins
   setupLoading()
   setupNProgress()
-  setupIconifyOffline()
   setupI18n(app)
 
-  app.use(fkPlugin, config.formKitConfig).use(ms)
+  app.use(fkPlugin).use(ms)
 
   return {
     app,

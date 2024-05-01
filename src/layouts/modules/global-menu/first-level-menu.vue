@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { createReusableTemplate } from '@vueuse/core'
 import { SimpleScrollbar } from ':/materials/src'
-import { transformColorWithOpacity } from ':/global-utils/src'
+import { transformColorWithOpacity } from ':/global-utils'
 import { useAppStore } from ':/store/modules/app'
 import { useRouteStore } from ':/store/modules/route'
 import { useThemeStore } from ':/store/modules/theme'

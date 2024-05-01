@@ -41,12 +41,6 @@ const layoutConfig: LayoutConfig = {
     menuClass: 'w-1/3 h-full',
     mainClass: 'w-2/3 h-3/4',
   },
-  'vertical-mix': {
-    placement: 'bottom',
-    headerClass: '',
-    menuClass: 'w-1/4 h-full',
-    mainClass: 'w-2/3 h-3/4',
-  },
   'horizontal': {
     placement: 'bottom',
     headerClass: '',

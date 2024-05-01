@@ -2,7 +2,7 @@
 import { createReusableTemplate } from '@vueuse/core'
 import { useThemeStore } from ':/store/modules/theme'
 import { useRouteStore } from ':/store/modules/route'
-import { useRouterPush } from ':/hooks/common/router'
+import { useRouterPush } from ':/hooks'
 import type { Menu, RouteKey } from ':/types'
 
 defineOptions({

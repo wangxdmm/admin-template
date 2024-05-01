@@ -17,8 +17,8 @@ import {
   updateTabsByI18nKey,
 } from './shared'
 import { SetupStoreId } from ':/enum'
-import { useRouterPush } from ':/hooks/common/router'
-import { localStg } from ':/utils/storage'
+import { useRouterPush } from ':/hooks'
+import { localStg } from ':/utils'
 import { useRouteStore } from ':/store/modules/route'
 import type { RouteKey, Tab, TabRoute } from ':/types'
 import { storeCreatorCreator } from ':/store/share'
@@ -31,7 +31,7 @@ export const tabStoreCreator = storeCreatorCreator(
       const router = useRouter()
       const routeStore = useRouteStore()
       const themeStore = useThemeStore()
-      const { routerPush } = useRouterPush(false)
+      const { routerPush } = useRouterPush()
 
       /** Tabs */
       const tabs = ref<Tab[]>([])

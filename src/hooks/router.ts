@@ -1,4 +1,3 @@
-import { useRouter } from 'vue-router'
 import type { RouteLocationRaw } from 'vue-router'
 import { useRouteStore } from ':/store/modules/route'
 import type { RouteKey } from ':/types'
@@ -8,15 +7,9 @@ export interface RouterPushOptions {
   query?: Record<string, string>
   params?: Record<string, string>
 }
-/**
- * Router push
- *
- * Jump to the specified route, it can replace function router.push
- *
- * @param inSetup Whether is in vue script setup
- */
-export function useRouterPush(inSetup = true) {
-  const router = inSetup ? useRouter() : sys_store.router
+
+export function useRouterPush() {
+  const router = sys_store.router
   const route = sys_store.router.currentRoute
 
   const routerPush = router.push

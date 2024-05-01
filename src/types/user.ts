@@ -4,7 +4,7 @@ export interface UserInfo {
   attribute?: string
   roleType?: string
   userName?: string
-  userId: string
+  userId?: string
   realName?: string
   haveCustomerService?: string
   administrationCode?: string

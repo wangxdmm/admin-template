@@ -1,11 +1,10 @@
-export interface Theme {}
+export interface Theme { }
 
 export type ThemeScheme = 'light' | 'dark' | 'auto'
 
 export type ThemeLayoutMode =
   | 'vertical'
   | 'horizontal'
-  | 'vertical-mix'
   | 'horizontal-mix'
 
 export type ThemeScrollMode = 'wrapper' | 'content'

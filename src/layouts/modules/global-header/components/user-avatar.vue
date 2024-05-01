@@ -2,9 +2,9 @@
 import { computed } from 'vue'
 import type { VNode } from 'vue'
 import { useDialog } from '@runafe/magic-system'
-import { useSvgIconRender } from ':/global-hooks/src'
+import { useSvgIconRender } from ':/hooks'
 import { useAuthStore } from ':/store/modules/auth'
-import { useRouterPush } from ':/hooks/common/router'
+import { useRouterPush } from ':/hooks'
 import { $t } from ':/locales'
 import SvgIcon from ':/components/custom/svg-icon.vue'
 

@@ -10,7 +10,7 @@ import {
   toggleCssDarkMode,
 } from './shared'
 import { SetupStoreId } from ':/enum'
-import { localStg } from ':/utils/storage'
+import { localStg } from ':/utils'
 import type {
   BaseToken,
   ThemeColor,

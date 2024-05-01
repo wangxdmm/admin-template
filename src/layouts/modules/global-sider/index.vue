@@ -2,7 +2,6 @@
 import { computed } from 'vue'
 import GlobalLogo from '../global-logo/index.vue'
 import VerticalMenu from '../global-menu/base-menu.vue'
-import HorizontalMixMenu from '../global-menu/horizontal-mix-menu.vue'
 import { useRouteStore } from ':/store/modules/route'
 import { useThemeStore } from ':/store/modules/theme'
 import { useAppStore } from ':/store/modules/app'

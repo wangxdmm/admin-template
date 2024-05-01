@@ -4,7 +4,6 @@ import { useFullscreen } from '@vueuse/core'
 import HorizontalMenu from '../global-menu/base-menu.vue'
 import GlobalLogo from '../global-logo/index.vue'
 import GlobalBreadcrumb from '../global-breadcrumb/index.vue'
-import { useMixMenuContext } from '../../hooks/use-mix-menu'
 import ThemeButton from './components/theme-button.vue'
 import UserAvatar from './components/user-avatar.vue'
 
@@ -34,15 +33,10 @@ const appStore = useAppStore()
 const themeStore = useThemeStore()
 const routeStore = useRouteStore()
 const { isFullscreen, toggle } = useFullscreen()
-const { menus } = useMixMenuContext()
 
 const headerMenus = computed(() => {
   if (themeStore.layout.mode === 'horizontal') {
     return routeStore.menus
-  }
-
-  if (themeStore.layout.mode === 'horizontal-mix') {
-    return menus.value
   }
 
   return []

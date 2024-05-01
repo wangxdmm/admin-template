@@ -148,18 +148,6 @@ const isWrapperScrollMode = computed(
         class="w-120px"
       />
     </SettingItem>
-    <SettingItem
-      v-if="layoutMode === 'vertical-mix'"
-      key="6-5"
-      :label="$t('theme.sider.mixChildMenuWidth')"
-    >
-      <NInputNumber
-        v-model:value="themeStore.sider.mixChildMenuWidth"
-        size="small"
-        :step="1"
-        class="w-120px"
-      />
-    </SettingItem>
     <SettingItem key="7" :label="$t('theme.footer.visible')">
       <NSwitch v-model:value="themeStore.footer.visible" />
     </SettingItem>

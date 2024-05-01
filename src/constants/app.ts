@@ -5,7 +5,7 @@ import type {
   ThemeScrollMode,
   ThemeTabMode,
 } from ':/types'
-import { transformRecordToOption } from ':/utils/common'
+import { transformRecordToOption } from ':/utils'
 
 export const themeSchemaRecord: Record<ThemeScheme, I18nKey> = {
   light: 'theme.themeSchema.light',
@@ -15,17 +15,8 @@ export const themeSchemaRecord: Record<ThemeScheme, I18nKey> = {
 
 export const themeSchemaOptions = transformRecordToOption(themeSchemaRecord)
 
-export const loginModuleRecord: Record<string, I18nKey> = {
-  'pwd-login': 'page.login.pwdLogin.title',
-  'code-login': 'page.login.codeLogin.title',
-  'register': 'page.login.register.title',
-  'reset-pwd': 'page.login.resetPwd.title',
-  'bind-wechat': 'page.login.bindWeChat.title',
-}
-
 export const themeLayoutModeRecord: Record<ThemeLayoutMode, I18nKey> = {
   'vertical': 'theme.layoutMode.vertical',
-  'vertical-mix': 'theme.layoutMode.vertical-mix',
   'horizontal': 'theme.layoutMode.horizontal',
   'horizontal-mix': 'theme.layoutMode.horizontal-mix',
 }

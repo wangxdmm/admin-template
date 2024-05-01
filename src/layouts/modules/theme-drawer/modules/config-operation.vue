@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from 'vue'
 import Clipboard from 'clipboard'
 import { $t } from ':/locales'
 import { useThemeStore } from ':/store/modules/theme'
+import { sys_store } from ':/global'
 
 defineOptions({
   name: 'ConfigOperation',
@@ -20,7 +21,7 @@ function initClipboard() {
   const clipboard = new Clipboard(domRef.value)
 
   clipboard.on('success', () => {
-    globalThis.$message?.success($t('theme.configOperation.copySuccessMsg'))
+    sys_store.m?.success($t('theme.configOperation.copySuccessMsg'))
   })
 }
 
@@ -36,7 +37,7 @@ function handleReset() {
   themeStore.resetStore()
 
   setTimeout(() => {
-    globalThis.$message?.success($t('theme.configOperation.resetSuccessMsg'))
+    sys_store.m?.success($t('theme.configOperation.resetSuccessMsg'))
   }, 50)
 }
 

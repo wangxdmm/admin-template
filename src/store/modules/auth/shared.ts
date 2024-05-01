@@ -1,7 +1,7 @@
 import Cookies from 'universal-cookie'
 import { genUid } from '@monan/shared'
 import type { UserInfo } from ':/types'
-import { localStg } from ':/utils/storage'
+import { localStg } from ':/utils'
 
 const cookies = new Cookies(null, { path: '/' })
 /** Get token */

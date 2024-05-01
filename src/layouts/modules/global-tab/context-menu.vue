@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { VNode } from 'vue'
-import { useSvgIconRender } from ':/global-hooks/src'
+import { useSvgIconRender } from ':/hooks'
 import { $t } from ':/locales'
 import { useTabStore } from ':/store/modules/tab'
 import SvgIcon from ':/components/custom/svg-icon.vue'

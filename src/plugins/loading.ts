@@ -1,7 +1,7 @@
 // @unocss-include
 import { sys_store } from '..'
-import { getRgbOfColor } from ':/global-utils/src'
-import { localStg } from ':/utils/storage'
+import { getRgbOfColor } from ':/global-utils'
+import { localStg } from ':/utils'
 
 export function setupLoading() {
   const themeColor = localStg.get('themeColor') || '#646cff'

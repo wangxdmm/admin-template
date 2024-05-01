@@ -66,7 +66,7 @@ const sys = defineSystem(() => ({
     onSystemInit: async () => {
       const { backData } = await userNormal.loginUserInfo()()
       if (backData) {
-        sys.authStore()?.setUserInfo(backData as TODO)
+        sys.authStore()?.setUserInfo(backData)
         return true
       }
       return false
@@ -76,12 +76,10 @@ const sys = defineSystem(() => ({
     PROD: false,
     VITE_ICON_LOCAL_PREFIX: import.meta.env.VITE_ICON_LOCAL_PREFIX,
   },
-  initSystem: async () => { },
 }))
 
   ; (async () => {
   http.registerDynamicRequestConfig('token', (config) => {
-    // TODO compatible to 4.0 cookie
     const token = getToken()
     if (token) {
       config.headers!.Authorization = `Bearer ${token}`

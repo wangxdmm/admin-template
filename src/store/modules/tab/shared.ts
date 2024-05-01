@@ -2,6 +2,7 @@ import type { Router } from 'vue-router'
 import { $t } from ':/locales'
 import { getRoutePath } from ':/transform'
 import type { Tab, TabRoute } from ':/types'
+import { sys_store } from ':/global'
 
 /**
  * Get all tabs
@@ -88,7 +89,7 @@ export function getTabByRoute(route: TabRoute) {
  */
 export function getRouteIcons(route: TabRoute) {
   // Set default value for icon at the beginning
-  let icon: string = route?.meta?.icon || import.meta.env.VITE_MENU_ICON
+  let icon: string = route?.meta?.icon || sys_store.config.value.envs?.VITE_MENU_ICON || ''
   let localIcon: string | undefined = route?.meta?.localIcon
 
   // Route.matched only appears when there are multiple matches,so check if route.matched exists

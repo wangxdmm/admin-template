@@ -4,3 +4,4 @@ import useContext from './use-context'
 import useSvgIconRender from './use-svg-icon-render'
 
 export { useBoolean, useLoading, useContext, useSvgIconRender }
+export * from './router'

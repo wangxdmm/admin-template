@@ -1,12 +1,11 @@
 import { computed, reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
-import { isArray } from 'xe-utils'
+import { isArray } from '@monan/shared'
 import { useRouteStore } from '../route'
 import { clearAuthStorage, getToken, getUserInfo } from './shared'
-import { useLoading } from ':/global-hooks/src'
+import { useLoading, useRouterPush } from ':/hooks'
 import { SetupStoreId } from ':/enum'
-import { useRouterPush } from ':/hooks/common/router'
-import { localStg } from ':/utils/storage'
+import { localStg } from ':/utils'
 import { $t } from ':/locales'
 import { storeCreatorCreator } from ':/store/share'
 import { sys_store } from ':/global'
@@ -20,7 +19,7 @@ export const authStoreCreator = storeCreatorCreator(
   config =>
     defineStore(SetupStoreId.Auth, () => {
       const routeStore = useRouteStore()
-      const { route, toLogin, redirectFromLogin } = useRouterPush(false)
+      const { route, toLogin, redirectFromLogin } = useRouterPush()
       const { loading: loginLoading, startLoading, endLoading } = useLoading()
       const token = ref(getToken())
       const userInfo = reactive(getUserInfo())

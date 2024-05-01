@@ -6,7 +6,6 @@ import GlobalTab from '../modules/global-tab/index.vue'
 import GlobalContent from '../modules/global-content/index.vue'
 import GlobalFooter from '../modules/global-footer/index.vue'
 import ThemeDrawer from '../modules/theme-drawer/index.vue'
-import { setupMixMenuContext } from '../hooks/use-mix-menu'
 import { AdminLayout, LAYOUT_SCROLL_EL_ID } from ':/materials/src'
 import type { LayoutMode } from ':/materials/src'
 import { useThemeStore } from ':/store/modules/theme'
@@ -32,11 +31,6 @@ const headerPropsConfig: Record<ThemeLayoutMode, HeaderProps> = {
     showMenu: false,
     showMenuToggler: true,
   },
-  'vertical-mix': {
-    showLogo: false,
-    showMenu: false,
-    showMenuToggler: false,
-  },
   'horizontal': {
     showLogo: true,
     showMenu: true,
@@ -53,8 +47,6 @@ const headerProps = computed(() => headerPropsConfig[themeStore.layout.mode])
 
 const siderVisible = computed(() => themeStore.layout.mode !== 'horizontal')
 
-const isVerticalMix = computed(() => themeStore.layout.mode === 'vertical-mix')
-
 const isHorizontalMix = computed(() => themeStore.layout.mode === 'horizontal-mix')
 
 const siderWidth = computed(() => getSiderWidth())
@@ -62,30 +54,20 @@ const siderWidth = computed(() => getSiderWidth())
 const siderCollapsedWidth = computed(() => getSiderCollapsedWidth())
 
 function getSiderWidth() {
-  const { width, mixWidth, mixChildMenuWidth } = themeStore.sider
+  const { width, mixWidth } = themeStore.sider
 
-  let w = isVerticalMix.value || isHorizontalMix.value ? mixWidth : width
-
-  if (isVerticalMix.value) {
-    w += mixChildMenuWidth
-  }
+  const w = isHorizontalMix.value ? mixWidth : width
 
   return w
 }
 
 function getSiderCollapsedWidth() {
-  const { collapsedWidth, mixCollapsedWidth, mixChildMenuWidth } = themeStore.sider
+  const { collapsedWidth, mixCollapsedWidth } = themeStore.sider
 
-  let w = isVerticalMix.value || isHorizontalMix.value ? mixCollapsedWidth : collapsedWidth
-
-  if (isVerticalMix.value) {
-    w += mixChildMenuWidth
-  }
+  const w = isHorizontalMix.value ? mixCollapsedWidth : collapsedWidth
 
   return w
 }
-
-setupMixMenuContext()
 </script>
 
 <template>
