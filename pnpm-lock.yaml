@@ -21,8 +21,8 @@ importers:
         specifier: ^1.1.36
         version: 1.1.36(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.1.1)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.17.0)(vue-final-modal@4.5.4)(vue@3.4.23)
       '@runafe/magic-system':
-        specifier: 1.3.46
-        version: 1.3.46(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.1.1)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.17.0)(vue-final-modal@4.5.4)(vue@3.4.23)
+        specifier: 1.3.47
+        version: 1.3.47(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.1.1)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.17.0)(vue-final-modal@4.5.4)(vue@3.4.23)
       '@vueuse/core':
         specifier: 10.9.0
         version: 10.9.0(vue@3.4.23)
@@ -32,9 +32,6 @@ importers:
       colord:
         specifier: 2.9.3
         version: 2.9.3
-      crypto-js:
-        specifier: 4.2.0
-        version: 4.2.0
       dayjs:
         specifier: 1.11.10
         version: 1.11.10
@@ -50,9 +47,6 @@ importers:
       naive-ui:
         specifier: npm:@runafe/naive-ui@2.38.1-lamp.15
         version: /@runafe/naive-ui@2.38.1-lamp.15(vue@3.4.23)
-      nanoid:
-        specifier: 5.0.6
-        version: 5.0.6
       nprogress:
         specifier: 0.2.0
         version: 0.2.0
@@ -247,8 +241,8 @@ importers:
         specifier: workspace:^
         version: link:../..
       '@runafe/unified-api-designer':
-        specifier: 0.0.31
-        version: 0.0.31(@monan/easy-axios@1.1.1)
+        specifier: 0.0.36
+        version: 0.0.36(@monan/easy-axios@1.1.1)
       '@runafe/unified-api-user':
         specifier: 0.0.4
         version: 0.0.4(@monan/easy-axios@1.1.1)
@@ -1631,7 +1625,7 @@ packages:
       ignore: 5.3.1
       jiti: 1.21.0
       knitwork: 1.1.0
-      mlly: 1.6.1
+      mlly: 1.7.0
       pathe: 1.1.2
       pkg-types: 1.1.0
       scule: 1.3.0
@@ -1867,7 +1861,7 @@ packages:
       '@formkit/vue': 1.6.2(unocss@0.59.4)(vue@3.4.23)
       '@monan/shared': 1.0.4
       '@monan/types': 1.0.1
-      '@runafe/magic-system': 1.3.46(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.1.1)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.17.0)(vue-final-modal@4.5.4)(vue@3.4.23)
+      '@runafe/magic-system': 1.3.47(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.1.1)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.17.0)(vue-final-modal@4.5.4)(vue@3.4.23)
       date-fns: 3.6.0
       merge-anything: 5.1.7
       naive-ui: /@runafe/naive-ui@2.38.1-lamp.15(vue@3.4.23)
@@ -1882,8 +1876,8 @@ packages:
       - vue-final-modal
     dev: false
 
-  /@runafe/magic-system@1.3.46(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.1.1)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.17.0)(vue-final-modal@4.5.4)(vue@3.4.23):
-    resolution: {integrity: sha512-oF/gtdaN3TC0tDdxCR3tCz9qb34uU7Ci39kyIENA+S5hERKseh24Ypi8bISJwf8I5ZS0VaicX/B4vw40/CFsBQ==}
+  /@runafe/magic-system@1.3.47(@formkit/core@1.6.2)(@formkit/i18n@1.6.2)(@formkit/validation@1.6.2)(@formkit/vue@1.6.2)(@monan/easy-axios@1.1.1)(@runafe/naive-ui@2.38.1-lamp.15)(rollup@4.17.0)(vue-final-modal@4.5.4)(vue@3.4.23):
+    resolution: {integrity: sha512-tQ8sVwOp6Gc77dBqgP7Yt4scY5rYT1Y0SaQmirFDsA5maNdMmwLk8SXO47YxxLCkLJ8u5h7cvAhW4hNsbSYLXA==}
     peerDependencies:
       '@formkit/core': ^1.5.9
       '@formkit/i18n': ^1.5.9
@@ -1909,7 +1903,7 @@ packages:
       '@monan/shared': 1.0.4
       '@monan/types': 1.0.1
       '@nyariv/sandboxjs': 0.8.23
-      '@runafe/unified-api-designer': 0.0.31(@monan/easy-axios@1.1.1)
+      '@runafe/unified-api-designer': 0.0.36(@monan/easy-axios@1.1.1)
       '@vueuse/core': 10.9.0(vue@3.4.23)
       add: 2.0.6
       copy-to-clipboard: 3.3.3
@@ -1984,8 +1978,8 @@ packages:
       - typescript
     dev: true
 
-  /@runafe/unified-api-designer@0.0.31(@monan/easy-axios@1.1.1):
-    resolution: {integrity: sha512-6INLB2MwzH7RCJbD2S5kO0KZedsLncbOLzh3PPCEV8MVCcUxtnCTsbx/Qkbf0T0Iq/RJtjwPgOkZdmVc9bM2Gw==}
+  /@runafe/unified-api-designer@0.0.36(@monan/easy-axios@1.1.1):
+    resolution: {integrity: sha512-QtXXHdhLeHifdi09y2eXhz2UDMZZDs+uPdD/h3qD3oe+GNxuO0J4w8lAbLRdooBsU8ymQMW1dkERgvzYwd4wJg==}
     peerDependencies:
       '@monan/easy-axios': ^1.0.12
     dependencies:
@@ -4078,10 +4072,6 @@ packages:
 
   /crypt@0.0.2:
     resolution: {integrity: sha512-mCxBlsHFYh9C+HVpiEacem8FEBnMXgU9gy4zmNC+SXAZNB/1idgp/aulFJ4FgCi7GPEVbfyng092GqL2k2rmow==}
-    dev: false
-
-  /crypto-js@4.2.0:
-    resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
     dev: false
 
   /css-render@0.15.12:
@@ -6949,6 +6939,15 @@ packages:
       pkg-types: 1.1.0
       ufo: 1.5.3
 
+  /mlly@1.7.0:
+    resolution: {integrity: sha512-U9SDaXGEREBYQgfejV97coK0UL1r+qnF2SyO9A3qcI8MzKnsIFKHNVEkrDyNncQTKQQumsasmeq84eNMdBfsNQ==}
+    dependencies:
+      acorn: 8.11.3
+      pathe: 1.1.2
+      pkg-types: 1.1.0
+      ufo: 1.5.3
+    dev: false
+
   /moveable@0.53.0:
     resolution: {integrity: sha512-71jS9zIoQzMhnNvduhg4tUEdm23+fO/40FN7muVMbZvVwbTku2MIxxLhnU4qFvxI4oVxn75l79SbtgjuA+s7Pw==}
     dependencies:
@@ -6987,12 +6986,6 @@ packages:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
-
-  /nanoid@5.0.6:
-    resolution: {integrity: sha512-rRq0eMHoGZxlvaFOUdK1Ev83Bd1IgzzR+WJ3IbDJ7QOSdAxYjlurSPqFs9s4lJg29RT6nPwizFtJhQS6V5xgiA==}
-    engines: {node: ^18 || >=20}
-    hasBin: true
-    dev: false
 
   /nanomatch@1.2.13:
     resolution: {integrity: sha512-fpoe2T0RbHwBTBUOftAfBPaDEi06ufaUai0mE6Yn1kacc3SnTErfb/h+X94VXzI64rKFHYImXSvdwGGCmwOqCA==}
@@ -9383,7 +9376,7 @@ packages:
     dependencies:
       dom-zindex: 1.0.2
       vue: 3.4.23(typescript@5.4.5)
-      xe-utils: 3.5.25
+      xe-utils: 3.5.26
     dev: false
 
   /webpack-sources@3.2.3:
@@ -9462,8 +9455,8 @@ packages:
       strip-ansi: 7.1.0
     dev: true
 
-  /xe-utils@3.5.25:
-    resolution: {integrity: sha512-d/ty5eo4hXtho/3195XAvqereIoSYJ+XfC52f3ZEPxTaCeyLFivDZTyX6gTdsR65ISH1Irvn85H0bSL60dUhSQ==}
+  /xe-utils@3.5.26:
+    resolution: {integrity: sha512-u9R7RqWDumamToEelrCv2nVA2PBJSPPUubvmiMcuHeFxwbYeBsouoi/opejmr7AdPlSj92FifF7IKFzFrczU7w==}
     dev: false
 
   /xml-name-validator@4.0.0:
