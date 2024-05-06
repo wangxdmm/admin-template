@@ -3,17 +3,20 @@ import type { ColorSchema, StyleConfig } from '@runafe/unified-api-designer'
 import type { FormKitNode, FormKitSchemaDefinition } from '@formkit/core'
 import { defineModal } from '@runafe/magic-system'
 import { FormKit, FormKitSchema } from '@formkit/vue'
+import { useMessage } from 'naive-ui'
 import RnConditions from '../block/condition.vue'
 import { tableSchema } from '../tableSchema'
 
 const styleConfig = computed<Partial<StyleConfig>>({
-  get: () => tableSchema.value.styleConfig!,
+  get: () => tableSchema.value.styleConfig || {},
   set: (val) => {
     tableSchema.value.styleConfig = val
   },
 })
 
 const { close, load } = defineModal({ width: 600 })
+
+const message = useMessage()
 
 const data = {
   styleConfig,
@@ -69,17 +72,18 @@ const schema: FormKitSchemaDefinition = [
     },
     children: '行背景色',
   },
-  {
-    $cmp: 'RnConditions',
-    props: {
-      modelValue: '$styleConfig.rowBackgroundColors',
-      buttonName: '添加行背景色',
-      onAdd: '$actions.bgAdd',
-      onUpdate: '$actions.bgEdit',
-      labelField: 'name',
-      class: 'm-b-20px',
-    },
-  },
+  // {
+  //   $cmp: 'RnConditions',
+  //   props: {
+  //     modelValue: '$styleConfig.rowBackgroundColors',
+  //     buttonName: '添加行背景色',
+  //     onAdd: '$actions.bgAdd',
+  //     onUpdate: '$actions.bgEdit',
+  //     labelField: 'name',
+  //     nameField: 'value',
+  //     class: 'm-b-20px',
+  //   },
+  // },
 ]
 
 const bgConfigSchema: FormKitSchemaDefinition = [
@@ -105,11 +109,16 @@ const bgConfigSchema: FormKitSchemaDefinition = [
 
 function bgEdit(row?: ColorSchema, index?: number) {
   const bgForm = ref<ColorSchema>(row || ({} as ColorSchema))
+  const exitValue = styleConfig.value.rowBackgroundColors?.map(item => item.value)
+  if (row) {
+    exitValue?.splice(index!, 1)
+  }
   let formNode: FormKitNode
   load({
     title: () => '背景颜色',
     default: () => (
-      <FormKit
+      <div>
+         <FormKit
         type="form"
         v-model={bgForm.value}
         onNode={(n: FormKitNode) => {
@@ -118,6 +127,9 @@ function bgEdit(row?: ColorSchema, index?: number) {
         actions={false}
         incomplete-message={false}
         onSubmit={() => {
+          if (exitValue?.includes(bgForm.value.value)) {
+            return message.error('该色号已存在')
+          }
           if (index || index === 0) {
             styleConfig.value.rowBackgroundColors![index] = bgForm.value
           }
@@ -128,7 +140,11 @@ function bgEdit(row?: ColorSchema, index?: number) {
         }}
       >
         <FormKitSchema schema={bgConfigSchema}></FormKitSchema>
+
       </FormKit>
+
+      </div>
+
     ),
     footer: () => [
       <n-button
@@ -160,6 +176,7 @@ function bgEdit(row?: ColorSchema, index?: number) {
       :incomplete-message="false"
     >
       <FormKitSchema :schema :data :library />
+      <RnConditions v-model="styleConfig.rowBackgroundColors" class="m-b-20px" name-field="value" label-field="name" button-name="添加行背景色" @add="bgEdit" @update="bgEdit" />
     </FormKit>
   </div>
 </template>

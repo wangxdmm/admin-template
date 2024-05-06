@@ -4,18 +4,38 @@ import type { FormKitNode, FormKitSchemaDefinition } from '@formkit/core'
 import { HorizontalAlign } from '@runafe/unified-api-designer'
 import { defineModal } from '@runafe/magic-system'
 import { FormKit, FormKitSchema } from '@formkit/vue'
+import { useMessage } from 'naive-ui'
 import RnConditions from '../block/condition.vue'
 import { tableSchema } from '../tableSchema'
 
+const message = useMessage()
+
 const pagination = computed<Pagination>({
-  get: () => tableSchema.value.pagination || {},
+  get: () => tableSchema.value.pagination || { pageSizes: [] },
   set: (val) => {
     tableSchema.value.pagination = val
   },
 })
 
-const pageSizes = computed(() => pagination.value.pageSizes?.map(p => ({ ...p, label: `${p.size}行${p.defaultOption ? '（默认）' : ''}` })))
+const pageSizes = ref<((PaginationSize & { label: string })[])>([])
+
+watch(() => tableSchema.value.pagination?.pageSizes, (val) => {
+  if (val) {
+    pageSizes.value = val.map(p => ({ ...p, label: `${p.size}行${p.defaultOption ? '（默认）' : ''}` }))
+  }
+}, {
+  immediate: true,
+  deep: true,
+})
+
+watch(() => pageSizes.value.length, (newVal, oldVal) => {
+  if (newVal < oldVal) {
+    pagination.value.pageSizes = pageSizes.value
+  }
+})
 const { close, load } = defineModal({ width: 400 })
+
+const titleClass = 'font-bold m-b-10px'
 
 const data = {
   pageSizes,
@@ -26,7 +46,7 @@ const data = {
       { value: HorizontalAlign.CENTER, label: '居中对齐' },
     ],
   },
-  titleClass: 'font-bold m-b-10px',
+  titleClass,
   actions: {
     sizeAdd: () => {
       edit()
@@ -57,18 +77,19 @@ const schema: FormKitSchemaDefinition = [
   },
   {
     $el: 'div',
-    if: '$get(paginationEnabled).value',
+    // if: '$get(paginationEnabled).value',
     children: [
-      {
-        $cmp: 'RnConditions',
-        props: {
-          modelValue: '$pageSizes',
-          buttonName: '添加每页显示行数',
-          onAdd: '$actions.sizeAdd',
-          onUpdate: '$actions.sizeEdit',
-          class: 'm-b-20px',
-        },
-      },
+      // {
+      //   $cmp: 'RnConditions',
+      //   props: {
+      //     modelValue: '$pageSizes',
+      //     buttonName: '添加每页显示行数',
+      //     nameField: 'size',
+      //     onAdd: '$actions.sizeAdd',
+      //     onUpdate: '$actions.sizeEdit',
+      //     class: 'm-b-20px',
+      //   },
+      // },
       {
         $formkit: 'n:select',
         name: 'align',
@@ -124,6 +145,10 @@ const bgConfigSchema: FormKitSchemaDefinition = [
 
 function edit(row?: PaginationSize, index?: number) {
   const sizeForm = ref<PaginationSize>(row || {} as PaginationSize)
+  const exitSize = pageSizes.value.map(item => item.size)
+  if (row) {
+    exitSize.splice(index!, 1)
+  }
 
   let formNode: FormKitNode
   load({
@@ -136,6 +161,9 @@ function edit(row?: PaginationSize, index?: number) {
             actions={false}
             incomplete-message={false}
             onSubmit={() => {
+              if (exitSize?.includes(sizeForm.value.size)) {
+                return message.error('该行数已存在')
+              }
               const { size, defaultOption } = sizeForm.value
               if (defaultOption) {
                 pagination.value.pageSizes?.forEach((p) => {
@@ -143,7 +171,6 @@ function edit(row?: PaginationSize, index?: number) {
                 })
               }
               if (row && (index || index === 0)) {
-                { /* pagination.value.pageSizes![index] = sizeForm.value */ }
                 pagination.value.pageSizes?.splice(index, 1, sizeForm.value)
               }
               else {
@@ -178,6 +205,7 @@ function edit(row?: PaginationSize, index?: number) {
   <div>
     <FormKit v-model="pagination" type="form" :actions="false" :incomplete-message="false">
       <FormKitSchema :schema :data :library />
+      <RnConditions v-model="pageSizes" class="m-b-20px" name-field="size" button-name="添加每页显示行数" @add="edit" @update="edit" />
     </FormKit>
   </div>
 </template>
