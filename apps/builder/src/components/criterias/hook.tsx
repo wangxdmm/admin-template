@@ -77,7 +77,9 @@ export function useBatchAddEditor(initValue: MaybeRefOrGetter<string>) {
   }
 }
 
-const selectOptions = ref<CriteriaMeta[]>([])
+let selectOptions = ref<CriteriaMeta[]>([])
+
+const defaultField = computed(() => selectOptions.value[0]?.name)
 
 export function useCriterias(
   options: Ref<CriteriaMeta[]>,
@@ -91,10 +93,10 @@ export function useCriterias(
     attrs?: Partial<ExtractPropTypes<ConditionProps>>
   },
 ) {
+  selectOptions = computed(() => options.value)
   const criteriaValue = ref<AdvancedCriteria>(
-    config?.initValue || emptyGroup(),
+    config?.initValue || createEmptyGroup(),
   )
-
   const metaMap = shallowRef(new Map<string, CriteriaMeta>())
   const modal = defineModal({
     delay: true,
@@ -185,22 +187,22 @@ export function useCriterias(
   }
 
   function clear() {
-    criteriaValue.value = emptyGroup()
+    criteriaValue.value = createEmptyGroup()
   }
 }
 
-export function emptyCondition() {
+export function createEmptyCondition() {
   return {
-    fieldName: 'name',
+    fieldName: defaultField.value,
     matcher: CriteriaMatcherEnums.EQ,
   } as CriteriaEntity
 }
 
-export function emptyGroup(id: number = 0): AdvancedCriteria {
+export function createEmptyGroup(id: number = 0): AdvancedCriteria {
   return {
     id,
     logic: 'AND',
-    singleCriterias: [emptyCondition()],
+    singleCriterias: [createEmptyCondition()],
     boolCriterias: [],
   } as unknown as AdvancedCriteria
 }

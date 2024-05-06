@@ -22,7 +22,7 @@ import type {
   CriteriaMeta,
 } from './type'
 import { CriteriaMatcherEnums, ValueTypeEnums } from './type'
-import { emptyCondition, emptyGroup, matcherMap } from './hook'
+import { createEmptyCondition, createEmptyGroup, matcherMap } from './hook'
 
 export const DEFAULT_LINKTYPE = 'AND'
 
@@ -36,7 +36,7 @@ export const conditonProps = {
   },
   value: {
     type: Object as PropType<AdvancedCriteria>,
-    default: () => (emptyGroup()),
+    default: () => (createEmptyGroup()),
   },
   onSubmit: {
     type: Function as PropType<(v: AdvancedCriteria) => void>,
@@ -70,9 +70,10 @@ export default defineComponent({
     const animationEl = ref<HTMLDivElement | null>(null)
     const schema = ref(conditionSchema)
 
-    const criteriaValue = ref(emptyGroup()) as Ref<AdvancedCriteria>
+    const criteriaValue = ref(createEmptyGroup()) as Ref<AdvancedCriteria>
 
     const options = shallowRef<CriteriaMeta[]>([])
+
     const metaMap = shallowRef<Map<string, CriteriaMeta>>(new Map())
 
     onMounted(() => {
@@ -310,12 +311,12 @@ export default defineComponent({
 
           <n-space >
             <n-button type='primary' size='tiny' class='m-r-20px' onClick={() => {
-              conditionValue.singleCriterias.push(emptyCondition())
+              conditionValue.singleCriterias.push(createEmptyCondition())
               criteriaIndex = 0
               initCriteria(criteriaValue.value)
             }}>添加条件</n-button>
             <n-button type='primary' size='tiny' onClick={() => {
-              conditionValue.boolCriterias.push(emptyGroup(criteriaIndex + 1))
+              conditionValue.boolCriterias.push(createEmptyGroup(criteriaIndex + 1))
               criteriaIndex = 0
               initCriteria(criteriaValue.value)
             }}>添加组</n-button>

@@ -19,9 +19,8 @@ watch(() => viewModel.value.code, () => {
     }
   })
   criteriasFields.value = fields
-  console.log(criteriasFields.value, 1111111)
 })
-const vo = designerVoCreator(http, tableSchema.value.dataSource.serverName, tableSchema.value.dataSource.viewModelCode)
+const vo = designerVoCreator(http, tableSchema.value.dataSource.serverName, tableSchema.value.dataSource.viewName)
 
 async function getQueryOptions(fieldCode: string) {
   const { backData } = await vo.query({ fieldCode })()
