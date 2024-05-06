@@ -1,7 +1,8 @@
 import { defineModal } from '@runafe/magic-system'
-import { NButton, NCheckbox, NEllipsis, NIcon, NInput, NSpace } from 'naive-ui'
+import { NButton, NCheckbox, NEllipsis, NEmpty, NIcon, NInput, NSpace } from 'naive-ui'
 import type { Field } from '@runafe/unified-api-designer'
 import { match } from 'pinyin-pro'
+import { divide } from 'lodash-es'
 
 export function useColumnCondition() {
   const modal = defineModal({
@@ -68,8 +69,8 @@ export function useColumnCondition() {
             ':uno: flex flex-wrap gap-4':
               true,
           }}>
-              {
-                lists.value.map(element => (<div
+              {lists.value.length > 0
+                ? lists.value.map(element => (<div
                   key={element.name}
                   class={{
                     ':uno: w-50 bg-#f5f7fa b-1 b-solid h-32px pl-8px flex-sb_c b-#d9e2e8 b-rd-5px':
@@ -85,6 +86,7 @@ export function useColumnCondition() {
                     </NEllipsis>
                   </NCheckbox>
                 </div>))
+                :<div class="m-auto w-100px"><NEmpty size="small" description="无数据"></NEmpty></div> 
                 }
 
           </div>
