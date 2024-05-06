@@ -10,6 +10,7 @@ export interface SystemConfig {
   home?: string
   http?: Restful<any>
   setting: TODO
+  formkit?: TODO
   router: {
     hideInMenuRoutes?: string[]
     instance: Router

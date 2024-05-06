@@ -18,7 +18,7 @@ import 'vue3-json-viewer/dist/index.css'
 const sys = defineSystem(() => ({
   logo: Logo,
   home: 'entry',
-  formKitConfig,
+  formkit: formKitConfig,
   setting: {},
   http,
   title: 'CBB开发平台',

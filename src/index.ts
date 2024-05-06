@@ -75,7 +75,7 @@ export function defineSystem(
   setupNProgress()
   setupI18n(app)
 
-  app.use(fkPlugin).use(ms)
+  app.use(fkPlugin, config.formkit).use(ms)
 
   return {
     app,

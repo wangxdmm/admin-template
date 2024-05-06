@@ -36,8 +36,7 @@ const showLogo = computed(() => !isHorizontalMix.value)
       :show-title="!appStore.siderCollapse"
       :style="{ height: `${themeStore.header.height}px` }"
     />
-    <HorizontalMixMenu v-if="isHorizontalMix" />
-    <VerticalMenu v-else :dark-theme="darkMenu" :menus="routeStore.menus" />
+    <VerticalMenu :dark-theme="darkMenu" :menus="routeStore.menus" />
     <MenuToggler
       :dark-menu="darkMenu"
       :collapsed="appStore.siderCollapse"
