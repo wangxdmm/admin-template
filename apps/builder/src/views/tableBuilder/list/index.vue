@@ -5,20 +5,20 @@ import { defineDataTable } from '@runafe/magic-system'
 import { NButton, NPopconfirm, NSpace, useMessage } from 'naive-ui'
 import dayjs from 'dayjs'
 import { useEditDialog } from './editDialog'
-import type { TableEntitySearch, ViewModelEntity } from ':/typings/designer'
+import type { TableEntitySearch, TableViewEntity } from ':/typings/designer'
 import { designerDoApplication } from ':/api'
-import { RCriterias, RQuery } from ':/utils/query/index'
+import { Direction, RCriterias, RQuery, Sort } from ':/utils/query/index'
 
 const schema = [
   {
     $formkit: 'n:text',
     name: 'name',
-    label: '显示名',
+    label: '表格名称',
   },
   {
     $formkit: 'n:select',
     name: 'code',
-    label: '视图编号',
+    label: '所属视图',
     id: 'appCode',
     valueField: 'code',
     labelField: 'name',
@@ -37,10 +37,15 @@ const router = useRouter()
 const columns = [
   {
     field: 'code',
-    title: '关联视图',
+    title: '所属视图',
     align: 'center',
     width: 360,
     sortable: false,
+    slots: {
+      default: ({ row }: { row: TableViewEntity }) => {
+        return row.dataSource.viewTitle
+      },
+    },
   },
   {
     field: 'name',
@@ -70,7 +75,7 @@ const columns = [
     width: 200,
     sortable: false,
     slots: {
-      default: ({ row }: { row: ViewModelEntity }) => {
+      default: ({ row }: { row: TableViewEntity }) => {
         return row.createdAt
           ? dayjs(row.createdAt).format('YYYY-MM-DD HH:mm:ss')
           : null
@@ -84,7 +89,7 @@ const columns = [
     width: 190,
     fixed: 'right',
     slots: {
-      default: ({ row }: { row: ViewModelEntity }) => {
+      default: ({ row }: { row: TableViewEntity }) => {
         return (
           <NSpace>
             <NButton
@@ -117,7 +122,7 @@ const columns = [
     },
   },
 ]
-const Table = defineDataTable<ViewModelEntity>(columns as TODO, {
+const Table = defineDataTable<TableViewEntity>(columns as TODO, {
   immediate: true,
   checkedOnClick: true,
   getData: async (params, ctx) => {
@@ -126,7 +131,7 @@ const Table = defineDataTable<ViewModelEntity>(columns as TODO, {
       RCriterias.must(RCriterias.eq('appCode', 'CHARGE'))
         .must(RCriterias.eq('name', defaultValue.value.name ?? null))
         .must(RCriterias.eq('code', defaultValue.value.code ?? null)),
-      [],
+      Sort.by('lastUpdatedAt', Direction.DESC),
       pageIndex,
       pageSize,
     )
@@ -142,7 +147,7 @@ const Table = defineDataTable<ViewModelEntity>(columns as TODO, {
   },
 })
 
-function operationHandle(row: ViewModelEntity, type: number) {
+function operationHandle(row: TableViewEntity, type: number) {
   // 编辑表格
   if (type === 1) {
     editDialog.open({

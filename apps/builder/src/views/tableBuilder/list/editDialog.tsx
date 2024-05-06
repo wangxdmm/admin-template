@@ -4,9 +4,10 @@ import { getNode } from '@formkit/core'
 import { ref } from 'vue'
 import { useMessage } from 'naive-ui'
 import type { TableSchema } from '@runafe/unified-api-designer'
+import { omit } from 'lodash-es'
 import { RCriterias, RQuery } from ':/utils/query'
 import { designerDoApplication } from ':/api'
-import type { TableEntitySearch, ViewModelEntity } from ':/typings/designer'
+import type { TableEntitySearch, TableViewEntity, ViewModelEntity } from ':/typings/designer'
 
 export function useEditDialog() {
   const editDialog = useMessage()
@@ -15,7 +16,7 @@ export function useEditDialog() {
   })
 
   function open(options: {
-    row?: ViewModelEntity
+    row?: TableViewEntity
     type: number
     reload: () => void
   }) {
@@ -33,14 +34,24 @@ export function useEditDialog() {
       },
       {
         $formkit: 'n:select',
-        name: 'code',
-        id: 'code',
-        label: '关联视图',
+        name: 'viewModelCode',
+        id: 'viewModelCode',
+        label: '所属视图',
         labelField: 'name',
         valueField: 'code',
         options: '$viewList',
         validation: [['required']],
         validationMessages: { required: '必填' },
+      },
+      {
+        $formkit: 'n:text',
+        name: 'code',
+        id: 'code',
+        label: '编号',
+        disabled: options.type === 1,
+        validation: [['required'], ['matches', '/^[a-zA-Z0-9_]+$/']],
+        maxlength: 50,
+        validationMessages: { required: '必填', matches: '请输入正确的唯一标识' },
       },
       {
         $formkit: 'n:text',
@@ -82,14 +93,15 @@ export function useEditDialog() {
     }
     loadView()
     function submit() {
-      const values = getNode('FormKitRef')?.value as ViewModelEntity
-      const checkView = checkForm.viewList.find(v => v.code === values.code) as ViewModelEntity
+      const values = getNode('FormKitRef')?.value as ViewModelEntity & { viewModelCode: string }
+      const checkView = checkForm.viewList.find(v => v.code === values.viewModelCode) as ViewModelEntity
 
       const param = { dataSource: {
-        viewModelCode: values.code,
+        viewModelCode: values.viewModelCode,
         viewTitle: checkView.name,
+        viewName: checkView.name,
         serverName: checkView.serverId,
-      }, ...values, code: options.type === 1 ? options.row?.code : `${values.appCode}-${new Date().getTime()}-TABLEENTITY` } as unknown as TableSchema
+      }, ...omit(values, ['viewModelCode']) } as unknown as TableSchema
       if (options.type === 1) {
         save(param)
       }
@@ -124,13 +136,12 @@ export function useEditDialog() {
         for (const argumentsKey in options.row) {
           const node = getNode(argumentsKey)
           if (node) {
-            if (argumentsKey === 'code') {
-              node.input(options.row?.dataSource.viewModelCode)
-            }
-            else {
-              node.input(options.row[argumentsKey as keyof ViewModelEntity])
-            }
+            node.input(options.row[argumentsKey as keyof ViewModelEntity])
           }
+        }
+        const viewModelCode = getNode('viewModelCode')
+        if (viewModelCode) {
+          viewModelCode.input(options.row?.dataSource.viewModelCode)
         }
       }
     })

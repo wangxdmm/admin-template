@@ -1,3 +1,19 @@
+import type { Criteria } from '@runafe/unified-api-designer'
+
+export interface DataSourceEntity {
+  viewModelCode: string
+  primaryKeyFieldName?: string
+  serverName: string
+  filter?: Criteria
+  /** @default: true */
+  loadOnInit?: boolean
+  viewName: string
+  viewTitle: string
+}
+export interface TableViewEntity extends ViewModelEntity {
+  dataSource: DataSourceEntity
+}
+
 export interface ViewModelEntity {
   appCode: string
   code: string
