@@ -10,7 +10,7 @@ export const viewModel = ref<ViewModelEntity>({} as ViewModelEntity)
 
 export const viewModelFields = computed(() => viewModel.value.fields || [])
 
-export const filterableFields = computed(() => viewModelFields.value.map(v => v.filterable))
+export const filterableFields = computed(() => viewModelFields.value.filter(v => v.filterable))
 
 function init() {
   getViewModels()

@@ -5,7 +5,8 @@ import { useCriterias } from ':/components/criterias'
 const props = defineProps<{
   label: string
 }>()
-const criterias = useCriterias(criteriasFields.value)
+
+const criterias = useCriterias(criteriasFields)
 
 function create() {
   criterias.use()

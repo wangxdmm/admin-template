@@ -77,8 +77,10 @@ export function useBatchAddEditor(initValue: MaybeRefOrGetter<string>) {
   }
 }
 
+const selectOptions = ref<CriteriaMeta[]>([])
+
 export function useCriterias(
-  options: CriteriaMeta[],
+  options: Ref<CriteriaMeta[]>,
   config?: {
     initValue?: AdvancedCriteria
     onSubmit?: (v: AdvancedCriteria) => any
@@ -148,6 +150,7 @@ export function useCriterias(
   }
 
   return {
+
     use: () => {
       modal
         .load({

@@ -130,7 +130,7 @@ export default defineComponent({
     }
 
     watch(
-      () => props.options,
+      () => props.options.value,
       (val) => {
         const ops: CriteriaMeta[] = []
         val?.forEach((c) => {

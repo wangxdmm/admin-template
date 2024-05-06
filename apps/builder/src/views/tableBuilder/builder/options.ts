@@ -19,15 +19,16 @@ watch(() => viewModel.value.code, () => {
     }
   })
   criteriasFields.value = fields
+  console.log(criteriasFields.value, 1111111)
 })
 const vo = designerVoCreator(http, tableSchema.value.dataSource.serverName, tableSchema.value.dataSource.viewModelCode)
 
 async function getQueryOptions(fieldCode: string) {
-  const backData = await vo.query({ fieldCode })()
+  const { backData } = await vo.query({ fieldCode })()
   return backData || []
 }
 
 async function getEnumOptions(fieldCode: string) {
-  const backData = await vo.enum({ fieldCode })()
+  const { backData } = await vo.enum({ fieldCode })()
   return backData || []
 }
