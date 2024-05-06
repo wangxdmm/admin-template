@@ -99,7 +99,6 @@ export function useEditDialog() {
       const param = { dataSource: {
         viewModelCode: values.viewModelCode,
         viewTitle: checkView.name,
-        viewName: checkView.name,
         serverName: checkView.serverId,
       }, ...omit(values, ['viewModelCode']) } as unknown as TableSchema
       if (options.type === 1) {
