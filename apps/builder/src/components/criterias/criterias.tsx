@@ -31,8 +31,8 @@ export const conditonProps = {
     type: Object as PropType<any>,
   },
   options: {
-    type: Array as PropType<CriteriaMeta[]>,
-    default: () => [],
+    type: Object as PropType<Ref<CriteriaMeta[]>>,
+    default: () => ref([]),
   },
   value: {
     type: Object as PropType<AdvancedCriteria>,
@@ -245,7 +245,10 @@ export default defineComponent({
         },
         clear: (index: number) => () => {
           // why I can't use formNode
-          getNode(`${conditionValue.id}matcher${index}`)?.input('')
+          // const matcher = conditionContext.meta(index, 'matcherOptions')?.[0].value || 'EQ'
+          const curFieldName = getNode(`${conditionValue.id}fieldName${index}`)?.value as string
+          const matcher = metaMap.value.get(curFieldName)?.supportMatchers?.[0]
+          getNode(`${conditionValue.id}matcher${index}`)?.input(matcher)
           getNode(`${conditionValue.id}values${index}`)?.input(null)
         },
         batchAddCreator: (index: number) => () => {

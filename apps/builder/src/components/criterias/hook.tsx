@@ -95,7 +95,7 @@ export function useCriterias(
 ) {
   selectOptions = computed(() => options.value)
   const criteriaValue = ref<AdvancedCriteria>(
-    config?.initValue || createEmptyGroup(),
+    config?.initValue as AdvancedCriteria,
   )
   const metaMap = shallowRef(new Map<string, CriteriaMeta>())
   const modal = defineModal({
@@ -164,7 +164,7 @@ export function useCriterias(
                 data={
                   config?.schemaData
                 }
-                options={options || []}
+                options={options }
                 onSubmit={(v) => {
                   pure(v)
                   criteriaValue.value = v

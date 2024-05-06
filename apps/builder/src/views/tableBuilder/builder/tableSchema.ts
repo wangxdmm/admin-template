@@ -33,7 +33,7 @@ export const defaultTable: TableSchema = {
   desc: '',
   dataSource: {
     viewModelCode: '',
-    serverName: 'charge-manager',
+    serverName: '',
     loadOnInit: true,
     primaryKeyFieldName: '',
   },
