@@ -243,11 +243,10 @@ export default defineComponent({
           criteriaIndex = 0
           initCriteria(criteriaValue.value)
         },
-        clear: (index: number) => () => {
+        clear: (index: number) => (v: string) => {
           // why I can't use formNode
           // const matcher = conditionContext.meta(index, 'matcherOptions')?.[0].value || 'EQ'
-          const curFieldName = getNode(`${conditionValue.id}fieldName${index}`)?.value as string
-          const matcher = metaMap.value.get(curFieldName)?.supportMatchers?.[0]
+          const matcher = metaMap.value.get(v)?.supportMatchers?.[0]
           getNode(`${conditionValue.id}matcher${index}`)?.input(matcher)
           getNode(`${conditionValue.id}values${index}`)?.input(null)
         },
