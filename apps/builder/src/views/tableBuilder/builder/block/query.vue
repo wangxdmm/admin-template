@@ -3,7 +3,6 @@ import { computed } from 'vue'
 import { useMessage } from 'naive-ui'
 import type {
   AdvancedQueryField,
-  Field,
   GeneralQueryField,
   QueryConfig,
 } from '@runafe/unified-api-designer'
@@ -13,6 +12,7 @@ import { viewModelFields } from '../viewModels'
 import { useSetDialog } from './setDialog'
 import RnConditions from './condition.vue'
 import { useColumnCondition } from './ColumnCondition'
+import type { FieldCheck } from ':/views/tableBuilder/builder/block/common'
 
 defineExpose({ name: 'Query' })
 const setDialog = useSetDialog()
@@ -37,14 +37,14 @@ function addQuery() {
     return
   }
   const selectNames = queryConfig.value.generalQueryFields.map(v => v.name)
-  const allColumn = viewModelFields.value
+  const allColumn = (viewModelFields.value as unknown as FieldCheck[])
     .filter(item => item.filterable)
     .map((n) => {
       if (selectNames.includes(n.name)) {
-        n.selectable = true
+        n.check = true
       }
       else {
-        n.selectable = false
+        n.check = false
       }
       return n
     })
@@ -53,16 +53,16 @@ function addQuery() {
     return false
   }
   columnCondition.use({
-    columns: allColumn as Field[],
-    save(cols: (GeneralQueryField & { selectable: boolean })[]) {
+    columns: allColumn,
+    save(cols: FieldCheck[]) {
       const names: string[] = []
       const selectArry = cols.filter((v) => {
-        if (v.selectable) {
+        if (v.check) {
           names.push(v.name)
         }
-        return v.selectable
+        return v.check
       },
-      )
+      ) as unknown as GeneralQueryField[]
       queryConfig.value.generalQueryFields = [
         ...unionBy(queryConfig.value.generalQueryFields.filter(t => names.includes(t.name)), selectArry, 'name'),
       ]
@@ -96,14 +96,14 @@ function addScreen() {
     return
   }
   const selectNames = queryConfig.value.advancedQueryFields.map(v => v.name)
-  const allColumn = viewModelFields.value
+  const allColumn = (viewModelFields.value as unknown as FieldCheck[])
     .filter(item => item.filterable)
     .map((n) => {
       if (selectNames.includes(n.name)) {
-        n.selectable = true
+        n.check = true
       }
       else {
-        n.selectable = false
+        n.check = false
       }
       return n
     })
@@ -113,16 +113,16 @@ function addScreen() {
   }
   columnCondition.use({
     title: '添加筛查条件',
-    columns: allColumn as Field[],
-    save(cols: (AdvancedQueryField & { selectable: boolean })[]) {
+    columns: allColumn,
+    save(cols: FieldCheck[]) {
       const names: string[] = []
       const selectArry = cols.filter((v) => {
-        if (v.selectable) {
+        if (v.check) {
           names.push(v.name)
         }
-        return v.selectable
+        return v.check
       },
-      )
+      ) as unknown as AdvancedQueryField[]
       queryConfig.value.advancedQueryFields = [
         ...unionBy(queryConfig.value.advancedQueryFields.filter(v => names.includes(v.name)), selectArry, 'name'),
       ]

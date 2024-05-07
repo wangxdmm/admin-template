@@ -12,6 +12,7 @@ import { defaultColumn, tableSchema } from '../tableSchema'
 import { useColumnDialog } from './columnDialog'
 import { useColumnCondition } from './ColumnCondition'
 import { traverseTree } from ':/utils/treeFunction'
+import type { FieldCheck } from ':/views/tableBuilder/builder/block/common'
 
 defineExpose({ name: 'RsHeaderTree' })
 const message = useMessage()
@@ -25,7 +26,7 @@ const tableHeaderType = ref([{ label: '分组', value: TableHeaderType.GROUP }, 
   value: TableHeaderType.COLUMN,
 }])
 const selectType = ref<TableHeaderType>(TableHeaderType.GROUP)
-const treeData = computed({
+const treeData = computed<any>({
   get: () => tableSchema.value.headerColumns || [],
   set: (val: HeaderColumn[]) => {
     tableSchema.value.headerColumns = val
@@ -57,9 +58,9 @@ const config = reactive({
 const groupData = reactive({
   isName: computed(() => isAddGroup.value === 3),
 })
-function updateNode(tree, newNode: TreeOption, key: string, operation?: string, keyNode?: string) {
+function updateNode(tree: TreeOption[], newNode: TreeOption, key: string, operation?: string, keyNode?: string) {
   // 递归函数，用于在树中查找和更新节点
-  function traverseAndUpdate(nodes) {
+  function traverseAndUpdate(nodes: TreeOption[]) {
     for (let i = 0; i < nodes.length; i++) {
       const currentNode = nodes[i]
       const nodeId: string = keyNode || newNode[key]
@@ -177,7 +178,7 @@ function handleDrop({ node, dragNode, dropPosition }: TreeDropInfo) {
   }
   treeData.value = Array.from(treeData.value)
 }
-const selectOption = ref<TreeOption>({})
+const selectOption = ref<TreeOption>()
 function addHeader({ option }: { option: TreeOption }) {
   selectOption.value = { ...option }
   selectType.value = TableHeaderType.GROUP
@@ -205,9 +206,9 @@ function addHeader({ option }: { option: TreeOption }) {
             if (selectColumn.value.length === 0) {
               return message.warning('请先添加表格列')
             }
-            const columns = selectColumn.value.filter((c) => {
+            const columns = (selectColumn.value as FieldCheck[]).filter((c) => {
               if (!traverseTree(treeData.value, 'name').includes(c.name)) {
-                c.selectable = false
+                c.check = false
                 return true
               }
               else {
@@ -221,7 +222,7 @@ function addHeader({ option }: { option: TreeOption }) {
               title: '添加表头分组',
               columns,
               save(data) {
-                const selects = data.filter(v => v.selectable).map(item => ({ ...item, ...defaultColumn }))
+                const selects = data.filter(v => v.check).map(item => ({ ...item, ...defaultColumn }))
                 if (selects.length) {
                   if (isAddGroup.value === 1) {
                     treeData.value.push(...selects)

@@ -3,7 +3,6 @@ import { computed } from 'vue'
 import { useMessage } from 'naive-ui'
 import type {
   Column,
-  Field,
 } from '@runafe/unified-api-designer'
 import { isArray, unionBy } from 'lodash-es'
 import { defaultColumn, tableSchema } from '../tableSchema'
@@ -12,6 +11,7 @@ import { useColumnDialog } from './columnDialog'
 import RnConditions from './condition.vue'
 import { useColumnCondition } from './ColumnCondition'
 import RsHeaderTree from './headerTree.vue'
+import type { FieldCheck } from ':/views/tableBuilder/builder/block/common'
 
 defineExpose({ name: 'TableColumn' })
 const columnCondition = useColumnCondition()
@@ -38,28 +38,28 @@ function addColumn() {
     return
   }
   const selectNames = columns.value.map(v => v.name)
-  const allColumn = viewModelFields.value.map((n) => {
+  const allColumn = (viewModelFields.value as unknown as FieldCheck[]).map((n) => {
     if (selectNames.includes(n.name)) {
-      n.selectable = true
+      n.check = true
     }
     else {
-      n.selectable = false
+      n.check = false
     }
     return n
-  }) as Field[]
+  })
   if (allColumn.length === 0) {
     return message.warning('没有可用配置列')
   }
   columnCondition.use({
     title: '添加表格列',
     columns: allColumn,
-    save(cols: Field[]) {
+    save(cols: FieldCheck[]) {
       const names: string[] = []
       const selectArry = cols.filter((v) => {
-        if (v.selectable) {
+        if (v.check) {
           names.push(v.name)
         }
-        return v.selectable
+        return v.check
       }).map(item => ({ ...item, ...defaultColumn }))
       columns.value = [...unionBy(columns.value.filter(f => names.includes(f.name)), selectArry, 'name')]
     },

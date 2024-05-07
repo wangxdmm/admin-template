@@ -1,5 +1,5 @@
 import { CriteriaMatcher } from '@runafe/unified-api-designer'
-import type { QuerySingleCriteria } from '@runafe/unified-api-designer'
+import type { Field, QuerySingleCriteria } from '@runafe/unified-api-designer'
 
 export const matcherList: QuerySingleCriteria[] = [{ fieldName: '等于空', matcher: CriteriaMatcher.ISNULL }, { fieldName: '不等于空', matcher: CriteriaMatcher.NOT_NULL }, {
   fieldName: '等于',
@@ -11,3 +11,5 @@ export const matcherList: QuerySingleCriteria[] = [{ fieldName: '等于空', mat
   fieldName: '结束于',
   matcher: CriteriaMatcher.SUFFIX_LIKE,
 }, { fieldName: '介于', matcher: CriteriaMatcher.BETWEEN }, { fieldName: '不介于', matcher: CriteriaMatcher.NOT_BETWEEN }, { fieldName: '存在于', matcher: CriteriaMatcher.IN }, { fieldName: '不存在于', matcher: CriteriaMatcher.NOT_IN }]
+
+export type FieldCheck = Field & { [key: string]: boolean }
