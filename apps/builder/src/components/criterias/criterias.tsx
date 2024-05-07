@@ -156,7 +156,7 @@ export default defineComponent({
 
     function renderCondition(conditionValue: AdvancedCriteria, isRoot?: boolean) {
       const logic = ref(conditionValue.logic)
-      const showCriteria = computed(() => !!(conditionValue.boolCriterias.length || conditionValue.singleCriterias.length))
+      const showCriteria = computed(() => !!(conditionValue.boolCriterias?.length || conditionValue.singleCriterias?.length))
       const conditionContext: ConditionContext = {
         animationEl: (c: HTMLDivElement) => (animationEl.value = c),
         options,
@@ -274,6 +274,7 @@ export default defineComponent({
                   conditionValue.logic
                     = conditionValue.logic === 'AND' ? 'OR' : 'AND'
                   logic.value = conditionValue.logic
+                  criteriaMap.get(conditionValue.id).logic = conditionValue.logic
                 }}
                 type={logic.value === 'AND' ? 'success' : 'warning'}
                 size="tiny"
