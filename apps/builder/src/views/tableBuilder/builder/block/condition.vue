@@ -6,20 +6,28 @@ import type {
 import type { PropType } from 'vue'
 
 const props = defineProps({
-  buttonName: {
+  buttonName: { // 添加按钮名称
     type: String,
     default: '添加查询条件',
   },
-  nameField: {
-    type: String as PropType<keyof Field>,
+  nameField: { // 唯一字段
+    type: String as PropType<keyof Field | string>,
     default: 'name',
   },
-  labelField: {
+  labelField: { // 显示名称
     type: String,
     default: 'label',
   },
+  deleteOne: {
+    type: Boolean, // 为true是删除 false是保留
+    default: true,
+  },
+  dragable: {
+    type: Boolean, // 可拖拽true 不可以false
+    default: true,
+  },
 })
-const emits = defineEmits(['add', 'update'])
+const emits = defineEmits(['add', 'update', 'delete'])
 defineExpose({ name: 'RnConditions' })
 const list = defineModel<TODO>()
 
@@ -32,6 +40,10 @@ function setConfig(row: Field, index: number) {
 }
 
 function setVisiable(index: number) {
+  if (list.value.length === 1 && !props.deleteOne) {
+    emits('delete')
+    return false
+  }
   if (index > -1) {
     list.value.splice(index, 1)
   }
@@ -59,7 +71,7 @@ function setVisiable(index: number) {
           v-for="(element, index) in list" :key="element[props.nameField] || index"
           class="flex b-1 b-solid h-32px pl-8px flex-sb_c b-#d9e2e8 w-full align--center rounded"
         >
-          <span class="h-100% line-height-32px handle cursor-move">
+          <span class="h-100% line-height-32px" :class="[props.dragable ? 'handle cursor-move' : '']">
             <SvgIcon icon="icon-park-outline:drag" class="inline-block align-text-bottom text-16px" />
           </span>
           <span class="flex-auto h-100% line-height-32px pl-6px text-12px"><slot name="name" :row="element">{{

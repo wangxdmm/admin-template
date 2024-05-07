@@ -44,14 +44,45 @@ export function useEditDialog() {
         validationMessages: { required: '必填' },
       },
       {
-        $formkit: 'n:text',
-        name: 'code',
-        id: 'code',
-        label: '编号',
-        disabled: options.type === 1,
-        validation: [['required'], ['matches', '/^[a-zA-Z0-9_]+$/']],
-        maxlength: 50,
-        validationMessages: { required: '必填', matches: '请输入正确的唯一标识' },
+        $cmp: 'n-input-group',
+        children: [
+          {
+            $cmp: 'span',
+            props: {
+              class: 'w-80px',
+            },
+            children: [{
+              $cmp: 'span',
+              props: {
+                class: 'text-#f25858 pr-4px',
+              },
+              children: ['*'],
+            }, '编号'],
+          },
+          {
+            $cmp: 'n-input-group-label',
+            props: {
+              size: 'small',
+            },
+            children: ['$formatter($get("appCode").value)'],
+          },
+          {
+            $formkit: 'n:text',
+            name: 'code',
+            id: 'code',
+            disabled: options.type === 1,
+            validation: [['required'], ['matches', '/^[a-zA-Z0-9_]+$/']],
+            maxlength: 50,
+            validationMessages: { required: '必填', matches: '请输入正确的唯一标识' },
+          },
+          {
+            $cmp: 'n-input-group-label',
+            props: {
+              size: 'small',
+            },
+            children: ['-Tabel'],
+          },
+        ],
       },
       {
         $formkit: 'n:text',
@@ -59,6 +90,8 @@ export function useEditDialog() {
         id: 'name',
         label: '表格名称',
         maxlength: 10,
+        validation: [['required']],
+        validationMessages: { required: '必填' },
       },
       {
         $formkit: 'n:textarea',
@@ -78,9 +111,13 @@ export function useEditDialog() {
     })
     const checkForm = reactive<{
       viewList: TableEntitySearch[]
+      formatter: (val: string) => string
     }>({
-      viewList: [],
-    })
+          viewList: [],
+          formatter: (val) => {
+            return val ? `${val}-` : ''
+          },
+        })
     async function loadView() {
       const query = RQuery.of(
         RCriterias.must(RCriterias.eq('appCode', 'CHARGE')),
@@ -100,7 +137,7 @@ export function useEditDialog() {
         viewModelCode: values.viewModelCode,
         viewTitle: checkView.name,
         serverName: checkView.serverId,
-      }, ...omit(values, ['viewModelCode']) } as unknown as TableSchema
+      }, ...omit(values, ['viewModelCode']), code: `${values.appCode}-${values.code}-Table` } as unknown as TableSchema
       if (options.type === 1) {
         save(param)
       }
@@ -135,7 +172,12 @@ export function useEditDialog() {
         for (const argumentsKey in options.row) {
           const node = getNode(argumentsKey)
           if (node) {
-            node.input(options.row[argumentsKey as keyof ViewModelEntity])
+            if (argumentsKey === 'code') {
+              node.input(options.row[argumentsKey as keyof ViewModelEntity].split('-')[1])
+            }
+            else {
+              node.input(options.row[argumentsKey as keyof ViewModelEntity])
+            }
           }
         }
         const viewModelCode = getNode('viewModelCode')
