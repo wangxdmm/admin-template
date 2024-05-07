@@ -142,6 +142,7 @@ export const conditionSchema = [
                       then: 'relative left--42px h-14px w-14px flex-c_c cursor-pointer m-t-8px ',
                       else: 'h-14px w-14px flex-c_c cursor-pointer m-t-8px ',
                     },
+                    if: '$conditionValue.singleCriterias.length>1',
                     disabled: '$conditionValue.disabled && $conditionValue.singleCriterias.length===1 && $conditionValue.boolCriterias.length===0 ',
                     n_type: 'warning',
                     circle: true,

@@ -20,7 +20,7 @@ function create() {
     </p>
     <n-button class="w-full bg-light m-b-24px" @click="create">
       <template #icon>
-        <SvgIcon icon="carbon:add" class="inline-block align-text-bottom text-20px" />
+        <SvgIcon icon="ri:settings-line" class="inline-block align-text-bottom text-14px" />
       </template>
     </n-button>
   </div>

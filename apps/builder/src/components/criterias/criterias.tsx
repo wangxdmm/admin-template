@@ -22,7 +22,7 @@ import type {
   CriteriaMeta,
 } from './type'
 import { CriteriaMatcherEnums, ValueTypeEnums } from './type'
-import { createEmptyCondition, createEmptyGroup, matcherMap } from './hook'
+import { createEmptyCondition, createEmptyGroup, matcherMap } from './share'
 
 export const DEFAULT_LINKTYPE = 'AND'
 
@@ -36,7 +36,6 @@ export const conditonProps = {
   },
   value: {
     type: Object as PropType<AdvancedCriteria>,
-    default: () => (createEmptyGroup()),
   },
   onSubmit: {
     type: Function as PropType<(v: AdvancedCriteria) => void>,
@@ -70,9 +69,11 @@ export default defineComponent({
     const animationEl = ref<HTMLDivElement | null>(null)
     const schema = ref(conditionSchema)
 
-    const criteriaValue = ref(createEmptyGroup()) as Ref<AdvancedCriteria>
+    const criteriaValue = ref({}) as Ref<AdvancedCriteria>
 
     const options = shallowRef<CriteriaMeta[]>([])
+
+    const defaultField = computed(() => options.value[0]?.name)
 
     const metaMap = shallowRef<Map<string, CriteriaMeta>>(new Map())
 
@@ -85,12 +86,12 @@ export default defineComponent({
 
     watch(
       () => props.value,
-      (v, old) => {
-        if (v !== old) {
-          criteriaValue.value = clone(v)
+      (v) => {
+        nextTick(() => {
+          criteriaValue.value = v ? clone(v) : createEmptyGroup(0, defaultField.value)
           criteriaIndex = 0
           initCriteria(criteriaValue.value)
-        }
+        })
       },
       {
         immediate: true,
@@ -139,7 +140,7 @@ export default defineComponent({
             const op = {
               ...c,
               matcherOptions: c.supportMatchers?.map(m => ({ label: matcherMap.get(m), value: m })) || [],
-              valueOptions: c?.valueOptions || [], // TODO
+              valueOptions: c?.valueOptions || [],
             }
             ops.push(op)
             metaMap.value.set(c.name, markRaw(op))
@@ -313,12 +314,12 @@ export default defineComponent({
 
           <n-space >
             <n-button type='primary' size='tiny' class='m-r-20px' onClick={() => {
-              conditionValue.singleCriterias.push(createEmptyCondition())
+              conditionValue.singleCriterias.push(createEmptyCondition(defaultField.value))
               criteriaIndex = 0
               initCriteria(criteriaValue.value)
             }}>添加条件</n-button>
             <n-button type='primary' size='tiny' onClick={() => {
-              conditionValue.boolCriterias.push(createEmptyGroup(criteriaIndex + 1))
+              conditionValue.boolCriterias.push(createEmptyGroup(criteriaIndex + 1, defaultField.value))
               criteriaIndex = 0
               initCriteria(criteriaValue.value)
             }}>添加组</n-button>

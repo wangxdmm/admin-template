@@ -5,31 +5,11 @@ import { notEmpty } from '@monan/shared'
 import { defineModal } from '@runafe/magic-system'
 import type {
   AdvancedCriteria,
-  CriteriaEntity,
   CriteriaMeta,
 } from './type'
 import type { ConditionProps } from './criterias'
 import Conditions from './criterias'
-import { CriteriaMatcherEnums } from './type'
-
-export const matcherMap = new Map([
-  [CriteriaMatcherEnums.EQ, '等于'],
-  [CriteriaMatcherEnums.NOT_EQ, '不等于'],
-  [CriteriaMatcherEnums.ISNULL, '等于空'],
-  [CriteriaMatcherEnums.NOT_NULL, '不等于空'],
-  [CriteriaMatcherEnums.GT, '大于'],
-  [CriteriaMatcherEnums.GE, '大于等于'],
-  [CriteriaMatcherEnums.LT, '小于'],
-  [CriteriaMatcherEnums.LE, '小于等于'],
-  [CriteriaMatcherEnums.LIKE, '包含'],
-  [CriteriaMatcherEnums.NOT_LIKE, '不包含'],
-  [CriteriaMatcherEnums.PREFIX_LIKE, '开始于'],
-  [CriteriaMatcherEnums.SUFFIX_LIKE, '结束于'],
-  [CriteriaMatcherEnums.BETWEEN, '介于'],
-  [CriteriaMatcherEnums.NOT_BETWEEN, '不介于'],
-  [CriteriaMatcherEnums.IN, '存在于'],
-  [CriteriaMatcherEnums.NOT_IN, '不存在于'],
-])
+import { matcherMap } from './share'
 
 export function useBatchAddEditor(initValue: MaybeRefOrGetter<string>) {
   const text = ref(toValue(initValue))
@@ -77,10 +57,6 @@ export function useBatchAddEditor(initValue: MaybeRefOrGetter<string>) {
   }
 }
 
-let selectOptions = ref<CriteriaMeta[]>([])
-
-const defaultField = computed(() => selectOptions.value[0]?.name)
-
 export function useCriterias(
   options: Ref<CriteriaMeta[]>,
   config?: {
@@ -93,7 +69,6 @@ export function useCriterias(
     attrs?: Partial<ExtractPropTypes<ConditionProps>>
   },
 ) {
-  selectOptions = computed(() => options.value)
   const criteriaValue = ref<AdvancedCriteria>(
     config?.initValue as AdvancedCriteria,
   )
@@ -152,7 +127,6 @@ export function useCriterias(
   }
 
   return {
-
     use: () => {
       modal
         .load({
@@ -183,28 +157,7 @@ export function useCriterias(
     modal,
     criteriaValue,
     metaMap,
-    clear,
   }
-
-  function clear() {
-    criteriaValue.value = createEmptyGroup()
-  }
-}
-
-export function createEmptyCondition() {
-  return {
-    fieldName: defaultField.value,
-    matcher: CriteriaMatcherEnums.EQ,
-  } as CriteriaEntity
-}
-
-export function createEmptyGroup(id: number = 0): AdvancedCriteria {
-  return {
-    id,
-    logic: 'AND',
-    singleCriterias: [createEmptyCondition()],
-    boolCriterias: [],
-  } as unknown as AdvancedCriteria
 }
 
 function pure(criteria: AdvancedCriteria) {

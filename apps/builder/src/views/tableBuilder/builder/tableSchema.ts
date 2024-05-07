@@ -37,29 +37,82 @@ export const defaultTable: TableSchema = {
     loadOnInit: true,
     primaryKeyFieldName: '',
   },
-  metrics: [],
+  queryConfig: {
+    enabled: false,
+    generalQueryFields: [],
+    advancedQueryFields: [],
+  },
   actionConfig: {
-    generalButtons: [],
-    rowButtons: [],
-    cellActions: [],
-    rightClickMenus: [],
-    treeTable: { },
-    rowSelect: {
-      enabled: false,
+    userCustom: {
+      enabled: true,
     },
+    rowSelect: {
+      enabled: true,
+      maxSize: 0,
+    },
+    treeTable: {
+      enabled: false,
+      nodeField: '',
+      parentField: '',
+    },
+    generalButtons: [
+      {
+        name: 'ADD',
+        label: '新增',
+        color: 'primary',
+        command: '',
+      },
+      {
+        name: 'DELETE',
+        label: '删除',
+        color: 'error',
+        command: '',
+      },
+    ],
+    rowButtons: [{
+      name: 'EDIT',
+      label: '修改',
+      color: 'primary',
+      command: '',
+    }, {
+      name: 'DELETE',
+      label: '删除',
+      color: 'error',
+      command: '',
+    }],
+    rightClickMenus: [],
+    cellActions: [],
   },
   styleConfig: {
+    bordered: false,
+    stripe: true,
     rowBackgroundColors: [],
   },
   columns: [],
   headerColumns: [],
   pagination: {
-    pageSizes: [],
-  },
-  queryConfig: {
-    enabled: false, // 启用
-    generalQueryFields: [], // 普通查询字段
-    advancedQueryFields: [], // 高级查询字段
+    enabled: true,
+    align: ColumnFixedMode.RIGHT,
+    pagerCount: 5,
+    showTotal: true,
+    numberJump: true,
+    endless: false,
+    pageSizes: [{
+      size: 20,
+      defaultOption: true,
+    }, {
+      size: 50,
+      defaultOption: false,
+    }, {
+      size: 100,
+      defaultOption: false,
+    }, {
+      size: 500,
+      defaultOption: false,
+    }, {
+      size: 3000,
+      defaultOption: false,
+    }],
   },
 }
 const cacheData = ref<string>(JSON.stringify(defaultTable))
@@ -85,84 +138,9 @@ export function getCache() {
 export function restData(): TableSchema {
   // 重置数据内容
   const restTable: TableSchema = {
+    ...defaultTable,
     ...pick(tableSchema.value, ['code', 'name', 'desc', 'appCode', 'dataSource']),
-    queryConfig: {
-      enabled: false,
-      generalQueryFields: [],
-      advancedQueryFields: [],
-    },
-    actionConfig: {
-      userCustom: {
-        enabled: true,
-      },
-      rowSelect: {
-        enabled: true,
-        maxSize: 0,
-      },
-      treeTable: {
-        enabled: false,
-        nodeField: '',
-        parentField: '',
-      },
-      generalButtons: [
-        {
-          name: 'ADD',
-          label: '新增',
-          color: 'primary',
-          command: '',
-        },
-        {
-          name: 'DELETE',
-          label: '删除',
-          color: 'error',
-          command: '',
-        },
-      ],
-      rowButtons: [{
-        name: 'EDIT',
-        label: '修改',
-        color: 'primary',
-        command: '',
-      }, {
-        name: 'DELETE',
-        label: '删除',
-        color: 'error',
-        command: '',
-      }],
-      rightClickMenus: [],
-      cellActions: [],
-    },
-    styleConfig: {
-      bordered: false,
-      stripe: true,
-      rowBackgroundColors: [],
-    },
-    columns: [],
-    headerColumns: [],
-    pagination: {
-      enabled: true,
-      align: ColumnFixedMode.RIGHT,
-      pagerCount: 5,
-      showTotal: true,
-      numberJump: true,
-      endless: false,
-      pageSizes: [{
-        size: 20,
-        defaultOption: true,
-      }, {
-        size: 50,
-        defaultOption: false,
-      }, {
-        size: 100,
-        defaultOption: false,
-      }, {
-        size: 500,
-        defaultOption: false,
-      }, {
-        size: 3000,
-        defaultOption: false,
-      }],
-    },
+
   }
   const queryList = viewModelFields.value.filter(v => v.filterable)
   queryList.forEach((v, index) => {

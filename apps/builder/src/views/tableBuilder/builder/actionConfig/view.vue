@@ -4,6 +4,7 @@ import { tableSchema } from '../tableSchema'
 import RowSelect from './rowSelect.vue'
 import TreeTable from './treeTable.vue'
 import Actions from './actions.vue'
+import UserCustom from './userCustom.vue'
 
 const generalButtons = computed<UnifiedAction[]>({
   get: () => tableSchema.value.actionConfig?.generalButtons || [],
@@ -36,6 +37,7 @@ const rightClickMenus = computed<UnifiedAction[]>({
 
 <template>
   <div>
+    <UserCustom />
     <RowSelect />
     <TreeTable />
     <Actions v-model="generalButtons" title="表格功能" />
