@@ -73,7 +73,7 @@ export function useEditDialog() {
             disabled: options.type === 1,
             validation: [['required'], ['matches', '/^[a-zA-Z0-9_]+$/']],
             maxlength: 50,
-            validationMessages: { required: '必填', matches: '请输入正确的唯一标识' },
+            validationMessages: { required: '必填', matches: '允许数字、字符、下划线，长度50，首字母不允许数字' },
           },
           {
             $cmp: 'n-input-group-label',
@@ -150,7 +150,7 @@ export function useEditDialog() {
       = await designerDoApplication.add(param)()
       if (result) {
         modal.close()
-        editDialog.success(message ?? '')
+        editDialog.success(message ?? '新增成功')
         if (options.reload) {
           options.reload()
         }
@@ -161,7 +161,7 @@ export function useEditDialog() {
       = await designerDoApplication.save(param)()
       if (result) {
         modal.close()
-        editDialog.success(message ?? '')
+        editDialog.success(message ?? '修改成功')
         if (options.reload) {
           options.reload()
         }

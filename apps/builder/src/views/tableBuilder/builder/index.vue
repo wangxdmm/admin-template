@@ -31,7 +31,7 @@ async function loadCode() {
 async function saveAndRelease() {
   const { result, message } = await designerDoApplication.saveAndRelease(tableSchema.value)()
   if (result) {
-    rsMassage.success(message ?? '')
+    rsMassage.success(message ?? '发布成功')
   }
 }
 const Schema = defineSchemaTable(tableSchema, {
