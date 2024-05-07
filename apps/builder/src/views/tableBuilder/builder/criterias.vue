@@ -3,10 +3,11 @@ import { criteriasFields } from './options'
 import { useCriterias } from ':/components/criterias'
 
 const props = defineProps<{
+  config: any
   label: string
 }>()
 
-const criterias = useCriterias(criteriasFields)
+const criterias = useCriterias(criteriasFields, props.config)
 
 function create() {
   criterias.use()

@@ -84,7 +84,6 @@ export function useCriterias(
     item,
   }) => {
     setValue(item.values?.join?.('\n') || '')
-
     modal
       .spawn(
         {

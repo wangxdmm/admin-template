@@ -44,7 +44,7 @@ const schema: FormKitSchemaDefinition = [
   {
     $cmp: 'Criterias',
     props: {
-      modelValue: '$dataSource.filter',
+      config: '$criteriaConfig',
       label: '数据范围',
 
     },
@@ -64,6 +64,12 @@ const library = markRaw({
 const data = {
   dataSource,
   viewModelFields,
+  criteriaConfig: {
+    initValue: dataSource.value.filter,
+    onSubmit: (val) => {
+      dataSource.value.filter = val
+    },
+  },
 }
 </script>
 
