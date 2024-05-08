@@ -2,7 +2,7 @@
 import { useRoute } from 'vue-router'
 import { defineModal, defineSchemaTable } from '@runafe/magic-system'
 import { useMessage } from 'naive-ui'
-import { JsonViewer } from 'vue3-json-viewer'
+import { Editor } from '@runafe/js-editor'
 import TableConfig from './tableConfig/view.vue'
 import ActionConfig from './actionConfig/view.vue'
 import { getCache, restData, tableSchema, updateSchema } from './tableSchema'
@@ -13,6 +13,9 @@ import { designerDoApplication } from ':/api'
 
 const codeModal = defineModal({
   width: 800,
+  attrs: {
+    noPadding: true,
+  },
 })
 
 const router = useRoute()
@@ -56,10 +59,11 @@ onMounted(() => {
 codeModal.load({
   title: () => tableSchema.value.name,
   default: () => {
-    return h(JsonViewer, {
-      value: tableSchema.value,
-      copyable: true,
-      class: [um_dss('jv-code', ['p-0!'])],
+    return h(Editor, {
+      doc: JSON.stringify(tableSchema.value, null, 2),
+      class: [
+        'h-600px',
+      ],
     })
   },
 })
@@ -86,9 +90,9 @@ codeModal.load({
         查看schema
       </NButton>
     </div>
-    <div class="flex">
+    <div class="flex um_calc('100% - 48px', 'h')">
       <!-- <pre>{{ tableSchema }}</pre> -->
-      <div class="um_calc('100% - 460px', 'w') mt-16px h-800px">
+      <div class="um_calc('100% - 460px', 'w') mt-16px ">
         <Schema.Component />
       </div>
     </div>

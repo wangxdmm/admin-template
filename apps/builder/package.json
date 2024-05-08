@@ -11,6 +11,7 @@
   "dependencies": {
     "@monan/easy-axios": "^1.1.1",
     "@runafe/easy-admin": "workspace:^",
+    "@runafe/js-editor": "^1.0.4",
     "@runafe/unified-api-designer": "0.0.37",
     "@runafe/unified-api-user": "0.0.5",
     "@runafe/unified-model": "0.0.3",
@@ -18,7 +19,6 @@
     "@tsparticles/vue3": "^3.0.1",
     "merge-anything": "^5.1.7",
     "un-flatten-tree": "^2.0.12",
-    "vue-draggable-plus": "0.3.5",
-    "vue3-json-viewer": "^2.2.2"
+    "vue-draggable-plus": "0.3.5"
   }
 }
