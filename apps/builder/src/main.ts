@@ -21,7 +21,7 @@ const sys = defineSystem(() => ({
   http,
   title: 'CBB开发平台',
   router: {
-    hideInMenuRoutes: ['test'],
+    hideInMenuRoutes: ['test', 'tableBuilder_builder'],
     map: routeMap,
     getAuthVueRoutes,
     createRoutes,

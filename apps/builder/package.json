@@ -20,5 +20,8 @@
     "merge-anything": "^5.1.7",
     "un-flatten-tree": "^2.0.12",
     "vue-draggable-plus": "0.3.5"
+  },
+  "devDependencies": {
+    "consola": "^3.2.3"
   }
 }

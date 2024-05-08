@@ -25,7 +25,7 @@ const schema = [
     options: '$viewList',
   },
 ]
-const defaultValue = ref<{ name: string, code: string }>({ name: '', code: '' })
+const defaultValue = ref<{ name?: string, code?: string }>({})
 const formData = reactive<{
   viewList: TableEntitySearch[]
 }>({

@@ -25,14 +25,18 @@ async function loadCode() {
   const { backData } = await designerDoApplication.getTableSchema({ code })()
   if (backData) {
     updateSchema(backData)
-    const { backData: models } = await designerDoApplication.getByCode({ code: backData.dataSource.viewModelCode })()
+    const { backData: models } = await designerDoApplication.getByCode({
+      code: backData.dataSource.viewModelCode,
+    })()
     if (models) {
       updateViewModel(models)
     }
   }
 }
 async function saveAndRelease() {
-  const { result, message } = await designerDoApplication.saveAndRelease(tableSchema.value)()
+  const { result, message } = await designerDoApplication.saveAndRelease(
+    tableSchema.value,
+  )()
   if (result) {
     rsMassage.success(message ?? '发布成功')
   }
@@ -47,7 +51,9 @@ function resetFormdata() {
   updateSchema(restData())
 }
 async function save() {
-  const { result, message } = await designerDoApplication.save(tableSchema.value)()
+  const { result, message } = await designerDoApplication.save(
+    tableSchema.value,
+  )()
   if (result) {
     rsMassage.success(message ?? '保存成功')
   }
@@ -61,40 +67,64 @@ codeModal.load({
   default: () => {
     return h(Editor, {
       doc: JSON.stringify(tableSchema.value, null, 2),
-      class: [
-        'h-600px',
-      ],
+      class: ['h-600px'],
     })
   },
 })
+
+const cls = um_dss('rs-content-wrap', ['p-0!'])
 </script>
 
 <template>
   <div class="relative size-full p-16px">
-    <div class="flex-s_c gap-16px bg-#fff mr-400px p-8px">
-      <NButton size="medium" type="primary" @click="save">
-        保存
-      </NButton>
-      <NButton type="primary" @click="saveAndRelease">
-        发布
-      </NButton>
-      <n-popconfirm @positive-click="resetFormdata">
-        <template #trigger>
-          <NButton type="success">
-            重置
-          </NButton>
+    <div class="flex um_calc('100% - 430px', 'w') h-full">
+      <rs-content class="w-full">
+        <template #top>
+          <div class="flex-s_c gap-16px">
+            <button-icon
+              class="text-primary text-20px"
+              icon="uil:save"
+              tooltip-content="保存"
+              @click="save"
+            />
+            <button-icon
+              class="text-primary text-20px"
+              icon="ic:outline-published-with-changes"
+              tooltip-content="发布"
+              @click="saveAndRelease"
+            />
+            <n-popconfirm @positive-click="resetFormdata">
+              <template #trigger>
+                <div>
+                  <button-icon
+                    class="text-primary text-20px"
+                    icon="ic:outline-reset-tv"
+                    tooltip-content="重置"
+                  />
+                </div>
+              </template>
+              请确认是否重置数据？
+            </n-popconfirm>
+            <button-icon
+              class="text-primary text-20px"
+              icon="lets-icons:json"
+              tooltip-content="查看schema"
+              @click="() => codeModal.open()"
+            />
+            <button-icon
+              class="text-primary text-20px"
+              icon="iconoir:refresh-circle"
+              tooltip-content="刷新表格数据"
+              @click="() => Schema.Table.context.refresh()"
+            />
+          </div>
         </template>
-        请确认是否重置数据？
-      </n-popconfirm>
-      <NButton type="success" @click="() => codeModal.open()">
-        查看schema
-      </NButton>
-    </div>
-    <div class="flex um_calc('100% - 48px', 'h')">
-      <!-- <pre>{{ tableSchema }}</pre> -->
-      <div class="um_calc('100% - 460px', 'w') mt-16px ">
-        <Schema.Component />
-      </div>
+        <template #default="{ style }">
+          <div :style :class="[cls]">
+            <Schema.Component />
+          </div>
+        </template>
+      </rs-content>
     </div>
     <div class="absolute right-0 top-4px bottom-4px w-420px shadow">
       <DarkModeContainer class="h-full">

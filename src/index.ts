@@ -10,6 +10,7 @@ import { setupI18n } from './locales'
 import SvgIcon from './components/custom/svg-icon.vue'
 import DarkModeContainer from './components/common/dark-mode-container.vue'
 import ExceptionBase from './components/common/exception-base.vue'
+import ButtonIcon from './components/custom/button-icon.vue'
 import ':/styles/index.css'
 import {
   appStoreCreator,
@@ -54,6 +55,7 @@ export function defineSystem(
   app.component('SvgIcon', SvgIcon)
   app.component('DarkModeContainer', DarkModeContainer)
   app.component('ExceptionBase', ExceptionBase)
+  app.component('ButtonIcon', ButtonIcon)
 
   // init Store
   const appStore = appStoreCreator(config)

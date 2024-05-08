@@ -7,9 +7,9 @@ export default {
     tableBuilder_list: {
       id: '2',
     },
-    tableBuilder_builder: {
-      id: '3',
-    },
+    // tableBuilder_builder: {
+    //   id: '3',
+    // },
     tableBuilder_doc: {
       id: '4',
     },

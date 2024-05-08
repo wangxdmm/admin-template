@@ -63,8 +63,6 @@ export default defineConfig((configEnv) => {
         '@formkit/vue',
         'xe-utils',
         'vxe-table',
-        'grid-layout-plus',
-        'file-saver',
         'js-file-downloader',
         'copy-to-clipboard',
         'md5',

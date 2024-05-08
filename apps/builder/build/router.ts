@@ -1,5 +1,6 @@
 import type { RouteMeta } from 'vue-router'
 import ElegantVueRouter from '@runafe/elegant-router-vue/vite'
+import { consola } from 'consola'
 import rolesMap from './rolesMap'
 
 export function setupElegantRouter(envs: Env.ImportMeta) {
@@ -47,7 +48,7 @@ export function setupElegantRouter(envs: Env.ImportMeta) {
       const isHidenRoute = !roleMeta && !isConstRoute
 
       if (isHidenRoute) {
-        console.warn(`\n\nHidenRoute [${routeName}] detected!! \n\n`)
+        consola.info(`[elegant-router]: HidenRoute [${routeName}] detected`)
       }
 
       const meta: Partial<RouteMeta> = {
