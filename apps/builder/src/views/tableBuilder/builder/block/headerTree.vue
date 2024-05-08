@@ -222,7 +222,7 @@ function addHeader({ option }: { option: TreeOption }) {
               title: '添加表头分组',
               columns,
               save(data) {
-                const selects = data.filter(v => v.check).map(item => ({ ...item, ...defaultColumn }))
+                const selects = data.filter(v => v.check).map(item => ({ ...item, ...defaultColumn, type: selectType.value }))
                 if (selects.length) {
                   if (isAddGroup.value === 1) {
                     treeData.value.push(...selects)

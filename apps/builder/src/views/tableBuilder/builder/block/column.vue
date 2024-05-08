@@ -41,7 +41,7 @@ const bgConfigSchema: FormKitSchemaDefinition = [
   },
   {
     $formkit: 'n:text',
-    name: 'condtion',
+    name: 'condition',
     label: '条件',
     validation: 'required',
   },

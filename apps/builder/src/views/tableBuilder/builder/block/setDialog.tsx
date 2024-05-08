@@ -3,6 +3,7 @@ import { FormKit, FormKitSchema } from '@formkit/vue'
 import { getNode } from '@formkit/core'
 
 import type { AdvancedQueryField, GeneralQueryField } from '@runafe/unified-api-designer'
+import { omit } from 'lodash-es'
 import { viewModelFields } from '../viewModels'
 import { matcherList } from './common'
 
@@ -76,8 +77,10 @@ export function useSetDialog() {
     })
     function init() {
       for (const argumentsKey in options.row) {
-        getNode(argumentsKey)?.input(options.row[argumentsKey],
-        )
+        if (argumentsKey === 'matchers') {
+          getNode('matcher')?.input(options.row[argumentsKey])
+        }
+        getNode(argumentsKey)?.input(options.row[argumentsKey])
       }
     }
     setTimeout(() => {
@@ -86,7 +89,8 @@ export function useSetDialog() {
     function submit() {
       const values = getNode('FormKitRef')?.value
       if (options.set) {
-        options.set(values)
+        const obj = options.type === 1 ? values : { matchers: values.matcher, ...omit(values, ['matcher']) }
+        options.set(obj)
       }
       modal.close()
     }
