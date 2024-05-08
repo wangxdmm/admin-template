@@ -198,6 +198,7 @@ const userSchema: FormKitSchemaDefinition
       },
       {
         $cmp: 'n-gi',
+        if: '$get(type).value===NUMBER',
         children: [{
           $formkit: 'n:number',
           name: 'precision',
@@ -207,6 +208,7 @@ const userSchema: FormKitSchemaDefinition
       },
       {
         $cmp: 'n-gi',
+        if: '$get(type).value===NUMBER',
         children: [{
           $formkit: 'n:switch',
           name: 'showThousandSeparator',

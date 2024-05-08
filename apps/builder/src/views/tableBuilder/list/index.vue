@@ -130,7 +130,7 @@ const Table = defineDataTable<TableViewEntity>(columns as TODO, {
     const query = RQuery.of(
       RCriterias.must(RCriterias.eq('appCode', 'CHARGE'))
         .must(RCriterias.eq('name', defaultValue.value.name ?? null))
-        .must(RCriterias.eq('code', defaultValue.value.code ?? null)),
+        .must(RCriterias.eq('dataSource.viewModelCode', defaultValue.value.code ?? null)),
       Sort.by('lastUpdatedAt', Direction.DESC),
       pageIndex,
       pageSize,

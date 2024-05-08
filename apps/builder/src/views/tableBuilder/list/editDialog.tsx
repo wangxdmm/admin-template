@@ -80,7 +80,7 @@ export function useEditDialog() {
             props: {
               size: 'small',
             },
-            children: ['-Tabel'],
+            children: ['-Table'],
           },
         ],
       },

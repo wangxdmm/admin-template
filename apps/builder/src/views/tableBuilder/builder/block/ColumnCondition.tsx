@@ -44,9 +44,6 @@ export function useColumnCondition() {
               <NInput size="small" value={search.value} onUpdate:value={(v) => {
                 search.value = v
               }}>
-                {{
-                  prefix: () => (<svgIcon icon="ic:round-add" className="inline-block align-text-bottom text-16px"/>),
-                }}
               </NInput>
               <NButton size="small" type="primary" onClick={() => {
                 changeAll(true)
