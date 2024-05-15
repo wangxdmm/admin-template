@@ -3,13 +3,13 @@ import { fileURLToPath } from 'node:url'
 import fg from 'fast-glob'
 import { moveFile } from 'move-file'
 
-const dir = dirname(fileURLToPath(import.meta.url))
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 fg.globSync('**/*.d.ts', {
-  cwd: resolve(dir, '../temp/src'),
+  cwd: resolve(__dirname, '../temp/src'),
 }).forEach((file) => {
-  const sourceDts = resolve(dir, '../temp/src', file)
-  const dtsFile = resolve(dir, '../dist/es', file)
+  const sourceDts = resolve(__dirname, '../temp/src', file)
+  const dtsFile = resolve(__dirname, '../dist/es', file)
 
   moveFile(sourceDts, dtsFile)
 })

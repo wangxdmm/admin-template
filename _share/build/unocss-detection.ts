@@ -24,9 +24,6 @@ export default function (options: { unoFilesSet: Set<string> }): Plugin {
             fileName: (m, name) => {
               const ext = m === 'es' ? 'js' : 'cjs'
 
-              if (name === 'index') {
-                return `${name}.${ext}`
-              }
               return `${m}/${name}.${ext}`
             },
           },
