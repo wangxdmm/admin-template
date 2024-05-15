@@ -1,7 +1,7 @@
 {
   "name": "@runafe/easy-admin",
   "type": "module",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Admin based on naive-ui vite UnoCSS and Typescript",
   "keywords": [
     "admin",
@@ -15,7 +15,12 @@
       "require": "./dist/index.cjs",
       "default": "./dist/index.cjs"
     },
-    "./themevars": "./dist/es/theme/vars.js",
+    "./theme/vars": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/es/theme/vars.js",
+      "require": "./dist/cjs/theme/vars.cjs",
+      "default": "./dist/es/theme/vars.cjs"
+    },
     "./package.json": "./package.json",
     "./dist/*": "./dist/*",
     "./*": "./*"
@@ -105,6 +110,7 @@
     "vite": "^5.2.11",
     "vite-bundle-visualizer": "^1.2.1",
     "vite-plugin-css-injected-by-js": "^3.5.1",
+    "vite-plugin-dts": "^3.9.1",
     "vite-plugin-inspect": "^0.8.4",
     "vite-plugin-no-bundle": "^4.0.0",
     "vite-plugin-progress": "^0.0.7",
