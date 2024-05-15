@@ -74,6 +74,5 @@ export * from ':/store/modules/auth/shared'
 export * from './store'
 export * from './types'
 export * from './hooks'
-export * from './theme/vars'
 
 export { default as layouts } from './layouts'

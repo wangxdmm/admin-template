@@ -1,7 +1,7 @@
 {
   "name": "@runafe/easy-admin",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Admin based on naive-ui vite UnoCSS and Typescript",
   "keywords": [
     "admin",
@@ -11,18 +11,16 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.uno.js",
-      "require": "./dist/index.uno.umd.cjs",
-      "default": "./dist/index.uno.umd.cjs"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.cjs"
     },
-    "./style": "./dist/style.css",
     "./package.json": "./package.json",
     "./dist/*": "./dist/*",
-    "./icons/*": "./icons/*",
     "./*": "./*"
   },
-  "main": "./dist/index.uno.umd.cjs",
-  "module": "./dist/index.uno.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
@@ -106,6 +104,7 @@
     "vite": "^5.2.11",
     "vite-bundle-visualizer": "^1.2.1",
     "vite-plugin-inspect": "^0.8.4",
+    "vite-plugin-no-bundle": "^4.0.0",
     "vite-plugin-progress": "^0.0.7",
     "vite-plugin-svg-icons": "^2.0.1",
     "vitest": "^1.6.0",

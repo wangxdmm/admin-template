@@ -1,74 +1,35 @@
-import fs from 'node:fs'
+import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
-import { getExternal, getGlobalDefines } from '@runafe/tools-build'
-import MagicString from 'magic-string'
+import { getGlobalDefines } from '@runafe/tools-build'
+import noBundlePlugin from 'vite-plugin-no-bundle'
+import UnocssDetection from './_share/build/unocss-detection'
 
-export default defineConfig(({ mode }) => {
-  const isDev = mode === 'development'
-  return {
-    root: './',
-    resolve: {
-      alias: {
-        ':': fileURLToPath(new URL('./src', import.meta.url)),
-      },
-    },
-    plugins: [
-      vue(),
-      VueJsx(),
+const isDev = process.env.DEV === 'true'
+const unoFilesSet = new Set<string>()
+
+export default defineConfig({
+  root: './',
+  resolve: {
+    alias: [
       {
-        // vite always remove dist folder, I can not find methods to disable it.
-        // In dev mode, I don't want to build type when file change, So, I copy it to dist folder to avoid it.
-        name: 'vite:movelib',
-        closeBundle: async () => {
-          if (
-            !fs.statSync('./dist', {
-              throwIfNoEntry: false,
-            })
-          ) {
-            fs.mkdirSync('./dist')
-          }
-
-          try {
-            const code = new MagicString(
-              fs.readFileSync('./node_modules/._dist/index.uno.js').toString(),
-            )
-            const style = fs
-              .readFileSync('./node_modules/._dist/style.css')
-              .toString()
-            fs.writeFileSync('./dist/index.uno.js', code.toString())
-            fs.writeFileSync('./dist/style.css', style)
-          }
-          catch (error) {
-            console.error(error)
-          }
-        },
+        find: ':',
+        replacement: fileURLToPath(new URL('./src', import.meta.url)),
       },
     ],
-    define: {
-      __DEV__: isDev,
-      ...getGlobalDefines(),
-    },
-    build: {
-      outDir: './node_modules/._dist',
-      minify: isDev,
-      lib: {
-        formats: ['es'],
-        entry: 'src/index.ts',
-        fileName: 'index.uno',
-        name: 'MagicSystemAdmin',
-      },
-      rollupOptions: {
-        external: (lib) => {
-          return (
-            getExternal('./').external(lib)
-            || lib.includes('colord')
-            || lib.startsWith('@formkit/')
-          )
-        },
-      },
-    },
-  }
+  },
+  plugins: [
+    vue(),
+    VueJsx(),
+    UnocssDetection({
+      unoFilesSet,
+    }),
+    noBundlePlugin(),
+  ],
+  define: {
+    __DEV__: isDev,
+    ...getGlobalDefines(),
+  },
 })

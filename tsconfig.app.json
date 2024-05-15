@@ -35,6 +35,7 @@
     "isolatedModules": true
   },
   "include": [
+    "_share",
     "auto-imports.d.ts",
     "src",
     "env.d.ts",
