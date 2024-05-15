@@ -1,7 +1,7 @@
 {
   "name": "@runafe/easy-admin",
   "type": "module",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Admin based on naive-ui vite UnoCSS and Typescript",
   "keywords": [
     "admin",
@@ -15,7 +15,7 @@
       "require": "./dist/index.cjs",
       "default": "./dist/index.cjs"
     },
-    "./style": "./style.css",
+    "./style": "./dist/style.css",
     "./package.json": "./package.json",
     "./dist/*": "./dist/*",
     "./*": "./*"
