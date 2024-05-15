@@ -1,7 +1,7 @@
 {
   "name": "@runafe/easy-admin",
   "type": "module",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Admin based on naive-ui vite UnoCSS and Typescript",
   "keywords": [
     "admin",
@@ -41,7 +41,7 @@
     "clear": "rimraf ./temp",
     "build": "vite build && pnpm build:dts",
     "build:builder": "pnpm -C apps/builder build",
-    "build:dts": "pnpm clear && pnpm exec vue-tsc -p tsconfig.dts.json && cp tsconfig.temp.json temp/tsconfig.json && resolve-tspaths -p temp/tsconfig.json && mv temp/src dist/types && pnpm clear",
+    "build:dts": "pnpm clear && pnpm exec vue-tsc -p tsconfig.dts.json && cp tsconfig.temp.json temp/tsconfig.json && resolve-tspaths -p temp/tsconfig.json && esno scripts/patch-dts.ts",
     "release": "esno scripts/release.ts",
     "up:core": "pnpm up \"@runafe/*\" \"@monan/*\" \"@formkit/*\" \"vue\" --latest -r",
     "up:dev": "pnpm up \"@antfu/*\" \"@unocss/*\" \"unocss\"  --latest -r"
@@ -99,6 +99,7 @@
     "esno": "^4.7.0",
     "fast-glob": "^3.3.2",
     "lint-staged": "^15.2.2",
+    "move-file": "^3.1.0",
     "picocolors": "^1.0.0",
     "prettier": "^3.2.5",
     "prettier-plugin-jsdoc": "^1.3.0",

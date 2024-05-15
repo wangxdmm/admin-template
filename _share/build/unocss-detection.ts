@@ -2,7 +2,6 @@ import path from 'node:path'
 import fs from 'node:fs'
 import type { Plugin } from 'vite'
 import { getExternal } from '@runafe/tools-build'
-import { rimrafSync } from 'rimraf'
 import consola from 'consola'
 
 // This plugin just dectect source code which include unocss code, So, mark it as **.uno.js, Which will be processed by unocss, Because, I want to keep unocss code pure and can be processed by user unocss config.
@@ -59,10 +58,10 @@ export default function (options: { unoFilesSet: Set<string> }): Plugin {
     },
     closeBundle: () => {
       if (isBuild) {
-        // for vue SFC will generate style, template empty files, like xx.vue.uno2.js uno3.js so use this to remove them
-        rimrafSync('dist/**/*.{vue2,vue3}.js', {
-          glob: true,
-        })
+        // // for vue SFC will generate style, template empty files, like xx.vue.uno2.js uno3.js so use this to remove them
+        // rimrafSync('dist/**/*.{vue2,vue3}.js', {
+        //   glob: true,
+        // })
         ;[...options.unoFilesSet].forEach((file) => {
           const path = `dist/es/${file.split('src/')[1]}.js`
           const content = `//@unocss-include\n${fs.readFileSync(path)}`
