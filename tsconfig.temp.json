@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.dts.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "rootDir": "./"
+  },
+  "include": [
+    "auto-imports.d.ts",
+    "src",
+    "../global.d.ts",
+    "../env.d.ts"
+  ]
+}

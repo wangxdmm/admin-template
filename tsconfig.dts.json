@@ -1,0 +1,25 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "types": [
+      "vite/client",
+      "unplugin-icons/types/vue",
+      "naive-ui/volar",
+      "@runafe/magic-system/volar.d.ts",
+      "unocss-tricks/globals.d.ts"
+    ],
+    "emitDeclarationOnly": true,
+    "outDir": "./temp",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true
+  },
+  "include": [
+    "auto-imports.d.ts",
+    "src",
+    "global.d.ts",
+    "env.d.ts",
+    "**/*.json"
+  ]
+}
