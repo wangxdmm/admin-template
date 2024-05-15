@@ -5,6 +5,7 @@ import vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import { getGlobalDefines } from '@runafe/tools-build'
 import noBundlePlugin from 'vite-plugin-no-bundle'
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 import UnocssDetection from './_share/build/unocss-detection'
 
 const isDev = process.env.DEV === 'true'
@@ -27,6 +28,9 @@ export default defineConfig({
       unoFilesSet,
     }),
     noBundlePlugin(),
+    cssInjectedByJsPlugin({
+      styleId: 'runafe_easy_admin_css_injected_by_js',
+    }),
   ],
   define: {
     __DEV__: isDev,

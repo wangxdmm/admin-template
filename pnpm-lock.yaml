@@ -202,6 +202,9 @@ devDependencies:
   vite-bundle-visualizer:
     specifier: ^1.2.1
     version: 1.2.1(rollup@4.17.2)
+  vite-plugin-css-injected-by-js:
+    specifier: ^3.5.1
+    version: 3.5.1(vite@5.2.11)
   vite-plugin-inspect:
     specifier: ^0.8.4
     version: 0.8.4(rollup@4.17.2)(vite@5.2.11)
@@ -8491,6 +8494,14 @@ packages:
       - sugarss
       - supports-color
       - terser
+    dev: true
+
+  /vite-plugin-css-injected-by-js@3.5.1(vite@5.2.11):
+    resolution: {integrity: sha512-9ioqwDuEBxW55gNoWFEDhfLTrVKXEEZgl5adhWmmqa88EQGKfTmexy4v1Rh0pAS6RhKQs2bUYQArprB32JpUZQ==}
+    peerDependencies:
+      vite: '>2.0.0-0'
+    dependencies:
+      vite: 5.2.11(@types/node@20.12.11)(sass@1.77.1)
     dev: true
 
   /vite-plugin-inspect@0.8.4(rollup@4.17.2)(vite@5.2.11):

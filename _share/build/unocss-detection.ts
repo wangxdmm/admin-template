@@ -21,9 +21,9 @@ export default function (options: { unoFilesSet: Set<string> }): Plugin {
             entry: './src/index.ts',
             fileName: (m, name) => {
               const { unoFilesSet } = options
-              const isUnoFile = [...unoFilesSet].some(n =>
-                n.endsWith(`src/${name}`),
-              )
+              const isUnoFile
+                = [...unoFilesSet].some(n => n.endsWith(`src/${name}`))
+                || name.endsWith('.vue')
               const ext = m === 'es' ? 'js' : 'cjs'
 
               if (name === 'index') {
@@ -56,7 +56,6 @@ export default function (options: { unoFilesSet: Set<string> }): Plugin {
         if (
           (ext === '.tsx' && !code.includes('@unocss-ignore'))
           || code.includes('@unocss-include')
-          || ext === '.vue'
         ) {
           unoFilesSet.add(id.replace(ext, ''))
         }
