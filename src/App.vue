@@ -9,6 +9,7 @@ import { naiveDateLocales, naiveLocales } from './locales/naive'
 import type { SystemConfig } from './types'
 import { systemSymbol } from './global'
 import AppProvider from './components/common/app-provider.vue'
+import './styles/index.css'
 
 defineOptions({
   name: 'App',

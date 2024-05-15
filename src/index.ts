@@ -12,7 +12,6 @@ import ExceptionBase from './components/common/exception-base.vue'
 import ButtonIcon from './components/custom/button-icon.vue'
 import { hooks } from './global'
 import { setupStore } from ':/store'
-import ':/styles/index.css'
 
 export function DEFAULT_SYS_CONFIG_GETTER() {
   return {
