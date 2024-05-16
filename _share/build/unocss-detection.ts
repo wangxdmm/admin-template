@@ -3,6 +3,7 @@ import fs from 'node:fs'
 import type { Plugin } from 'vite'
 import { getExternal } from '@runafe/tools-build'
 import consola from 'consola'
+import fg from 'fast-glob'
 
 // This plugin just dectect source code which include unocss code, So, mark it as **.uno.js, Which will be processed by unocss, Because, I want to keep unocss code pure and can be processed by user unocss config.
 export default function (options: { unoFilesSet: Set<string> }): Plugin {
@@ -17,9 +18,10 @@ export default function (options: { unoFilesSet: Set<string> }): Plugin {
       }
       if (isBuild) {
         config.build = {
+          minify: false,
           outDir: 'dist',
           lib: {
-            formats: ['es', 'cjs'],
+            formats: ['es'],
             entry: './src/index.ts',
             fileName: (m, name) => {
               const ext = m === 'es' ? 'js' : 'cjs'
@@ -59,11 +61,19 @@ export default function (options: { unoFilesSet: Set<string> }): Plugin {
         // rimrafSync('dist/**/*.{vue2,vue3}.js', {
         //   glob: true,
         // })
-        ;[...options.unoFilesSet].forEach((file) => {
+        ;[...options.unoFilesSet].filter(Boolean).forEach((file) => {
           const path = `dist/es/${file.split('src/')[1]}.js`
           const content = `//@unocss-include\n${fs.readFileSync(path)}`
           fs.writeFileSync(path, content)
           consola.success(`Marked ${path} as unocss file.`)
+        })
+
+        fg.globSync('dist/es/**/*.{vue,vue2,vue3}.js', {
+          absolute: true,
+        }).forEach((file) => {
+          const content = `//@unocss-include\n${fs.readFileSync(file)}`
+          fs.writeFileSync(file, content)
+          consola.success(`Marked ${file} as unocss file.`)
         })
       }
     },

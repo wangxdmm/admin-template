@@ -50,8 +50,8 @@ const config = defineSystemConfig(props.config.systemProviderOptions)
       Select: {
         filter: (pattern, _, meta) => {
           return (
-            meta?.label
-            && match(meta?.label, pattern, {
+            meta?.label &&
+            match(meta?.label, pattern, {
               continuous: true,
               precision: 'start',
             })
