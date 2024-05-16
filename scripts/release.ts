@@ -90,6 +90,11 @@ const commits: string[] = []
   try {
     for (let i = 0; i < releasePKGS.length; i++) {
       const { name, version } = releasePKGS[i].pkg
+
+      await $$({
+        cwd: releasePKGS[i].dir,
+      })`pnpm build`
+
       await $$({
         cwd: releasePKGS[i].dir,
       })`pnpm publish --registry=http://192.168.1.70:8081/repository/runafe-hosted/ --no-git-check`

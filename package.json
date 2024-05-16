@@ -1,7 +1,7 @@
 {
   "name": "@runafe/easy-admin",
   "type": "module",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Admin based on naive-ui vite UnoCSS and Typescript",
   "keywords": [
     "admin",
@@ -36,7 +36,6 @@
     "clear": "rimraf ./temp",
     "dev": "vite build -w",
     "build": "vite build && pnpm build:dts",
-    "build:builder": "pnpm -C apps/builder build",
     "build:dts": "pnpm clear && pnpm exec vue-tsc -p tsconfig.dts.json && cp tsconfig.temp.json temp/tsconfig.json && resolve-tspaths -p temp/tsconfig.json && esno scripts/patch-dts.ts && pnpm clear",
     "release": "esno scripts/release.ts",
     "up:core": "pnpm up \"@runafe/*\" \"@monan/*\" \"@formkit/*\" \"vue\" --latest -r",
